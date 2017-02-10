@@ -1,0 +1,13 @@
+{% extends x_parent_template %}
+
+{% block content %}
+    {% block step-parent %}
+{{request.user.display_name_slug }}
+           <a href="{% url 'profile' request.user.display_name_slug  %}">Profile</a>
+           <a href="{% url 'profile-review' request.user.display_name_slug   %}">Review</a>
+           <a href="{% url 'profile-bookmark' request.user.display_name_slug  %}">Bookmark</a>
+    {% endblock %}
+
+    {% block step-parent-fill %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% load widget_tweaks %}
+
+{% block content %}
+    <form  action="{{request.get_full_path}}" method="post" >
+              {% csrf_token %}
+              <h4>Add Comment</h4>
+
+              {% if  form.non_field_errors %}
+                    <div class="form-group error">
+                    {% for e in form.non_field_errors %}
+                            {{e|safe}}
+                    {% endfor %}
+                    </div>
+              {% endif %}
+
+              {% for field in form %}
+                <div class="form-group">
+                  {% render_field field class="form-control" placeholder=field.label %}
+
+                  {% if field.errors %}
+                    <p class="error">
+                        {{ form.field.errors.0|escape }}
+                    </p>
+                  {% endif %}
+              </div>
+              {% endfor %}
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

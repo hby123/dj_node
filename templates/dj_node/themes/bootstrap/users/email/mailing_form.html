@@ -1,0 +1,31 @@
+{% extends x_parent_template %}
+
+{% load widget_tweaks %}
+
+{% block container-content %}
+
+<form  action="." method="post"  role="form" >
+          {% csrf_token %}    
+          
+          <h4 style="border-bottom: solid #eee 1px; padding-bottom: 15px; border-bottom: solid #ddd 1px;"> Join mailinglist 
+          </h4>
+          
+          
+
+       
+          <div class="form-group">
+              {% render_field form.email class="form-control" placeholder=form.email.label %}
+              {% if form.email.errors %}
+                <ul>
+                {% for error in form.email.errors %}
+                    <li><strong>{{ error|escape }}</strong></li>
+                {% endfor %}
+                </ul>
+              {% endif %}
+
+          </div>
+          
+         <button type="submit" class="btn btn-default submit">Submit</button>
+      </form>
+    </div>
+{% endblock %}

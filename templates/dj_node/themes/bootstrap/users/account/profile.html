@@ -1,0 +1,81 @@
+{% extends x_parent_template %}
+
+{% load widget_tweaks %}
+{% load lucky_tags %}
+{% load travel_extras %}
+
+{% block content %}
+<div class="container" style="margin-top: 35px;"  >
+  <div class="row">
+
+      <div class="col-sm-2 left-col"><!-- left sidbar -->
+
+          <!-- browse cities -->
+          <div class="mybox-title">
+
+                <img title="" alt="" src="/static/travel_site/theme_traveler/template/img/800x600.png" style="width: 75%;" class="profile-pic">
+
+                <h4>{{user.display_name}}</h4>
+          </div>
+          <div class="mybox">
+                {% profile_url user|my_url %}
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="{{my_url}}">Reviews</a>
+                    </li>
+
+                    <li>
+                        <a href="{{my_url}}bookmarks/">Bookmark</a>
+                    </li>
+                </ul>
+          </div>
+          <!-- end browse cities -->
+
+          <!-- browse category -->
+          <div class="mybox-title">Settings</div>
+          <div class="mybox">
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="/password/change/">Change Pasword</a>
+                    </li>
+                </u>
+          </div>
+          <!-- end browse category -->
+    </div><!-- end left sidbar -->
+
+
+      {% block profile-content %} <!-- IMPORTANT inherited by change_password and other profile pages !-->
+
+    <h4>bookmark </h4>
+    <!--- review html !-->
+    <div class="bookmarks">
+        <ul class="list-unstyled list">
+        </ul>
+
+        <input type="hidden"  class="page default-hidden" value="1"></input>
+
+        <button class="more" style="display:none;">More</button>
+    </div>
+     <!--- (end) review html !-->
+
+     <!--- review js !-->
+    <script>
+      var n2 = new LuckyAjax({'type':'GET',
+                    'url':'/bookmark/list/?ff1_key=model&ff1_val=place&ff2_key=user_id&ff2_val={{user.id}}',
+                   'selector':'.bookmarks',
+                   'node_type':'list',
+                   'render_type':'append'}, null, null);
+      n2.ajax();
+
+    </script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+

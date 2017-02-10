@@ -1,0 +1,28 @@
+<div class="comment-block">
+    <div class="form"></div>
+
+    <ul class="list list-unstyled"></ul>
+
+    <input type="hidden"  class="page default-hidden" value="1"></input>
+
+    <button class="more" style="display:none;">More</button>
+</div>
+
+<script>
+  $( document ).ready(function() {
+      var n1 = new dj_nodeAjax({'type':'GET',
+               'url':'{% url 'comment-add' %}?content_type={{content_type.id}}&object_id={{instance.id}}',
+               'selector':'.comment-block .form',
+               'node_type':'form'}, null, null);
+
+      n1.ajax();
+
+      var n2 = new dj_nodeAjax({'type':'GET',
+                   'url':'{% url 'comment-list' %}?content_type={{content_type.id}}&object_id={{instance.id}}',
+                   'selector':'.comment-block',
+                   'node_type':'list',
+                   'render_type':'append'}, null, null);
+      n2.ajax();
+  });
+</script>
+

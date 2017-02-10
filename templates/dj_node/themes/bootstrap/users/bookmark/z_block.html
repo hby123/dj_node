@@ -1,0 +1,31 @@
+{% load dj_node_tags %}
+
+{% dj_node_bookmark content_type|instance|status %}
+
+{% if status %}
+	<button class="bookmark btn btn-primary" disabled="disabled">{% if label_done %}{{label_done}}{% else %}Bookmarked{% endif %}</button>
+{% else %}
+	{% if user.is_authenticated %}
+		<button class="bookmark btn btn-primary">
+			{% if label %}{{label}}{% else %}Bookmark{% endif %}
+		</button>
+
+		<script>
+			$( document ).ready(function() {
+				$( ".bookmark" ).click(function() {
+					var n1 = new dj_nodeAjax({'type':'GET',
+										   	   'url':'{% url 'bookmark-add' %}?ajax=true&content_type={{content_type.id}}&object_id={{instance.id}}',
+										       'selector':'.bookmark',
+										       'node_type':'btn'},
+											   null,
+										  	   function(){
+											   		$(".bookmark").html("{% if label_done %}{{label_done}}{% else %}Bookmarked{% endif %}");
+											   });
+					n1.ajax();
+				});
+			})
+		  </script>
+	{% else %}
+		  <button  onclick="location.href='{% url 'login' %}';"  class="bookmark btn btn-primary">{% if label %}{{label}}{% else %}Bookmark{% endif %}</button>
+	{% endif %}
+{% endif %}

@@ -1,0 +1,12 @@
+{% for e in list_info.results %}
+<li class="comment-item" id="comment-item-{{e.id}}">
+	 <div class="name">
+		 <strong>{{e.display_name}}</strong>
+		 &nbsp;&nbsp;&nbsp;&nbsp;
+		 <span class="text-muted">{{e.date|timesince}} ago</span>
+	 </div>
+	 <div class="comment">
+		 {{e.comment}}
+	 </div>
+</li>
+{% endfor %}

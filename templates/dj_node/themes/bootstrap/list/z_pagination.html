@@ -1,0 +1,13 @@
+{% if list_info.get_pagination %}
+	<ul class="pagination">
+			{% for p in list_info.get_pagination %}
+				<li {% if p == list_info.page %}class="active"{% endif %}>
+					{% if list_filter.url_query %}
+						<a href="{% url list_cls.x_list_url_name %}?{{list_filter.url_query}}&page={{p}}">{{p}}</a>
+					{% else %}
+						<a href="{% url list_cls.x_list_url_name %}?page={{p}}">{{p}}</a>
+					{% endif %}
+				</li>
+			{% endfor %}
+	</ul>
+{% endif %}

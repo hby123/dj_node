@@ -1,0 +1,49 @@
+{% extends x_parent_template %}
+
+{% load dj_node_tags %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-2 col-sm-0">
+            {% dj_node_include list/z_filter_options.html|t %}
+            {% include t %}
+      </div>
+
+      <div class="col-md-10 col-sm-12">
+          <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    {% dj_node_include list/z_filter_selected.html|t %}
+                    {% include t %}
+                </div>
+          </div>
+
+          <div class="row">
+                  <div class="col-md-6 col-sm-6">
+                      {% dj_node_include list/z_info.html|t %}
+                      {% include t %}
+                  </div>
+                  <div class="col-md-6 col-sm-6">
+                    {% dj_node_include list/z_sort.html|t %}
+                    {% include t %}
+                  </div>
+          </div>
+
+          <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    {% dj_node_include list/z_grid.html|t %}
+                    {% include t %}
+                </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-12 col-sm-12">
+                {% dj_node_include list/z_pagination.html|t %}
+                {% include t %}
+              </div>
+          </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

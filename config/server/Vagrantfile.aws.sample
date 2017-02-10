@@ -1,0 +1,35 @@
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "dummy"
+
+  config.vm.provider :aws do |aws, override|
+    aws.access_key_id = "<...>"
+    aws.secret_access_key = "<...>"
+    aws.keypair_name = "2016_05_14_keypair"
+
+    aws.ami = "ami-42116522"
+    aws.region  = "us-west-1"
+    aws.instance_type = "t1.micro"  
+    aws.elastic_ip = "52.9.189.83"
+    aws.security_groups = [ 'ubuntu-web-server' ]
+    
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "C:/2016_05_14_keypair.pem"
+    
+    config.vm.synced_folder "C:/dj-sites", "/var/www", type: "rsync"
+    
+        
+    aws.block_device_mapping = [  
+         {
+            'DeviceName' => "/dev/sda1",
+            'VirtualName' => "root",
+            'Ebs.VolumeSize' => 10,
+            'Ebs.DeleteOnTermination' => true
+          }
+      ]
+
+  end
+end
+
+#vagrant up --provider=aws
+#aws ec2 run-instances --image-id ami-42116522 --count 1 --instance-type t1.micro --key-name 2016_05_14_keypair --security-groups ubuntu-web-server

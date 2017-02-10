@@ -1,0 +1,7 @@
+{% for s in 'xxxxx' %}
+    {% if rating >= forloop.counter %}
+        <span class="on">&#9733</span>
+    {% else %}
+        <span class="off">&#9734</span>
+    {% endif %}
+{% endfor %}

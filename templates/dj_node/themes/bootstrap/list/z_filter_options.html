@@ -1,0 +1,21 @@
+{% if list_filter.option_filters %}
+    <div class="option-filters">
+         {% for row in list_filter.option_filters  %}
+            <div class="option-filter-block">
+                <h3>{{row.label}}</h3>
+
+                <ul class="option-list list-unstyled">
+                    {% for option in row.option_list %}
+                    <li class="option-item">
+                        {% if list_filter.url_query %}
+                            <a href="{% url list_cls.x_list_url_name %}?{{list_filter.url_query}}&&oo_{{row.name}}={{option}}">{{option}}</a>
+                        {% else %}
+                            <a href="{% url list_cls.x_list_url_name %}?oo_{{row.name}}={{option}}">{{option}}</a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

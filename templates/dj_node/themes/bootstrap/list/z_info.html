@@ -1,0 +1,13 @@
+<div class="list-info">
+    {% if list_info.end > list_info.start %}
+        Showing {{list_info.start}}-{{list_info.end}} of {{list_info.total}}
+    {% else %}
+        Showing {{list_info.result_count}}
+    {% endif %}
+
+    {% if list_info > 1 %}
+        results
+    {% else %}
+        result
+    {% endif %}
+</div>

@@ -1,0 +1,33 @@
+echo "---------------------------"
+echo "--------Setup Django--------"
+echo "---------------------------"
+
+if [ -z "$project_name" ]; then
+    echo "Please enter site name (ex: lucky_all): "
+    read project_name
+else
+       print "skip...."
+fi
+
+cd /
+
+if [ ! -d "/var/www" ]
+    then
+        sudo mkdir /var/www
+fi
+
+if [ ! -d "/var/www" ]
+    then
+        sudo mkdir /var/www
+fi
+
+cd /var/www
+
+if [ ! -d "/var/www/$$project_name" ]
+    then
+        sudo django-admin.py startproject $project_name
+fi
+
+sudo touch /var/www/$project_name/$project_name/$project_name.sock
+sudo chmod -R 777 /var/www/$project_name
+
