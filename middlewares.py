@@ -19,7 +19,7 @@ class SiteLockMiddleware(object):
 class SSLRedirect(object):
 
     def process_view(self, request, view_func, view_args, view_kwargs):
-        flag = settings.dj_node_SITES.get('ssl')
+        flag = settings.DJ_NODE_SITES.get('ssl')
         if not flag:
             return None
 

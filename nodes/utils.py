@@ -84,9 +84,9 @@ class Utils(object):
         """
         domain = Utils.get_mojo_domain(request)
         domain = domain.split(":")[0]
-        mojo_site = settings.dj_node_SITES.get(domain)
+        mojo_site = settings.DJ_NODE_SITES.get(domain)
         if not mojo_site: 
-            mojo_site = settings.dj_node_SITES.get('localhost')
+            mojo_site = settings.DJ_NODE_SITES.get('localhost')
         if not mojo_site:
             raise Exception("Oops, mojo_site settings not found")   # pragma: no cover
         return mojo_site
