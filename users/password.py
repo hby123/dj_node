@@ -175,6 +175,7 @@ class ChangePasswordNode(FormNode):
     x_form = ChangePasswordForm
     x_name = "Change Password"
     x_template = "users/password/sp_change_password.html"
+    x_step_parent_template = "profile_step_parent.html"
     x_perm = ['login']
     x_step_parent = ProfileStepParent
     x_tab = "change-password"

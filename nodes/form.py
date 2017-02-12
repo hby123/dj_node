@@ -1,12 +1,13 @@
 from django import forms
 from django.template import Context, RequestContext, loader, TemplateDoesNotExist
 
-from dj_node.nodes.node import Node, perm_check
+from dj_node.nodes.node import NodeTemplate, Node, perm_check
 from dj_node.nodes.db import Db
 from dj_node.nodes.utils import Utils
 
 class FormNode(Node):
     x_template = "form/form.html"
+    x_template_html = "form/z_form.html"
     x_process_get = False
 
     @perm_check('')
@@ -49,8 +50,8 @@ class FormNode(Node):
         node_dict['node'] = self
         node_dict['form'] = self._create(request=request)
         node_dict = self.templates_to_node_dict(request, node_dict)
-        node_dict['x_parent_template'] = node_dict['x_empty_template']
-        return Utils.render_to_string(node_dict['x_template'], node_dict, context_instance=RequestContext(request))
+        template_html = NodeTemplate.fallback_template(request, self.x_template_html)
+        return Utils.render_to_string(template_html, node_dict, context_instance=RequestContext(request))
 
 
     def _create(self, request):
