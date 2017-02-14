@@ -18,9 +18,9 @@ from dj_node.models import Token
 
 class SignUpForm(forms.Form, NodeVariable):
     email = forms.EmailField(required=True, help_text="We never share your email address with anyone!")
-    display_name = forms.CharField(required=True, help_text="This will be your public username on the site.")
+    display_name = forms.CharField(label="Full Name", required=True, help_text="This will be your public username on the site.")
     password = forms.CharField(widget=forms.PasswordInput, required=True, help_text="Please enter a password that's at least 6 characters long.")
-    confirm_password = forms.CharField(widget=forms.PasswordInput, required=True, help_text="Please type your password again.")
+    confirm_password = forms.CharField(label="Password Again", widget=forms.PasswordInput, required=True, help_text="Please type your password again.")
 
     def __init__(self, *args, **kwargs):
          if kwargs.has_key('request'):

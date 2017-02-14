@@ -34,11 +34,11 @@ class ListFilter(object):
         """
 
         self.ref_cls = ref_cls
+        self.skip_keys=ref_cls.x_skip_keys
         self.option_filters = self._build_option_filters(request)
         self.selected_filters = self._build_selected_filters(request)
         self.db_filters = self.selected_filters
         self.url_query = self._build_url_query(request)
-
 
     def _build_option_filters(self, request):
         """ Build filter option list
@@ -56,7 +56,7 @@ class ListFilter(object):
         return option_filters
 
 
-    def _build_selected_filters(self, request, skip_keys=["page", "sort"]):
+    def _build_selected_filters(self, request):
         """ Build selected filter list, this depends self.x_option_filters, so this object need to call
         build_option_filters() first before calling this function.
         :param request - Django request object
@@ -72,7 +72,7 @@ class ListFilter(object):
         # get filters
         filters = {}
         for k in request.GET.keys():
-            if k.lower() not in skip_keys:
+            if k.lower() not in self.skip_keys:
                 if "oo_" not in k and "dd_" not in k:
                     filters[k] = {'label':get_label(self, k),
                                   'name': k,
@@ -82,7 +82,7 @@ class ListFilter(object):
         for k in request.GET.keys():
             if ("oo_" in k):
                 k2 = k.replace("oo_", "")
-                if k2 not in skip_keys:
+                if k2 not in self.skip_keys:
                     filters[k2] = {'label':get_label(self, k2),
                                    'name': k2,
                                    'val': request.GET.get(k)}
@@ -103,7 +103,7 @@ class ListFilter(object):
 
         query = ""
         skip_keys=['page']
-        selected_filters = self._build_selected_filters(request, skip_keys=skip_keys)
+        selected_filters = self._build_selected_filters(request)
         for k in selected_filters.keys():
             v =  selected_filters[k]
             if v['name'] not in skip_keys:

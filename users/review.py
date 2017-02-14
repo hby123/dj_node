@@ -56,7 +56,12 @@ class ReviewListNode(ListNode):
     x_model = Review
     x_template = "users/review/z_list_ajax.html"
     x_parent_template = "empty.html"
+    x_skip_keys=["page", "sort", "profile"]
 
-
+    def _extra(self, request):
+        extras = {}
+        if request.GET.get('profile'):
+            extras['flag_profile'] = True
+        return extras
 
     
