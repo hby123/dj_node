@@ -151,8 +151,8 @@ class LoginNode(FormNode):
         # if user already login
         if request.user.is_authenticated():
             flag = False
-            result = {'return':302,
-                      'redirect_url':reverse('index') }
+            result = {'return': 302,
+                      'redirect_url': reverse('index') }
         return flag, result
 
     def _get_post_html(self, request):
@@ -160,10 +160,9 @@ class LoginNode(FormNode):
                (reverse('sign-up'), reverse('forgot-password'))
 
 
-class Logout(ItemNode):
+class Logout(Node):
 
-    @classmethod
-    def _run(cls, request):
+    def _process(self, request):
         logout(request)
-        return {'return':302,
+        return {'return': 302,
                 'redirect_url':reverse('login') }

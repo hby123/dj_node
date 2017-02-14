@@ -9,7 +9,7 @@ from django.core.urlresolvers import reverse
 from dj_node.models import Token
 from dj_node.nodes.form import FormNode
 from dj_node.nodes.node import NodeVariable
-from dj_node.nodes.utils import Utils
+from dj_node.nodes.utils import Utils, EmailUtils
 from dj_node.users.account import SignUpForm
 from dj_node.users.profile import ProfileStepParent
 
@@ -59,8 +59,9 @@ class ForgotPasswordForm(forms.Form, NodeVariable):
 
         # send email
         try:
-            send_mail(subject, msg_plain, from_email, [raw_email, ], html_message=msg_plain)
-        except KeyError, e:                                                 # pragma: no cover
+            EmailUtils.send_email(from_email, raw_email, subject, msg_plain)
+        except Exception, e:                                                 # pragma: no cover
+           raise Exception(e)
            return {'return': 302,                                           # pragma: no cover
                    'msg':'Oop, we are having diffculty to send you email',
                    'redirect_url': reverse('login')}
@@ -125,9 +126,9 @@ class ResetPasswordNode(FormNode):
     x_perm = []
 
     def _check(self, request):
-        code = request.kwargs.get('code')
-        e = Token.objects.filter(token=code).count()
-        if not e:
+        code = request.GET.get('code')
+        count = Token.objects.filter(token=code).count()
+        if not count:
             return False, {'return':400,
                            'msg':'Sorry, link is invalid.'}
         return True, None

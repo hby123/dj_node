@@ -1,6 +1,8 @@
 import warnings
+import requests
 
 from django.core import urlresolvers
+from django.conf import settings
 from django.db.models.base import ModelBase
 from django.db.models.manager import Manager
 from django.db.models.query import QuerySet
@@ -16,7 +18,6 @@ from django.utils import six
 from django.utils.deprecation import RemovedInDjango110Warning
 from django.utils.encoding import force_text
 from django.utils.functional import Promise
-
 
 from django.conf import settings
 from django.contrib import messages
@@ -123,3 +124,22 @@ class Utils(object):
                 template_name, context, context_instance, dirs, dictionary,
                 using=using)
         return content
+
+class EmailUtils(object):
+    @staticmethod
+    def send_email(from_address, to_address, subject, text):
+        if settings.EMAIL_PROVIDER == 'mailgun':
+            return EmailUtils.send_email_mailgun(settings.EMAIL_API_KEY, settings.EMAIL_API_URL,
+                                                 from_address, to_address, subject, text)
+        else:
+            raise Exception("email not send")
+
+    @staticmethod
+    def send_email_mailgun(api_key, api_url, from_address, to_address, subject, text):
+        return requests.post(
+            api_url,
+            auth=("api", api_key),
+            data={"from": from_address,
+                  "to": to_address,
+                  "subject": subject,
+                  "text": text})
