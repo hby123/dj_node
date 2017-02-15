@@ -2,9 +2,7 @@ echo "---------------------------"
 echo "-----Start Server-----"
 echo "---------------------------"
 
-sudo chmod -R 777 /var/www/$project_name/
-sudo touch /var/www/$project_name/$project_name/$project_name.sock
-sudo chmod -R 666 /var/www/$project_name/$project_name/$project_name.sock
+sudo chmod -R 777 /var/www/$project_name/$project_name/
 
 ##
 # emperor
