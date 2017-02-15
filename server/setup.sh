@@ -1,12 +1,15 @@
-###
 # You might want to configure a superuser as follow
-###
-
 #  >>  sudo passwd user
 #  >> sudo visudo, and append to file: USERNAME  ALL=(ALL:ALL) ALL
 #  >> sudo nano /etc/ssh/sshd_config, change PasswordAuthentication no to PasswordAuthentication yes
 #  >> sudo /etc/init.d/ssh restart
 #  >> sudo reboot
+
+# You might need to update the file permissions
+# cd dj_node/server/
+# find /var/www/dj_node/server -type f -exec dos2unix {} \;
+# chmod 755 *
+
 
 
 ###
