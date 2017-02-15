@@ -6,8 +6,6 @@ echo "---------------------------"
 # uwsgi.ini
 ###
 
-sudo chmod -R 777 /var/www/$project_name
-sudo chmod -R 777 /var/www/$project_name/config/
 
 if [ -z "$project_name" ]; then
     echo "Please enter site name (ex: lucky_all): "
@@ -36,7 +34,7 @@ master          = true
 processes       = 10
 
 # the socket (use the full path to be safe
-socket          = /var/www/$project_name/config/$project_name.sock
+socket          = /tmp/$project_name.sock
 #http           = 0.0.0.0:8001 #use this for debug only
 
 # ... with appropriate permissions - may be needed

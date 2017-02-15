@@ -7,14 +7,11 @@ if [ -z "$project_name" ]; then
     read project_name
 fi
 
-sudo chmod -R 777 /var/www/$project_name
-sudo chmod -R 777 /var/www/$project_name/config/
-
 
 sudo cat > /var/www/$project_name/config/$project_name.nginx.conf <<EOL
 
 upstream django {
-    server unix:////var/www/$project_name/config/$project_name.sock; # for a file socket
+    server unix:////tmp/$project_name.sock; # for a file socket
     #server 127.0.0.1:8000; # for a web port socket (we will use this first)
 }
 
