@@ -35,7 +35,7 @@ if [ "$install_package" == "Y" ]
 
     sudo easy_install pip
     sudo pip install uwsgi
-    sudo pip install pillow
+    sudo pip install django_widget_tweaks
 fi
 
 ###
