@@ -11,7 +11,7 @@ if [ -z "$project_name" ]; then
     read project_name
 fi
 
-sudo cat > /var/www/$project_name/$project_name/$project_name.uwsgi.ini  <<EOL
+sudo cat > /var/www/$project_name/config/$project_name.uwsgi.ini  <<EOL
 
 # uwsgi.ini file
 [uwsgi]
@@ -33,7 +33,7 @@ master          = true
 processes       = 10
 
 # the socket (use the full path to be safe
-socket          = /var/www/$project_name/$project_name/$project_name.sock
+socket          = /var/www/$project_name/config/$project_name.sock
 #http           = 0.0.0.0:8001 #use this for debug only
 
 # ... with appropriate permissions - may be needed
@@ -49,7 +49,7 @@ EOL
 # uwsgi_params
 ###
 
-sudo cat >  /var/www/$project_name/$project_name/$project_name.uwsgi_params <<EOL
+sudo cat >  /var/www/$project_name/config/$project_name.uwsgi_params <<EOL
 uwsgi_param  QUERY_STRING       \$query_string;
 uwsgi_param  REQUEST_METHOD     \$request_method;
 uwsgi_param  CONTENT_TYPE       \$content_type;

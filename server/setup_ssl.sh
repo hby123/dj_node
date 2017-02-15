@@ -6,5 +6,5 @@ if [ -z "$project_name" ]; then
     read domain
 fi
 
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /var/www/$project_name/$project_name/$project_name.nginx.key -out /var/www/$project_name/$project_name/$project_name.nginx.crt
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /var/www/$project_name/config/$project_name.nginx.key -out /var/www/$project_name/config/$project_name.nginx.crt
 

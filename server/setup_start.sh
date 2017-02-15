@@ -2,7 +2,9 @@ echo "---------------------------"
 echo "-----Start Server-----"
 echo "---------------------------"
 
-sudo chmod -R 777 /var/www/$project_name/$project_name/
+sudo touch /var/www/$project_name/config/$project_name.sock
+sudo chmod -R 777 /var/www/$project_name
+sudo chmod -R 777 /var/www/$project_name/config/
 
 ##
 # emperor
@@ -23,14 +25,14 @@ if [ ! -d "/etc/uwsgi/vassals" ]
 fi
 
 killall uwsgi 
-sudo ln -s /var/www/$project_name/$project_name/$project_name.uwsgi.ini /etc/uwsgi/vassals/
+sudo ln -s /var/www/$project_name/config/$project_name.uwsgi.ini /etc/uwsgi/vassals/
 sudo uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data &
 
 ##
 # nginx
 ##
 
-sudo ln -s /var/www/$project_name/$project_name/$project_name.nginx.conf /etc/nginx/sites-enabled/
+sudo ln -s /var/www/$project_name/config/$project_name.nginx.conf /etc/nginx/sites-enabled/
 sudo service nginx start
 sudo service nginx restart
 

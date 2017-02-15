@@ -6,10 +6,10 @@ if [ -z "$project_name" ]; then
     read project_name
 fi
 
-sudo cat > /var/www/$project_name/$project_name/$project_name.nginx.conf <<EOL
+sudo cat > /var/www/$project_name/config/$project_name.nginx.conf <<EOL
 
 upstream django {
-    server unix:////var/www/$project_name/$project_name/$project_name.sock; # for a file socket
+    server unix:////var/www/$project_name/config/$project_name.sock; # for a file socket
     #server 127.0.0.1:8000; # for a web port socket (we will use this first)
 }
 
@@ -35,7 +35,7 @@ server {
     # Finally, send all non-media requests to the Django server.
     location / {
         uwsgi_pass  django;
-        include     /var/www/$project_name/$project_name/$project_name.uwsgi_params; # the uwsgi_params file you installed
+        include     /var/www/$project_name/config/$project_name.uwsgi_params; # the uwsgi_params file you installed
     }
 }
 
@@ -44,8 +44,8 @@ server {
     server_name localhost;
 
     ssl on;
-    ssl_certificate  /var/www/$project_name/$project_name/$project_name.nginx.crt;
-    ssl_certificate_key  /var/www/$project_name/$project_name/$project_name.nginx.key;
+    ssl_certificate  /var/www/$project_name/config/$project_name.nginx.crt;
+    ssl_certificate_key  /var/www/$project_name/config/$project_name.nginx.key;
 
     charset     utf-8;
 
@@ -64,7 +64,7 @@ server {
     # Finally, send all non-media requests to the Django server.
     location / {
         uwsgi_pass  django;
-        include     /var/www/$project_name/$project_name/$project_name.uwsgi_params; # the uwsgi_params file you installed
+        include     /var/www/$project_name/config/$project_name.uwsgi_params; # the uwsgi_params file you installed
     }
 }
 
