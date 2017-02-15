@@ -28,6 +28,5 @@ if [ ! -d "/var/www/$$project_name" ]
         sudo django-admin.py startproject $project_name
 fi
 
-sudo touch /var/www/$project_name/$project_name/$project_name.sock
 sudo chmod -R 777 /var/www/$project_name
 
