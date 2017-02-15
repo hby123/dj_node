@@ -6,6 +6,9 @@ echo "---------------------------"
 # uwsgi.ini
 ###
 
+sudo chmod -R 777 /var/www/$project_name
+sudo chmod -R 777 /var/www/$project_name/config/
+
 if [ -z "$project_name" ]; then
     echo "Please enter site name (ex: lucky_all): "
     read project_name
