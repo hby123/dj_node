@@ -29,4 +29,7 @@ if [ ! -d "/var/www/$project_name" ]
 fi
 
 
-
+if [ ! -d "/var/www/$project_name/config" ]
+    then
+        sudo mkdir /var/www/$project_name/config
+fi
