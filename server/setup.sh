@@ -34,6 +34,6 @@ export project_name
 ./setup_wsgi.sh
 ./setup_nginx.sh
 ./setup_cron.sh
-./setup_start.sh
+./setup_launch.sh
 
 

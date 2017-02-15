@@ -24,7 +24,7 @@ if [ ! -d "/etc/uwsgi/vassals" ]
     sudo mkdir /etc/uwsgi/vassals
 fi
 
-killall uwsgi 
+killall uwsgi
 sudo ln -s /var/www/$project_name/config/$project_name.uwsgi.ini /etc/uwsgi/vassals/
 sudo uwsgi --emperor /etc/uwsgi/vassals --uid www-data --gid www-data &
 
