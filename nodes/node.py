@@ -74,8 +74,6 @@ def ssl_check(dummy):     # pragma: no cover
                     url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', ssl_port)) + url_split[2:]
                     secure_url = urlunsplit(url_secure_split)
                     return HttpResponsePermanentRedirect(secure_url)
-
-
             return func(*args, **kwargs)
         return wrap_inner
     return wrap_outer
