@@ -74,6 +74,14 @@ def ssl_check(dummy):     # pragma: no cover
                     url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', ssl_port)) + url_split[2:]
                     secure_url = urlunsplit(url_secure_split)
                     return HttpResponsePermanentRedirect(secure_url)
+            elif (not kwargs.get('ssl')) and request.is_secure():
+                    url = request.build_absolute_uri(request.get_full_path())
+                    url_split = urlsplit(url)
+                    scheme = 'http'
+                    port = 8002
+                    url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', port)) + url_split[2:]
+                    secure_url = urlunsplit(url_secure_split)
+                    return HttpResponsePermanentRedirect(secure_url)
             return func(*args, **kwargs)
         return wrap_inner
     return wrap_outer
