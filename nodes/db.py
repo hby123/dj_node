@@ -1,5 +1,4 @@
 from django.core.paginator import Paginator
-from dj_node.nodes.utils import Utils
 
 
 class Db(object):

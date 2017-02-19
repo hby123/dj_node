@@ -1,9 +1,8 @@
-from django import forms
-from django.template import Context, RequestContext, loader, TemplateDoesNotExist
-
-from dj_node.nodes.node import NodeTemplate, Node, perm_check
+from django.template import RequestContext
 from dj_node.nodes.db import Db
+from dj_node.nodes.node import NodeTemplate, Node, perm_check
 from dj_node.nodes.utils import Utils
+
 
 class FormNode(Node):
     x_template = "form/form.html"
@@ -12,11 +11,6 @@ class FormNode(Node):
 
     @perm_check('')
     def _run(self, request):
-        """ Run a form
-        :param request - Django request object
-        :return: return _render() or _process()
-        """
-
         # permission check method
         check_flag, check_dict = self._check(request)
         if not check_flag: 
@@ -40,13 +34,7 @@ class FormNode(Node):
         node_dict['flag_processed'] = flag_processed
         return self._render(request, node_dict)
 
-
     def _render_string(self, request, node_dict={}):
-        """ Sub render method for inline-html
-        :param request - Django request object
-        :param node_dict - dict to be passed to template
-        :return: dict
-        """
         node_dict['node'] = self
         node_dict['form'] = self._create(request=request)
         node_dict = self.templates_to_node_dict(request, node_dict)
@@ -55,11 +43,6 @@ class FormNode(Node):
 
 
     def _create(self, request):
-        """ Instantiate a form
-        :param request - Django request object
-        :return: self form instance
-        """
-
         if request.method == 'GET':
             if self.x_process_get:
                 form = self.x_form(request.GET, request=request)
@@ -83,11 +66,6 @@ class ModelFormNode(FormNode):
 
     @classmethod
     def _create(self, request):
-        """ Instantiate a form
-        :param request - Django request object
-        :return: self form instance
-        """
-
         # get the instance
         id = request.GET.get('id')
         instance = Db.get_item(request, self.x_model, id)

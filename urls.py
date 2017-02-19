@@ -17,10 +17,6 @@ urlpatterns = patterns('',
                        url(r"^/$", dj_node.nodes.index.Index.route),
                        url(r"^mojo/$", dj_node.nodes.index.Index.route),
 
-                       url(r"dummy/item/$", dj_node.nodes.user_content.UserContentItemNode.route),
-                       url(r"dummy/list/$", dj_node.nodes.user_content.UserContentItemNode.route),
-                       url(r"dummy/form/$", dj_node.nodes.user_content.UserContentItemNode.route),
-
                        url(r"login/$", dj_node.users.account.LoginNode.route),
                        url(r"signup/$", dj_node.users.account.SignUpNode.route),
                        url(r"logout/$", dj_node.users.account.Logout.route),

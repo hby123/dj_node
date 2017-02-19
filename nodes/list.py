@@ -1,8 +1,8 @@
-from dj_node.nodes.node import Node
 from dj_node.nodes.db import Db
-from dj_node.models import UserContent
+from dj_node.nodes.node import Node
 from .list_info import ListInfo
 from .list_filter import ListFilter
+
 
 class ListNode(Node):
     x_model = None
@@ -18,11 +18,6 @@ class ListNode(Node):
     x_skip_keys=["page", "sort", "profile"]
 
     def _process(self, request):
-        """ Process request
-        :param request - Django request object
-        :return: dict
-        """
-
         # get list info and list filter
         list_info = self.x_list_info_cls(self, request)
         list_filter = self.x_list_filter_cls(self, request)

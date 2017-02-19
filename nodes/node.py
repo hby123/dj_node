@@ -1,12 +1,10 @@
 import json
-from django.conf import settings
+from django.core.urlresolvers import NoReverseMatch
 from django.http import HttpResponsePermanentRedirect
 from django.http import HttpResponse
 from django.shortcuts import redirect, render_to_response
 from django.template import Context, RequestContext, loader, TemplateDoesNotExist
-from django.core.urlresolvers import NoReverseMatch
 from dj_node.nodes.utils import Utils
-
 try:
     # Python 2.x
     from urlparse import urlsplit, urlunsplit
@@ -222,7 +220,7 @@ class Node(NodeVariable, NodeTemplate):
                 'msg':None,
                 'redirect':None }
 
-    def _extra(self, request):
+    def _extra(self, request, node_dict):
         """ Add extra key-val pair to the node_dict, call from _render() method
         :param request - Django request object
         :return: dict
@@ -242,12 +240,12 @@ class Node(NodeVariable, NodeTemplate):
 
         # add extras
         self.node_dict = node_dict
-        extra = self._extra(request)
+        extra = self._extra(request, node_dict)
         node_dict.update(extra)
 
         # add step parent extra
         if self.x_step_parent:
-            step_parent_extra = self.x_step_parent()._extra(request)
+            step_parent_extra = self.x_step_parent()._extra(request, node_dict)
             node_dict.update(step_parent_extra)
         
         # ajax or http

@@ -1,8 +1,5 @@
 import math
 
-from dj_node.nodes.node import Node
-from dj_node.nodes.db import Db
-from dj_node.models import UserContent
 
 class ListInfoBasic(object):
     def __init__(self, model, request,  *args, **kwargs):

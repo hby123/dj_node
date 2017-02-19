@@ -46,7 +46,7 @@ class XRecaptchaField(forms.Field):
                         if user_value != None and user_value != "":
                             if user_value == internal_value: 
                                 return True
-        raise forms.ValidationError("Please enter the word as shown.")
+        raise forms.ValidationError("Please enter the letters as shown.")
               
 class XVeifyHuman(object):
     @staticmethod

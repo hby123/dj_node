@@ -58,7 +58,7 @@ class ReviewListNode(ListNode):
     x_parent_template = "empty.html"
     x_skip_keys=["page", "sort", "profile"]
 
-    def _extra(self, request):
+    def _extra(self, request, node_dict):
         extras = {}
         if request.GET.get('profile'):
             extras['flag_profile'] = True

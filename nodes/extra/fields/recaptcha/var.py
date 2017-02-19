@@ -197,5 +197,4 @@ recaptcha_dict = {  1 : 'jssfa',
                 197 : 'biwujh',
                 198 : 'tkjbrcg',
                 199 : 'oduwlf',
-                200 : 'hmvqur',
-             }
+                200 : 'hmvqur'}

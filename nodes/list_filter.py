@@ -1,23 +1,3 @@
-class ListFilterBasic(object):
-    """
-    ListFilter has 3 parts.
-        HTML (Option List)
-        HTML (Selected)
-        URL
-    """
-
-    def __init__(self, model, request, *args, **kwargs):
-        """ Constructor
-        :param ref_cls - The list node class
-        :param request - Django request object
-        :return: None
-        """
-
-        self.option_filters = []
-        self.selected_filters = []
-        self.db_filters = {}
-        self.url_query = ""
-
 class ListFilter(object):
     """
     ListFilter has 3 parts.
