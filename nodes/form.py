@@ -66,7 +66,7 @@ class FormNode(Node):
             else:
                 GET_data = self._GET_data(request)
                 if GET_data:
-                    form = self.x_form(GET_data, request=request)
+                    form = self.x_form(initial=GET_data, request=request)
                 else:
                     form = self.x_form(request=request)
         elif request.method == 'POST':
