@@ -1,0 +1,65 @@
+{% load widget_tweaks %}
+
+<form class="default review-form">
+   {% csrf_token %}
+    <table>
+        {% if  form.non_field_errors %}
+         <tr>
+            <td>
+                {% for e in form.non_field_errors %}
+                    {{e|safe}}
+                {% endfor %}
+            </td>
+         </tr>
+        {% endif %}
+
+        <tr>
+            <td>
+                <h2>Write a Review</h2>
+                <div class="star-rating">
+                    <div class="off">&#9733</div>
+                    <div class="off">&#9733</div>
+                    <div class="off">&#9733</div>
+                    <div class="off">&#9733</div>
+                    <div class="off">&#9733</div>
+                </div>
+                <input type="hidden" name="rating" class="rating-input"></input>
+                {% if form.rating.errors %}
+                    <ul>
+                        {% for error in form.rating.errors %}
+                            <li><strong>{{ error|escape }}</strong></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {% render_field form.name class="form-control" placeholder=form.name.label %}
+                {% if form.name.errors %}
+                    <ul>
+                    {% for error in form.name.errors %}
+                        <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {% render_field form.description class="form-control" placeholder=form.description.label %}
+
+                {% if form.description.errors %}
+                    <ul>
+                    {% for error in form.description.errors %}
+                        <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                    </ul>
+              {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" class="button"  value="Send"/></td>
+        </tr>
+    </table>
+</form>

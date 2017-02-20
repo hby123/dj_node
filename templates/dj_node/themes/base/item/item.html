@@ -1,0 +1,29 @@
+{% extends x_parent_template %}
+{% load dj_node_tags %}
+
+{% block content %}
+<div class="block-item">
+    <div class="container">
+        <h1>{{instance}}</h1>
+
+        <!-- bookmark !-->
+        {% dj_node_include users/bookmark/z_block.html|t %}
+        {% with content_type=content_type instance=instance %}
+              {% include t %}
+        {% endwith %}
+
+        <!-- comment !-->
+        {% dj_node_include users/comment/z_block.html|t %}
+        {% with content_type=content_type instance=instance %}
+              {% include t %}
+        {% endwith %}
+
+        <!-- review !-->
+        {% dj_node_include users/review/z_block.html|r %}
+        {% with content_type=content_type instance=instance %}
+              {% include r %}
+        {% endwith %}
+    </div>
+</div>
+{% endblock %}
+

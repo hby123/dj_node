@@ -1,0 +1,35 @@
+{% load dj_node_tags %}
+
+{% for e in list_info.results %}
+	<li>
+		{% if flag_profile %}
+		   <span class="stars">
+				{% dj_node_include users/review/rating.html|r %}
+				{% with rating=e.rating %}
+					  {% include r %}
+				{% endwith %}
+			</span>
+		   <span class="rating">
+			   {% with place=e.content_object%}
+					Reviewed <a href="{% url 'place' place.slug %}?id={{place.id}}">{{place.title}}</a>
+			   {% endwith %}
+		   </span>
+		   <span class="rating"> on 1/8/2017</span>
+		   <span class="comment">
+			   {{e.review}}
+		   </span>
+		{% else %}
+			<span class="stars">
+				{% dj_node_include users/review/rating.html|r %}
+				{% with rating=e.rating %}
+					  {% include r %}
+				{% endwith %}
+			</span>
+		   <span class="rating"> by {{e.display_name}} </span>
+		   <span class="rating"> 1/8/2017</span>
+		   <span class="comment">
+			   {{e.review}}
+		   </span>
+		{% endif %}
+	</li>
+{% endfor %}

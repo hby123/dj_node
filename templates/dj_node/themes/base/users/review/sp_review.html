@@ -1,0 +1,26 @@
+{% extends x_step_parent_template %}
+
+{% load widget_tweaks %}
+{% load dj_node_tags %}
+
+ {% block step-parent-content  %}
+        {% with model='UserContent' instance=instance %}
+                <!--- review html !-->
+                <div class="block-review">
+                  <ul class="list list-unstyled"></ul>
+                  <input type="hidden"  class="page" value="1" />
+                </div>
+
+                <script>
+                    var n2 = new dj_nodeAjax({'type':'GET',
+                                 'url':'{%url 'review-list' %}?user_id={{request.user.id}}',
+                                 'selector':'.review-block',
+                                 'node_type':'list',
+                                 'render_type':'append'}, null, null);
+                    n2.ajax();
+                </script>
+                <!--- (end) review js !-->
+        {% endwith %}
+{% endblock %}
+
+

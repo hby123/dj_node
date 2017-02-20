@@ -1,3 +1,5 @@
+from .db import Db
+
 class ListFilter(object):
     """
     ListFilter has 3 parts.
@@ -28,10 +30,10 @@ class ListFilter(object):
 
         option_filters = []
         for row in self.ref_cls.x_option_filters:
-            option = {  'label':row['label'],
-                        'name':row['name']}
+            option = {'label': row['label'],
+                      'name': row['name']}
             if not (row.has_key('option_list') and row['option_list']):
-                option['option_list'] = self.ref_cls.x_model.objects.values_list(row['name'], flat=True).distinct()
+                option['option_list'] = Db.get_distinct_values(self.ref_cls.x_model, row['name'])
             option_filters.append(option)
         return option_filters
 

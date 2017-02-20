@@ -1,20 +1,12 @@
-import time, datetime, random, string
 from django import forms
 from django.core.urlresolvers import reverse
-from django.contrib import messages
 from django.conf import settings
 from django.contrib.auth import authenticate, logout, login as auth_login
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.template import Context, RequestContext, loader, TemplateDoesNotExist
 from django.template.defaultfilters import slugify
-from django.core.mail import send_mail
-from django.core.urlresolvers import reverse
-from dj_node.nodes.node import NodeVariable, Node
 from dj_node.nodes.form import FormNode
-from dj_node.nodes.item import ItemNode
+from dj_node.nodes.node import NodeVariable, Node
 from dj_node.nodes.utils import Utils
-from dj_node.models import Token
 
 
 class SignUpForm(forms.Form, NodeVariable):

@@ -1,7 +1,15 @@
+from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 
 
 class Db(object):
+    @staticmethod
+    def get_content_type_for_model(model):
+        return ContentType.objects.get_for_model(model)
+
+    @staticmethod
+    def get_distinct_values(model, field_name):
+        return model.objects.values_list(field_name, flat=True).distinct()
 
     @staticmethod
     def save_item(request, instance):
@@ -31,7 +39,7 @@ class Db(object):
         return model.objects.get(id=id)
 
     @staticmethod
-    def get_list_simple(request, model, filters={}):
+    def get_list_easy(model, filters={}, order_by=None):
         """
         Return a list of Django model instances
 
@@ -41,8 +49,7 @@ class Db(object):
         model : model class
         filters: dict, {'field1':'val1', 'field2':'val2}
         """
-        from dj_node.nodes.list_info import ListInfoBasic
-        from dj_node.nodes.list_filter import ListFilterBasic
+        from dj_node.nodes.list_info import ListInfo
 
         # reformat filters
         new_filters = {}
@@ -50,20 +57,15 @@ class Db(object):
             new_filters[k] = {'name': k, 'val': filters[k], 'op': '='}
 
         # setup to call get_list()
-        list_info = ListInfoBasic(model, request)
-        list_info.model = model 
-        list_info.filters = filters
-        list_info.ipp = -1
-
-        list_filter = ListFilterBasic(model, request)
+        list_info = ListInfo(model)
+        list_filter = ListInfo(model)
         list_filter.db_filters = new_filters
 
         # get the list
-        list_info = Db.get_list(request, list_info, list_filter)
-        results =  list_info.results
-
-        #raise Exception(results)
+        list_info = Db.get_list(list_info, list_filter)
+        results = list_info.results
         return results
+
 
     @staticmethod
     def get_list(request, list_info, list_filter):
@@ -95,30 +97,20 @@ class Db(object):
         query_str = "instant_list = %s " % filter_str
         exec(query_str)
 
+        # total
+        total = 0
+        exec("total = %s.count()" % filter_str)
+        list_info.total = total
+
         if list_info.ipp > 0:   # paging
             list_paginator = Paginator(instant_list, list_info.ipp)
             paginator_page = list_paginator.page(list_info.page)
             list_info.start = 1 + list_info.ipp * (list_info.page - 1)
             list_info.end =  list_info.start + len(paginator_page.object_list) - 1
             list_info.page_count = list_paginator.num_pages
-
-            # total
-            total = 0
-            exec("total = %s.count()" % filter_str)
-            list_info.total = total
-
-            # result
             list_info.results = paginator_page.object_list
             list_info.result_count = len(paginator_page.object_list)
-        else: # no paging
-            #total
-            total = 0
-            exec("total = %s.count()" % filter_str)
-            list_info.total = total
-
-            #result
+        else:
             list_info.results = instant_list
             list_info.result_count = total
-
-        # return result
         return list_info

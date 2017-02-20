@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Drag and Drop</title>
+    <style>
+       table{
+            width: 100%;
+        }
+        tr{
+              padding: 10px;
+              background-color: #eee;
+              width: 100%;
+        }
+        .row-draggable {
+            cursor: move;
+        }
+
+        .row-draggable.over {
+            background-color: #bbb;
+        }
+
+        .sort_error{
+            background-color: red;
+        }
+        </style>
+</head>
+<body>
+
+    <table id="row-draggables">
+
+        <tr id="a" class="row-draggable a" draggable="true">
+                <td>A</td>
+        </tr>
+
+        <tr id="b" class="row-draggable b" draggable="true">
+                <td>B</td>
+        </tr>
+
+        <tr id="c" class="row-draggable c" draggable="true">
+                <td>C</td>
+        </tr>
+
+        <tr id="d" class="row-draggable d" draggable="true">
+                <td>D</td>
+        </tr>
+
+        <tr id="e" class="row-draggable e" draggable="true">
+                <td>E</td>
+        </tr>
+
+        <tr id="f" class="row-draggable f" draggable="true">
+                <td>F</td>
+        </tr>
+
+
+
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <script>
+        var dragSrcElement = null;
+        var dragColumns = [];
+        var cursorDragX;
+        var cursorDragY;
+
+        Object.prototype.insertAfter = function (newNode) { this.parentNode.insertBefore(newNode, this.nextSibling); }
+
+        function handleDragStart(e) {
+          dragSrcElement = this;
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/html', this.id);
+
+          cursorDragX = e.pageX;
+          cursorDragY = e.pageY;
+        }
+
+        function handleDragEnd(e) {
+          [].forEach.call(dragColumns, function (col) {
+            col.classList.remove('over');
+          });
+          initDragDrop();
+        }
+
+        function handleDragEnter(e) {
+          this.classList.add('over');
+        }
+
+        function handleDragLeave(e) {
+          this.classList.remove('over');
+        }
+
+        function handleDragOver(e) {
+          if (e.preventDefault) {
+            e.preventDefault();
+          }
+
+          e.dataTransfer.dropEffect = 'move';
+          return false;
+        }
+
+        function handleDrop(e) {
+          if (e.stopPropagation) {
+            e.stopPropagation();
+          }
+
+
+          this.classList.remove("over");
+          var cloneItem = dragSrcElement.cloneNode(true);
+
+          var list = document.getElementById("row-draggables");
+          if(cursorDragY > e.pageY){
+            list.insertBefore(cloneItem, list.childNodes[this.rowIndex]);
+          }else{
+            this.insertAfter(cloneItem);
+          }
+
+          cloneItem.style.backgroundColor = "#bbb";
+          setTimeout(function(){
+                cloneItem.style.backgroundColor = "#eee";
+          }, 300);
+
+          dragSrcElement.remove();
+
+          return false;
+        }
+
+        function initDragDrop(){
+            dragColumns = document.querySelectorAll('#row-draggables .row-draggable');
+            [].forEach.call(dragColumns, function(col) {
+              col.addEventListener('dragstart', handleDragStart, false);
+              col.addEventListener('dragenter', handleDragEnter, false)
+              col.addEventListener('dragover', handleDragOver, false);
+              col.addEventListener('dragleave', handleDragLeave, false);
+              col.addEventListener('drop', handleDrop, false);
+              col.addEventListener('dragend', handleDragEnd, false);
+            });
+        }
+
+        initDragDrop();
+    </script>
+</body>
+</html>

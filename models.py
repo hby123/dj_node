@@ -1,14 +1,7 @@
-import os
-import csv
 import uuid
-import random
 from django.db import models
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
-from django.db.models import signals
-from gettext import lngettext
-from django.db.utils import OperationalError
-from django.template.defaultfilters import slugify
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 

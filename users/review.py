@@ -1,10 +1,8 @@
 from django import forms
 from django.contrib.contenttypes.models import ContentType
-
-from dj_node.models import  Review
+from dj_node.models import Review
 from dj_node.nodes.form import FormNode
 from dj_node.nodes.list import ListNode
-from dj_node.nodes.utils import Utils
 
 
 class ReviewForm(FormNode, forms.Form):

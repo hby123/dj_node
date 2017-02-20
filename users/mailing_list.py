@@ -1,17 +1,10 @@
-import time, datetime, random, string, json
+
 from django import forms
-from django.contrib.auth import authenticate, logout, login as auth_login
-from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.core.mail import send_mail
-from django.template import Context, RequestContext, loader
-from django.http import HttpResponse
 from dj_node.nodes.form import FormNode
-from dj_node.nodes.list import ListNode
 from dj_node.models import  MaillingList
-from super_dj_node.security.recaptcha.recaptcha import XRechapField
 from dj_node.nodes.db import Db
 from dj_node.nodes.list import ListInfo
+
 
 class MailingListForm(FormNode, forms.Form):
     

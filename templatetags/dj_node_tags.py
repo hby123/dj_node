@@ -1,16 +1,12 @@
-import datetime
 from django import template
-from django.template.defaultfilters import slugify
-from django import template
-
 register = template.Library()
+
 
 def dj_node_include(parser, token):
     name, format_string = token.split_contents()
-    return dj_nodeIncludeNode(format_string)
+    return IncludeNode(format_string)
 
-
-class dj_nodeIncludeNode(template.Node):
+class IncludeNode(template.Node):
     def __init__(self, format_string):
         self.format_string = format_string
     
@@ -19,24 +15,6 @@ class dj_nodeIncludeNode(template.Node):
         token_list = self.format_string.split("|")
         filename = Node.fallback_template(context['request'], token_list[0])
         context[token_list[-1]] = filename
-        return ""
-
-
-def dj_node_is_selected(parser, token):
-    name, format_string = token.split_contents()
-    return dj_nodeIsSelectedNode(format_string)
-
-
-class dj_nodeIsSelectedNode(template.Node):
-    def __init__(self, format_string):
-        self.format_string = format_string
-
-    def render(self, context):
-        token_list = self.format_string.split("|")
-        selected_filters = template.Variable(token_list[0]).resolve(context)
-        current_filter_label = token_list[1]
-        current_filter_value = token_list[2]
-        flag_var = token_list[3]
         return ""
 
 
@@ -67,5 +45,3 @@ class BookmarkNode(template.Node):
 
 register.tag('dj_node_bookmark', dj_node_bookmark)
 register.tag('dj_node_include', dj_node_include)
-
-

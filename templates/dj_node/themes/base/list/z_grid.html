@@ -1,0 +1,14 @@
+{% if list_info.results %}
+    <ul>
+        {% for e in list_info.results %}
+            <li>
+                {% if list_cls.x_item_url_name %}
+                    <a href="{% url list_cls.x_item_url_name e.slug e.id%}" class="item-link" data-id="{{e.id}}">{{e}}</a>
+                {% else %}
+                    {{e}}
+                {% endif %}
+
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

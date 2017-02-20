@@ -1,0 +1,39 @@
+{% extends x_parent_template %}
+
+{% load dj_node_tags %}
+
+{% block content %}
+<div class="block-list">
+    <div class="container">
+      <div class="list-option">
+          {% dj_node_include list/z_filter_options.html|t %}
+          {% include t %}
+      </div>
+
+      <div class="list-filter">
+          {% dj_node_include list/z_filter_selected.html|t %}
+          {% include t %}
+      </div>
+
+      <div class="list-info">
+          {% dj_node_include list/z_info.html|t %}
+          {% include t %}
+      </div>
+
+      <div class="list-sort">
+          {% dj_node_include list/z_sort.html|t %}
+          {% include t %}
+      </div>
+
+      <div class="list-grid">
+            {% dj_node_include list/z_grid.html|t %}
+            {% include t %}
+      </div>
+
+      <div class="list-pagination">
+            {% dj_node_include list/z_pagination.html|t %}
+            {% include t %}
+      </div>
+    </div>
+</div>
+{% endblock %}

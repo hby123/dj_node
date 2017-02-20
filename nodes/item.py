@@ -8,8 +8,7 @@ class ItemNode(Node):
     x_template = "item/item.html"
 
     def _extra(self, request, node_dict):
-        content_type = ContentType.objects.get_for_model(self.x_model)
-        return {'content_type':content_type}
+        return {'content_type': Db.get_content_type_for_model(self.x_model)}
 
     def _process(self, request):
         node_dict = {}
@@ -19,4 +18,3 @@ class ItemNode(Node):
             self.instance = node_dict['instance']
         node_dict['return'] = 200
         return node_dict
-        

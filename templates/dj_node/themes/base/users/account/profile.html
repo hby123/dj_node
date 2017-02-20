@@ -1,0 +1,31 @@
+{% extends x_parent_template %}
+
+{% block content %}
+    <div class="block-profile">
+        <div class="container" >
+            <div class="side">
+            {% block step-parent-bar %}
+                <h3><div class="title">{{request.user.display_name }}</div></h3>
+                <ul class="">
+                  <li role="presentation" {% if node.x_tab == 'profile' %}class="active"{% endif %}><a href="{% url 'profile' request.user.display_name_slug  %}">Profile</a></li>
+                  <li role="presentation" {% if node.x_tab == 'review' %}class="active"{% endif %}>
+                        <a href="{% url 'profile-review' request.user.display_name_slug %}">Review</a>
+                  </li>
+                  <li role="presentation" {% if node.x_tab == 'bookmark' %}class="active"{% endif %}>
+                        <a href="{% url 'profile-bookmark' request.user.display_name_slug  %}">Bookmark</a>
+                  </li>
+                  <li role="presentation" {% if node.x_tab == 'change-password' %}class="active"{% endif %}>
+                        <a href="{% url 'change-password'   %}">Change Password</a>
+                  </li>
+                </ul>
+            {% endblock %}
+            </div>
+
+            <div class="main">
+                {% block step-parent-content %}
+                        My Profile
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

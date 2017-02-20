@@ -1,0 +1,28 @@
+<!--- review html !-->
+<div class="review-block">
+  <div class="form"></div>
+  <ul class="reviews list"></ul>
+  <input type="hidden"  class="page default-hidden" value="1"/>
+  <button class="more" style="display:none;">More</button>
+</div>
+<!--- (end) review html !-->
+
+<!--- review js !-->
+<script>
+var n1 = new dj_nodeAjax({'type':'GET',
+             'url':'{% url 'review-add' %}?content_type={{content_type.id}}&object_id={{instance.id}}',
+             'selector':'.review-block .form',
+             'node_type':'form'}, null, function(){
+                    ratingObj.init();
+             });
+
+n1.ajax();
+
+var n2 = new dj_nodeAjax({'type':'GET',
+             'url':'{%url 'review-list' %}?content_type={{content_type.id}}&&object_id={{instance.id}}',
+             'selector':'.review-block',
+             'node_type':'list',
+             'render_type':'append'}, null, null);
+n2.ajax();
+</script>
+<!--- (end) review js !-->

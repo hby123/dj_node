@@ -57,7 +57,7 @@ class XVeifyHuman(object):
     @staticmethod
     def get_random_image():
            i = random.randint(1, len(recaptcha_dict.keys()))
-           return "/static/recaptcha/%d.jpg" % ( i ), i
+           return "/static/dj_node/recaptcha/%d.jpg" % ( i ), i
            
     @staticmethod
     def gen_captcha(text, file_name, fmt='JPEG', fnt="RAVIE.TTF", fnt_sz=22):
