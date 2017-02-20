@@ -1,26 +1,8 @@
-import warnings
 import requests
-
-from django.core import urlresolvers
-from django.conf import settings
-from django.db.models.base import ModelBase
-from django.db.models.manager import Manager
-from django.db.models.query import QuerySet
-from django.http import (
-    Http404, HttpResponse, HttpResponsePermanentRedirect, HttpResponseRedirect,
-)
-from django.template import RequestContext, loader
-from django.template.context import _current_app_undefined
-from django.template.engine import (
-    _context_instance_undefined, _dictionary_undefined, _dirs_undefined,
-)
-from django.utils import six
-from django.utils.deprecation import RemovedInDjango110Warning
-from django.utils.encoding import force_text
-from django.utils.functional import Promise
-
 from django.conf import settings
 from django.contrib import messages
+from django.template import loader
+from django.template.engine import (_context_instance_undefined, _dictionary_undefined, _dirs_undefined)
 from dj_node.nodes.extra.fields.recaptcha.recaptcha import XRecaptchaField
 
 class Utils(object):

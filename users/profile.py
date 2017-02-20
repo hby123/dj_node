@@ -1,20 +1,18 @@
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-
-from dj_node.models import UserContent, Review, Bookmark
-from dj_node.nodes.item import ItemNode
+from dj_node.models import Review
 from dj_node.nodes.node import Node
 
 class ProfileStepParent(Node):
     x_step_parent_template = "profile_step_parent.html"
-    def _extra(self, request):
+    def _extra(self, request, node_dict):
         return {}
 
 class ProfileNode(Node):
     x_template = "profile_step_parent.html"
     x_tab = "profile"
 
-    def _extra(self, request):
+    def _extra(self, request, node_dict):
         item_content_type = ContentType.objects.get_for_model(Review)
         return {'item_content_type':item_content_type}
 

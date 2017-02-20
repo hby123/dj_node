@@ -1,9 +1,18 @@
 import json
+from django.core.urlresolvers import NoReverseMatch
+from django.http import HttpResponsePermanentRedirect
 from django.http import HttpResponse
 from django.shortcuts import redirect, render_to_response
 from django.template import Context, RequestContext, loader, TemplateDoesNotExist
-from django.core.urlresolvers import NoReverseMatch
 from dj_node.nodes.utils import Utils
+try:
+    # Python 2.x
+    from urlparse import urlsplit, urlunsplit
+except ImportError:
+    # Python 3.x
+    from urllib.parse import urlsplit
+    from urllib.parse import urlunsplit
+
 
 def perm_check(dummy):     # pragma: no cover
     """ Permission decorator to to used on node's rounte() method
@@ -42,6 +51,36 @@ def perm_check(dummy):     # pragma: no cover
                         return kclass()._render(request, result)
             # handle passed permission
             return func(*args, **kargs)
+        return wrap_inner
+    return wrap_outer
+
+
+def ssl_check(dummy):     # pragma: no cover
+    """ Permission decorator to to used on node's rounte() method
+    """
+    def wrap_outer(func):
+        def wrap_inner(*args, **kwargs):
+            # get the argument frrom the func (method route(cls, request)
+            kclass = args[0]
+            request = args[1]
+            if kwargs.get('ssl'):
+                if not request.is_secure():
+                    url = request.build_absolute_uri(request.get_full_path())
+                    url_split = urlsplit(url)
+                    scheme = 'https' if url_split.scheme == 'http' else url_split.scheme
+                    ssl_port = 443
+                    url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', ssl_port)) + url_split[2:]
+                    secure_url = urlunsplit(url_secure_split)
+                    return HttpResponsePermanentRedirect(secure_url)
+            elif (not kwargs.get('ssl')) and request.is_secure():
+                    url = request.build_absolute_uri(request.get_full_path())
+                    url_split = urlsplit(url)
+                    scheme = 'http'
+                    port = 8002
+                    url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', port)) + url_split[2:]
+                    secure_url = urlunsplit(url_secure_split)
+                    return HttpResponsePermanentRedirect(secure_url)
+            return func(*args, **kwargs)
         return wrap_inner
     return wrap_outer
 
@@ -139,6 +178,7 @@ class Node(NodeVariable, NodeTemplate):
 
     @classmethod
     @perm_check("dummy")
+    @ssl_check("dummy")
     def route(cls, request, *args, **kwargs):
         """ The entry point of node, to be used from urls.py
         :param request - Django request object
@@ -180,7 +220,7 @@ class Node(NodeVariable, NodeTemplate):
                 'msg':None,
                 'redirect':None }
 
-    def _extra(self, request):
+    def _extra(self, request, node_dict):
         """ Add extra key-val pair to the node_dict, call from _render() method
         :param request - Django request object
         :return: dict
@@ -200,12 +240,12 @@ class Node(NodeVariable, NodeTemplate):
 
         # add extras
         self.node_dict = node_dict
-        extra = self._extra(request)
+        extra = self._extra(request, node_dict)
         node_dict.update(extra)
 
         # add step parent extra
         if self.x_step_parent:
-            step_parent_extra = self.x_step_parent()._extra(request)
+            step_parent_extra = self.x_step_parent()._extra(request, node_dict)
             node_dict.update(step_parent_extra)
         
         # ajax or http

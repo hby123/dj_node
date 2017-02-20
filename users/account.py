@@ -2,6 +2,7 @@ import time, datetime, random, string
 from django import forms
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.conf import settings
 from django.contrib.auth import authenticate, logout, login as auth_login
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -84,7 +85,7 @@ class SignUpForm(forms.Form, NodeVariable):
             auth_login(self.request, user)   
             Utils.set_msg(self.request, "Thank you, your account has been created. ")
         return {'return':'302',
-                'redirect_url':reverse('login') }
+                'redirect_url':'http://{}{}'.format(settings.DOMAIN, reverse('login'))}
 
 
 class SignUpNode(FormNode):
@@ -135,9 +136,9 @@ class LoginForm(forms.Form, NodeVariable):
 
     def _process(self, request):
         auth_login(self.request, self.user_cache)
-        return {'return':302,
-                'redirect_url':reverse('index') }
-
+        dict =  {'return':302,
+                 'redirect_url':'http://{}{}'.format(settings.DOMAIN, reverse('index'))}
+        return dict
 
 class LoginNode(FormNode):
     x_form = LoginForm
