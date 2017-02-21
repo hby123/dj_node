@@ -26,7 +26,7 @@ function dj_nodeAjax(args, my_callback, extra_callback) {
 /* ---------- dj_nodeAjax Functions ----------*/
 dj_nodeAjax.prototype.start_waiting = function(myobj) {
 
-    var start_waiting_html = "<div class='wait' style='clear:both; margin: 0; padding: 0; text-align:center;'><img src='/static/dj_node/ajax-progress.gif' style='width: 15px; height: 15px;'></img></div>";
+    var start_waiting_html = "<div class='wait' style='clear:both; margin: 0; padding: 0; text-align:center;'><img src='/static/dj_node/img/ajax-progress.gif' style='width: 15px; height: 15px;'></img></div>";
 
     if (myobj.args['node_type'] == 'list'){
         $(myobj.args['selector'] + " .list").after(start_waiting_html);

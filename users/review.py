@@ -50,6 +50,9 @@ class ReviewNode(FormNode):
     x_template = "users/review/z_form.html"
     x_parent_template = "empty.html"
 
+    def _GET_data(self, request):
+        return {'name':request.user.display_name}
+
 class ReviewListNode(ListNode):
     x_model = Review
     x_template = "users/review/z_list_ajax.html"

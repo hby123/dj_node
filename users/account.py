@@ -84,6 +84,7 @@ class SignUpNode(FormNode):
     x_form = SignUpForm
     x_name = "Sign Up"
     x_template = "users/account/sign_up.html"
+    x_submit = "Create Account"
 
     def _check(self, request):
         flag = True
@@ -134,8 +135,9 @@ class LoginForm(forms.Form, NodeVariable):
 
 class LoginNode(FormNode):
     x_form = LoginForm
-    x_name = "Login"
+    x_name = "Log In"
     x_template = "users/account/login.html"
+    x_submit = "Log In"
 
     def _check(self, request):
         flag = True

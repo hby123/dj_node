@@ -1,6 +1,11 @@
 <!--- review html !-->
 <div class="review-block">
-  <div class="form"></div>
+  {% if user.is_authenticated %}
+    <div class="form"></div>
+  {% else %}
+    <a href="{% url 'login' %}" class="button">Login to review</a>
+  {% endif %}
+
   <ul class="reviews list"></ul>
   <input type="hidden"  class="page default-hidden" value="1"/>
   <button class="more" style="display:none;">More</button>
@@ -9,6 +14,7 @@
 
 <!--- review js !-->
 <script>
+{% if user.is_authenticated %}
 var n1 = new dj_nodeAjax({'type':'GET',
              'url':'{% url 'review-add' %}?content_type={{content_type.id}}&object_id={{instance.id}}',
              'selector':'.review-block .form',
@@ -17,6 +23,7 @@ var n1 = new dj_nodeAjax({'type':'GET',
              });
 
 n1.ajax();
+{% endif %}
 
 var n2 = new dj_nodeAjax({'type':'GET',
              'url':'{%url 'review-list' %}?content_type={{content_type.id}}&&object_id={{instance.id}}',

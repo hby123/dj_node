@@ -8,6 +8,7 @@ class FormNode(Node):
     x_template = "form/form.html"
     x_template_html = "form/z_form.html"
     x_process_get = False
+    x_submit = "Submit"
 
     @perm_check('')
     def _run(self, request):

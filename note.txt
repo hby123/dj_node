@@ -24,3 +24,6 @@ from django.contrib.auth.models import User
 
 from travel.utils import *
 index_place()
+
+from dj_geo.models import *
+Zipcode.write_top_cities()
