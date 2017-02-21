@@ -42,6 +42,7 @@ class ReviewForm(FormNode, forms.Form):
         e.save()
         
         return {'return':302,
+                'msg': 'Thank you for your review!',
                 'redirect_url':'#' }
 
 class ReviewNode(FormNode):
