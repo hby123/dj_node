@@ -141,6 +141,22 @@
             } //close of init()
         }
         citySuggest.init()
+
+                /*
+         * city search
+         */
+        var galleryGrid = {
+            init: function() {
+                var images = document.getElementsByClassName('gallery-image');
+                for(var i=0; i < images.length; i++){
+                      var img = images[i];
+                      var container = img.parentNode;
+                      img.style.top = ((container.offsetHeight - img.offsetHeight) / 2) + "px";
+                      img.style.left = ((container.offsetWidth - img.offsetWidth) / 2) + "px";
+                } //close for loop
+            } //close of init()
+        }
+        galleryGrid.init()
     }
 )()
 
