@@ -28,12 +28,15 @@ class BookmarkForm(forms.Form, Node):
 
     def _process(self, request):
         user_id = request.user.id
-        e = Bookmark(display_name='',
-                     user_id = user_id,
-                     content_type = ContentType.objects.get(id=request.GET.get('content_type')),
-                     object_id = int(request.GET.get('object_id')),)
-        e.save()
+        content_type = ContentType.objects.get(id=request.GET.get('content_type'))
+        object_id = int(request.GET.get('object_id'))
 
+        if not Bookmark.objects.filter(user_id=user_id, content_type=content_type,object_id = object_id ).count():
+            e = Bookmark(display_name='',
+                         user_id = user_id,
+                         content_type = content_type,
+                         object_id = object_id,)
+            e.save()
         return {'return': 302,
                 'redirect_url': '#'}
 
