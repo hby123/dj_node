@@ -2,8 +2,25 @@ from django.contrib.sites.models import Site
 site = Site.objects.create(name='placesocial-vm.com:8002', domain='placesocial-vm.com:8002')
 site.save()
 
+from django.contrib.sites.models import Site
+site = Site.objects.create(name='placesocial-vm.com', domain='placesocial-vm.com')
+site.save()
+
+
 
 location /admin/ {
   rewrite ^ https://$host/$request_uri permanent;
 }
 
+
+
+cursor = connection.cursor()
+query = "ALTER TABLE auth_user MODIFY username VARCHAR(80);";
+cursor.execute(query)
+
+
+from django.contrib.auth.models import User
+
+
+from travel.utils import *
+index_place()
