@@ -1,0 +1,9 @@
+from django.contrib.sites.models import Site
+site = Site.objects.create(name='placesocial-vm.com:8002', domain='placesocial-vm.com:8002')
+site.save()
+
+
+location /admin/ {
+  rewrite ^ https://$host/$request_uri permanent;
+}
+
