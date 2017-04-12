@@ -126,6 +126,8 @@ class NodeTemplate(object):
 
             try:
                 path = "dj_node/" + "themes/" + mojo_site['dj_node_theme'] + "/" + filename
+                print "\n\n path: %s " % path
+
                 loader.get_template(path)
                 return path
             except (TemplateDoesNotExist, AttributeError), e:
@@ -136,8 +138,7 @@ class NodeTemplate(object):
                 loader.get_template(path)
                 return path
             except (TemplateDoesNotExist, AttributeError), e:
-                pass
-            return path
+                raise TemplateDoesNotExist("dj_node - failed to find template {}".format(filename))
 
     def templates_to_node_dict(self, request, node_dict):
         """ The entry point of node, to be used from urls.py
@@ -261,8 +262,6 @@ class Node(NodeVariable, NodeTemplate):
         :return: dict
         """
         return Utils.render_to_string(node_dict['x_template'], node_dict, context_instance=RequestContext(request))
-
-
 
     def _render_http(self, request, node_dict, flag_html=False):
         """ Sub render method for normal HTTP
