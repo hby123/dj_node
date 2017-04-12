@@ -118,16 +118,14 @@ class NodeTemplate(object):
         mojo_site = Utils.get_mojo_site(request)
         if filename:
             try:
-                path = mojo_site['folder'] + "/themes/" + mojo_site['site_theme'] + "/" + filename
+                path = mojo_site['folder'] + "/themes/" + mojo_site['theme'] + "/" + filename
                 loader.get_template(path)
                 return path
             except (TemplateDoesNotExist, AttributeError), e:
                 pass
 
             try:
-                path = "dj_node/" + "themes/" + mojo_site['dj_node_theme'] + "/" + filename
-                print "\n\n path: %s " % path
-
+                path = "dj_node/" + "themes/" + mojo_site['fallback_theme'] + "/" + filename
                 loader.get_template(path)
                 return path
             except (TemplateDoesNotExist, AttributeError), e:
