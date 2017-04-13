@@ -11,32 +11,32 @@ import dj_node.users.profile
 
 
 urlpatterns = patterns('',
-    url(r"^$", dj_node.nodes.index.Index.route),
-    url(r"^/$", dj_node.nodes.index.Index.route),
+    url(r"^$", dj_node.nodes.index.Index.route, name="index"),
+    url(r"^/$", dj_node.nodes.index.Index.route, name="index-2"),
 
-    url(r"login/$", dj_node.users.account.LoginNode.route),
-    url(r"sign-up/$", dj_node.users.account.SignUpNode.route),
-    url(r"logout/$", dj_node.users.account.Logout.route),
+    url(r"login/$", dj_node.users.account.LoginNode.route, name="login"),
+    url(r"sign-up/$", dj_node.users.account.SignUpNode.route, name="sign-up"),
+    url(r"logout/$", dj_node.users.account.Logout.route, name="logout"),
 
-    url(r"password/change/", dj_node.users.password.ChangePasswordNode.route),
-    url(r"password/forgot/", dj_node.users.password. ForgotPasswordNode.route),
-    url(r"password/reset/", dj_node.users.password.ResetPasswordNode.route),
+    url(r"password/change/", dj_node.users.password.ChangePasswordNode.route, name="change-password"),
+    url(r"password/forgot/", dj_node.users.password. ForgotPasswordNode.route, name="forgot-password"),
+    url(r"password/reset/(?P<code>.+)/$", dj_node.users.password.ResetPasswordNode.route, name="reset-password"),
 
-    url(r"profile/$", dj_node.users.profile.ProfileNode.route),
-    url(r"profile/(?P<username>.+)/$", dj_node.users.profile.ProfileNode.route),
+    url(r"profile/$", dj_node.users.profile.ProfileNode.route, name="profile"),
+    url(r"profile/(?P<username>.+)/$", dj_node.users.profile.ProfileNode.route, name="my-profile"),
 
-    url(r"comment/list/", dj_node.users.comment.CommentListNode.route),
-    url(r"comment/add/", dj_node.users.comment.CommentNode.route),
+    url(r"comment/list/", dj_node.users.comment.CommentListNode.route, name="comment-list"),
+    url(r"comment/add/", dj_node.users.comment.CommentNode.route, name="comment-add"),
 
-    url(r"review/list/", dj_node.users.review.ReviewListNode.route),
-    url(r"review/add/", dj_node.users.review.ReviewNode.route),
+    url(r"review/list/", dj_node.users.review.ReviewListNode.route, name="review-list"),
+    url(r"review/add/", dj_node.users.review.ReviewNode.route, name="review-add"),
 
-    url(r"bookmark/list/", dj_node.users.bookmark.BookmarkListNode.route),
-    url(r"bookmark/add/", dj_node.users.bookmark.BookmarkNode.route),
+    url(r"bookmark/list/", dj_node.users.bookmark.BookmarkListNode.route, name="bookmark-list"),
+    url(r"bookmark/add/", dj_node.users.bookmark.BookmarkNode.route, name="bookmark-add"),
 
     #url(r"mailing-list/add/", dj_node.users.mailing_list.MailingListForm.route),
     #url(r"mailing-list/unsubscribed/", dj_node.users.mailing_list.MailingListUnsubscribedForm.route),
 
-    url(r"site/lock/$", dj_node.nodes.site.SiteLockNode.route)
+    url(r"site/lock/$", dj_node.nodes.site.SiteLockNode.route, name="site-lock"),
 )
 

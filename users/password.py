@@ -51,7 +51,7 @@ class ForgotPasswordForm(forms.Form, NodeVariable):
         else:
             raise Exception("No account email set.")    # pragma: no cover
         domain = Utils.get_mojo_domain(request)
-        link = "https://%s/password/reset/?code=%s" % (domain, t.token)
+        link = reverse('reset-password', kwargs={'code': t.token})
         subject = "Reset your password"
         msg_plain = "Click there link to reset your password: <a href=\"%s\">%s</a>" % (link, link)
 
@@ -62,7 +62,6 @@ class ForgotPasswordForm(forms.Form, NodeVariable):
         try:
             EmailUtils.send_email(from_email, raw_email, subject, msg_plain)
         except Exception, e:                                                 # pragma: no cover
-           raise Exception(e)
            return {'return': 302,                                           # pragma: no cover
                    'msg':'Oop, we are having diffculty to send you email',
                    'redirect_url': reverse('login')}
@@ -116,7 +115,7 @@ class RestPasswordForm(forms.Form, NodeVariable):
         # return back
         node_dict = {'return':302,
                 'msg':'Your password have been updated, please log in now.',
-                'redirect_url':'http://{}{}'.format(settings.DOMAIN, reverse('login')) }
+                'redirect_url': reverse('login')}
         return node_dict
 
 
@@ -127,8 +126,7 @@ class ResetPasswordNode(FormNode):
     x_perm = []
 
     def _check(self, request):
-        code = request.GET.get('code')
-        count = Token.objects.filter(token=code).count()
+        count = Token.objects.filter(token=request.kwargs.get('code')).count()
         if not count:
             return False, {'return':400,
                            'msg':'Sorry, link is invalid.'}

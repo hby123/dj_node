@@ -2,7 +2,8 @@ import sys
 from django.test import TestCase
 from django.test import Client
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib.staticfiles import finders
+from django.core.urlresolvers import reverse
 from django.template import loader
 
 class DjNodeSetupTest(TestCase):
@@ -11,6 +12,9 @@ class DjNodeSetupTest(TestCase):
         assert 'django.contrib.sites' in settings.INSTALLED_APPS
         assert 'widget_tweaks' in settings.INSTALLED_APPS
         assert 'dj_node' in settings.INSTALLED_APPS
+
+        self.assertTrue(settings.STATIC_URL)
+        self.assertTrue(settings.STATIC_ROOT)
 
     def test_app_config(self):
         assert hasattr(settings, 'DJ_NODE_SITES')
@@ -26,6 +30,7 @@ class DjNodeSetupTest(TestCase):
         assert 'anonymous_recaptcha' in site.keys()
         assert 'recaptcha_placeholder' in site.keys()
         assert 'recaptcha_class' in site.keys()
+        assert 'django.core.context_processors.static' in settings.TEMPLATES[0]['OPTIONS']['context_processors']
 
     def test_templates(self):
         key = settings.DJ_NODE_SITES.keys()[0]
@@ -74,7 +79,16 @@ class DjNodeSetupTest(TestCase):
         loader.get_template("dj_node/" + "themes/" + site['fallback_theme'] + "/" + "users/review/z_form.html")
         loader.get_template("dj_node/" + "themes/" + site['fallback_theme'] + "/" + "users/review/z_list_ajax.html")
 
+    def test_statics(self):
+        self.assertTrue(finders.find('dj_node/lib/jquery-3.1.1.min.js'))
+        self.assertTrue(finders.find('dj_node/js/ajax.js'))
+        self.assertTrue(finders.find('dj_node/js/base.js'))
+
+        self.assertTrue(finders.find('dj_node/themes/bootstrap/css/bootstrap.min.css'))
+        self.assertTrue(finders.find('dj_node/themes/bootstrap/js/bootstrap.min.js'))
+        self.assertFalse(finders.find('dj_node/themes/bootstrap/js/bootstrap.min.js.invalid'))
+
     def test_index(self):
         c = Client()
-        response = c.get('/a/')
+        response = c.get(reverse('index'))
         self.assertEqual(response.status_code, 200)

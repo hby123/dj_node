@@ -97,7 +97,7 @@ class NodeTemplate(object):
     """ Template handler
     """
     x_tab = None
-    x_base_template = "base.html"
+    x_base_template = None
     x_parent_template = "base.html"
     x_step_parent_template = "step_parent.html"
     x_template = None

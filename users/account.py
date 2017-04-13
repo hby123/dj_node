@@ -77,7 +77,7 @@ class SignUpForm(forms.Form, NodeVariable):
             auth_login(self.request, user)   
             Utils.set_msg(self.request, "Thank you, your account has been created. ")
         return {'return':'302',
-                'redirect_url':'http://{}{}'.format(settings.DOMAIN, reverse('login'))}
+                'redirect_url': reverse('login')}
 
 
 class SignUpNode(FormNode):
@@ -130,7 +130,7 @@ class LoginForm(forms.Form, NodeVariable):
     def _process(self, request):
         auth_login(self.request, self.user_cache)
         dict =  {'return':302,
-                 'redirect_url':'http://{}{}'.format(settings.DOMAIN, reverse('index'))}
+                 'redirect_url':reverse('index')}
         return dict
 
 class LoginNode(FormNode):
