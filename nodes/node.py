@@ -98,9 +98,9 @@ class NodeTemplate(object):
     """
     x_tab = None
     x_base_template = "base.html"
-    x_parent_template = "mojo.html"
+    x_parent_template = "base.html"
     x_step_parent_template = "step_parent.html"
-    x_template = "mojo.html"
+    x_template = None
     x_error_template = "error.html"
     x_empty_template = "empty.html"
 

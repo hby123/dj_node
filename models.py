@@ -11,6 +11,14 @@ User.add_to_class('actual_email', models.CharField(max_length=50, null=True, bla
 User.add_to_class('display_name', models.CharField(max_length=50, null=True, blank=True))
 User.add_to_class('display_name_slug', models.CharField(max_length=50, null=True, blank=True))
 
+class Content(models.Model):
+    site = models.ForeignKey(Site, null=True, blank=True,)
+    domain = models.CharField(max_length=50, null=True, blank=True,)
+    display_name = models.CharField(max_length=500)
+    user_id = models.IntegerField(null=True, blank=True,)
+    date = models.DateTimeField(auto_now=True, null=True, blank=True,)
+    rating = models.IntegerField(default=0, null=True, blank=True,)
+
 class Comment(models.Model):
     site = models.ForeignKey(Site, null=True, blank=True)
     domain= models.CharField(max_length=50, null=True, blank=True)

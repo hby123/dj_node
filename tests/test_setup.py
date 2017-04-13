@@ -37,7 +37,6 @@ class DjNodeSetupTest(TestCase):
         loader.get_template("dj_node/" + "themes/" + site['fallback_theme'] + "/" + "empty.html")
         loader.get_template("dj_node/" + "themes/" + site['fallback_theme'] + "/" + "error.html")
         loader.get_template("dj_node/" + "themes/" + site['fallback_theme'] + "/" + "index.html")
-        loader.get_template("dj_node/" + "themes/" + site['fallback_theme'] + "/" + "mojo.html")
         loader.get_template("dj_node/" + "themes/" + site['fallback_theme'] + "/" + "step_parent.html")
         loader.get_template("dj_node/" + "themes/" + site['fallback_theme'] + "/" + "terms.html")
 
