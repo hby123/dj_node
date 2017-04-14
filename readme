@@ -1,7 +1,7 @@
 1) git submodule add https://jackyu-2016@bitbucket.org/jackyu-2016/dj_node.git
 2) Add "dj_node" to INSTALLED_APPS in settings.py
-3) Copy needed urls patterns from dj_node.urls.py into your project urls.py
-3) Add the following to settings.py
+3) Copy needed urls patterns from dj_node.sample_urls.py into your project urls.py
+4) Add the following to settings.py
         DJ_NODE_SITES = {"localhost": { 'folder': 'travel',
                                         'site_theme': 'base',
                                         'dj_node_theme': 'base',
@@ -12,3 +12,4 @@
                                         'ipzip_middleware': False,
                                         'anonymous_recaptcha': True,
                                         'ssl': False}}
+

@@ -5,7 +5,7 @@
 # from django.test import Client
 # from django.test import TestCase
 #
-# from dj_node.models import Review, UserContent
+# from dj_node.models import Review, Content
 #
 # my_email = "test@domain.com"
 # my_domain = "testserver"
@@ -15,12 +15,12 @@
 #     URL_NAME = 'review-add'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_review_form_anonymous_get(self):
 #         c = Client()
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         response = c.get(reverse(self.URL_NAME)+"?content_type=%d&object_id=%s" % (content_type.id, id))
 #         self.assertEqual(response.status_code, 200)
 #
@@ -40,8 +40,8 @@
 #     def test_review_form_anonymous_post(self):
 #         review_count = Review.objects.all().count()
 #         c = Client()
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.get(url)
 #         self.assertEqual(response.status_code, 200)
@@ -74,8 +74,8 @@
 #     def test_review_form_anonymous_invalid(self):
 #         review_count = Review.objects.all().count()
 #         c = Client()
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.get(url)
 #         self.assertEqual(response.status_code, 200)
@@ -180,8 +180,8 @@
 #         data = {'name':'123',
 #                 'rating':'5',
 #                 'description':'This is my description',}
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%d" % (content_type.id, id)
 #         response = c.post(url, data,
 #                           #content_type='application/json',
@@ -240,7 +240,7 @@
 #                 'rating':'5',
 #                 'description':'This is my description',
 #                 }
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.post(url, data,
 #                           #content_type='application/json',
@@ -254,7 +254,7 @@
 #                 #'rating':'5',
 #                 'description':'This is my description',
 #                }
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.post(url, data,
 #                           #content_type='application/json',
@@ -266,12 +266,12 @@
 #     URL_NAME = 'review-list'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_review_list(self):
 #         c = Client()
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse('review-add')+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.get(url)
 #         self.assertEqual(response.status_code, 200)

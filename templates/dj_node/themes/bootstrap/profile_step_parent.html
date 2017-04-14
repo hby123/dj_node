@@ -1,0 +1,60 @@
+{% extends x_parent_template %}
+
+{% block content %}
+    <div class="block-profile">
+        <div class="container" >
+            <div class="side">
+                {% block step-parent-bar %}
+                    <h3>
+                        <div class="title">
+                            <a href="{% url 'my-profile' %}">
+                                {{request.user.display_name }}
+                            </a>
+                        </div>
+                    </h3>
+                    <ul class="">
+                          <li role="presentation" {% if node.x_tab == 'change-password' %}class="active"{% endif %}>
+                                <a href="{% url 'change-password'   %}">Change Password</a>
+                          </li>
+                    </ul>
+                {% endblock %}
+            </div>
+
+            <div class="main">
+                {% block step-parent-content %}
+                    <div class="bookmark-block">
+                        <h2>Bookmarked Place</h2>
+                        <div class="form"></div>
+                        <ul class="list list-unstyled bookmarks"></ul>
+                        <input type="hidden"  class="page default-hidden" value="1"></input>
+                        <button class="more" style="display:none;">More</button>
+                    </div>
+
+                    <div class="review-block">
+                        <h2>Reviewed Place</h2>
+                        <div class="form"></div>
+                        <ul class="list list-unstyled reviews"></ul>
+                        <input type="hidden"  class="page default-hidden" value="1"></input>
+                        <button class="more" style="display:none;">More</button>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var bookmarkAjax = new dj_nodeAjax({'type':'GET',
+                     'url':'{%url 'bookmark-list' %}?user_id={{request.user.id}}',
+                     'selector':'.bookmark-block',
+                     'node_type':'list',
+                     'render_type':'append'}, null, null);
+        bookmarkAjax.ajax();
+
+        var reviewAjax = new dj_nodeAjax({'type':'GET',
+                     'url':'{%url 'review-list' %}?user_id={{request.user.id}}&profile=true',
+                     'selector':'.review-block',
+                     'node_type':'list',
+                     'render_type':'append'}, null, null);
+        reviewAjax.ajax();
+    </script>
+{% endblock %}

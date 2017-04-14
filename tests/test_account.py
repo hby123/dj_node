@@ -1073,7 +1073,6 @@ class DjNodeResetPasswordTest(TestCase):
                 'confirm_password': 'abc123_wrong',}
         response = c.post(url, data, follow=True)
 
-
         #
         # attemp log in again
         #
@@ -1093,331 +1092,330 @@ class DjNodeResetPasswordTest(TestCase):
         assert "link is invalid" in response.content
 
 
+class DjNodeChangePassowrdTest(TestCase):
+    URL_NAME = "login"
 
-# class DjNodeChangePassowrdTest(TestCase):
-#     URL_NAME = "login"
-#
-#
-#     def test_change_password_post(self):
-#         assert User.objects.filter(actual_email=my_email).count() == 0
-#
-#         # check template
-#         c = Client()
-#         response = c.get(reverse('logout'))
-#         response = c.get(reverse('sign-up'))
-#         self.assertEqual(response.status_code, 200)
-#
-#         soup = BeautifulSoup(response.content, 'html.parser')
-#         rechapcha_image = soup.find('img', {'class':'recap'})
-#         assert rechapcha_image != None
-#         assert rechapcha_image['src'] != None
-#
-#         recap_img_url = rechapcha_image['src']
-#         recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
-#
-#         # find out the recap code
-#         from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
-#         recap_code = recaptcha_dict[recap_img_name]
-#
-#         # send post
-#         data = {'email': 'test@domain.com',
-#                 'display_name': 'My Name',
-#                 'password': 'password',
-#                 'confirm_password': 'password',
-#                 'verify_human': recap_code,
-#                 'verify_human_path': recap_img_name}
-#         response = c.post(reverse('sign-up'), data, follow=False)
-#
-#         # check redirect
-#         assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
-#         self.assertEqual(response.status_code, 302)
-#
-#         # check user
-#         assert User.objects.filter(actual_email=my_email).count() >  0
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': 'password', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id != None
-#         assert response.context['user'].id != ""
-#         assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
-#
-#         # change passowrd
-#         url = reverse('change-password')
-#         data = {'current_password': 'password',
-#                 'new_password': 'letmein',
-#                 'confirm_new_password': 'letmein',}
-#         response = c.post(url, data, follow=True)
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': 'letmein', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id != None
-#         assert response.context['user'].id != ""
-#         assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
-#
-#     def test_change_password_current_password_incorrect(self):
-#         assert User.objects.filter(actual_email=my_email).count() == 0
-#
-#         # check template
-#         c = Client()
-#         response = c.get(reverse('logout'))
-#         response = c.get(reverse('sign-up'))
-#         self.assertEqual(response.status_code, 200)
-#
-#         soup = BeautifulSoup(response.content, 'html.parser')
-#         rechapcha_image = soup.find('img', {'class':'recap'})
-#         assert rechapcha_image != None
-#         assert rechapcha_image['src'] != None
-#
-#         recap_img_url = rechapcha_image['src']
-#         recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
-#
-#         # find out the recap code
-#         from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
-#         recap_code = recaptcha_dict[recap_img_name]
-#
-#         # send post
-#         data = {'email': 'test@domain.com',
-#                 'display_name': 'My Name',
-#                 'password': 'password',
-#                 'confirm_password': 'password',
-#                 'verify_human': recap_code,
-#                 'verify_human_path': recap_img_name}
-#         response = c.post(reverse('sign-up'), data, follow=False)
-#
-#         # check redirect
-#         assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
-#         self.assertEqual(response.status_code, 302)
-#
-#         # check user
-#         assert User.objects.filter(actual_email=my_email).count() >  0
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': 'password', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id != None
-#         assert response.context['user'].id != ""
-#         assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
-#
-#         # change passowrd
-#         url = reverse('change-password')
-#         data = {'current_password': 'password-wrong',
-#                 'new_password': 'letmein',
-#                 'confirm_new_password': 'letmein',}
-#         response = c.post(url, data, follow=True)
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': 'letmein', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id == None
-#
-#     def test_change_password__missed_requirement(self):
-#         assert User.objects.filter(actual_email=my_email).count() == 0
-#
-#         # check template
-#         c = Client()
-#         response = c.get(reverse('logout'))
-#         response = c.get(reverse('sign-up'))
-#         self.assertEqual(response.status_code, 200)
-#
-#         soup = BeautifulSoup(response.content, 'html.parser')
-#         rechapcha_image = soup.find('img', {'class':'recap'})
-#         assert rechapcha_image != None
-#         assert rechapcha_image['src'] != None
-#
-#         recap_img_url = rechapcha_image['src']
-#         recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
-#
-#         # find out the recap code
-#         from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
-#         recap_code = recaptcha_dict[recap_img_name]
-#
-#         # send post
-#         data = {'email': 'test@domain.com',
-#                 'display_name': 'My Name',
-#                 'password': 'password',
-#                 'confirm_password': 'password',
-#                 'verify_human': recap_code,
-#                 'verify_human_path': recap_img_name}
-#         response = c.post(reverse('sign-up'), data, follow=False)
-#
-#         # check redirect
-#         assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
-#         self.assertEqual(response.status_code, 302)
-#
-#         # check user
-#         assert User.objects.filter(actual_email=my_email).count() >  0
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': 'password', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id != None
-#         assert response.context['user'].id != ""
-#         assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
-#
-#         # change passowrd
-#         url = reverse('change-password')
-#         data = {'current_password': 'password',
-#                 'new_password': '12',
-#                 'confirm_new_password': '12',}
-#         response = c.post(url, data, follow=True)
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': '12', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id == None
-#
-#     def test_change_password_new_passowrd_missed_requirement(self):
-#         assert User.objects.filter(actual_email=my_email).count() == 0
-#
-#         # check template
-#         c = Client()
-#         response = c.get(reverse('logout'))
-#         response = c.get(reverse('sign-up'))
-#         self.assertEqual(response.status_code, 200)
-#
-#         soup = BeautifulSoup(response.content, 'html.parser')
-#         rechapcha_image = soup.find('img', {'class':'recap'})
-#         assert rechapcha_image != None
-#         assert rechapcha_image['src'] != None
-#
-#         recap_img_url = rechapcha_image['src']
-#         recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
-#
-#         # find out the recap code
-#         from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
-#         recap_code = recaptcha_dict[recap_img_name]
-#
-#         # send post
-#         data = {'email': 'test@domain.com',
-#                 'display_name': 'My Name',
-#                 'password': 'password',
-#                 'confirm_password': 'password',
-#                 'verify_human': recap_code,
-#                 'verify_human_path': recap_img_name}
-#         response = c.post(reverse('sign-up'), data, follow=False)
-#
-#         # check redirect
-#         assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
-#         self.assertEqual(response.status_code, 302)
-#
-#         # check user
-#         assert User.objects.filter(actual_email=my_email).count() >  0
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': 'password', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id != None
-#         assert response.context['user'].id != ""
-#         assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
-#
-#         # change passowrd
-#         url = reverse('change-password')
-#         data = {'current_password': 'password',
-#                 'new_password': 'letmein',
-#                 'confirm_new_password': 'letmein2',}
-#         response = c.post(url, data, follow=True)
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': 'letmein', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id == None
-#
-#     def test_change_password_without_login(self):
-#         assert User.objects.filter(actual_email=my_email).count() == 0
-#
-#         # check template
-#         c = Client()
-#         response = c.get(reverse('logout'))
-#         response = c.get(reverse('sign-up'))
-#         self.assertEqual(response.status_code, 200)
-#
-#         soup = BeautifulSoup(response.content, 'html.parser')
-#         rechapcha_image = soup.find('img', {'class':'recap'})
-#         assert rechapcha_image != None
-#         assert rechapcha_image['src'] != None
-#
-#         recap_img_url = rechapcha_image['src']
-#         recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
-#
-#         # find out the recap code
-#         from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
-#         recap_code = recaptcha_dict[recap_img_name]
-#
-#         # send post
-#         data = {'email': 'test@domain.com',
-#                 'display_name': 'My Name',
-#                 'password': 'password',
-#                 'confirm_password': 'password',
-#                 'verify_human': recap_code,
-#                 'verify_human_path': recap_img_name}
-#         response = c.post(reverse('sign-up'), data, follow=False)
-#
-#         # check redirect
-#         assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
-#         self.assertEqual(response.status_code, 302)
-#
-#         # check user
-#         assert User.objects.filter(actual_email=my_email).count() >  0
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': 'password', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id != None
-#         assert response.context['user'].id != ""
-#         assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
-#
-#
-#         # change passowrd
-#         response = c.get(reverse('logout'))
-#         url = reverse('change-password')
-#         data = {'current_password': 'password',
-#                 'new_password': 'letmein',
-#                 'confirm_new_password': 'letmein'}
-#         response = c.post(url, data, follow=True)
-#
-#         # login
-#         response = c.get(reverse('logout'))
-#         data = {'email': 'test@domain.com',
-#                 'password': 'letmein', }
-#         response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
-#
-#         # check is user logged in
-#         assert response.context['user'].id == None
+
+    def test_change_password_post(self):
+        assert User.objects.filter(actual_email=my_email).count() == 0
+
+        # check template
+        c = Client()
+        response = c.get(reverse('logout'))
+        response = c.get(reverse('sign-up'))
+        self.assertEqual(response.status_code, 200)
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        rechapcha_image = soup.find('img', {'class':'recap'})
+        assert rechapcha_image != None
+        assert rechapcha_image['src'] != None
+
+        recap_img_url = rechapcha_image['src']
+        recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
+
+        # find out the recap code
+        from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
+        recap_code = recaptcha_dict[recap_img_name]
+
+        # send post
+        data = {'email': 'test@domain.com',
+                'display_name': 'My Name',
+                'password': 'password',
+                'confirm_password': 'password',
+                'verify_human': recap_code,
+                'verify_human_path': recap_img_name}
+        response = c.post(reverse('sign-up'), data, follow=False)
+
+        # check redirect
+        assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
+        self.assertEqual(response.status_code, 302)
+
+        # check user
+        assert User.objects.filter(actual_email=my_email).count() >  0
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': 'password', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id != None
+        assert response.context['user'].id != ""
+        assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
+
+        # change passowrd
+        url = reverse('change-password')
+        data = {'current_password': 'password',
+                'new_password': 'letmein',
+                'confirm_new_password': 'letmein',}
+        response = c.post(url, data, follow=True)
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': 'letmein', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id != None
+        assert response.context['user'].id != ""
+        assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
+
+    def test_change_password_current_password_incorrect(self):
+        assert User.objects.filter(actual_email=my_email).count() == 0
+
+        # check template
+        c = Client()
+        response = c.get(reverse('logout'))
+        response = c.get(reverse('sign-up'))
+        self.assertEqual(response.status_code, 200)
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        rechapcha_image = soup.find('img', {'class':'recap'})
+        assert rechapcha_image != None
+        assert rechapcha_image['src'] != None
+
+        recap_img_url = rechapcha_image['src']
+        recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
+
+        # find out the recap code
+        from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
+        recap_code = recaptcha_dict[recap_img_name]
+
+        # send post
+        data = {'email': 'test@domain.com',
+                'display_name': 'My Name',
+                'password': 'password',
+                'confirm_password': 'password',
+                'verify_human': recap_code,
+                'verify_human_path': recap_img_name}
+        response = c.post(reverse('sign-up'), data, follow=False)
+
+        # check redirect
+        assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
+        self.assertEqual(response.status_code, 302)
+
+        # check user
+        assert User.objects.filter(actual_email=my_email).count() >  0
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': 'password', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id != None
+        assert response.context['user'].id != ""
+        assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
+
+        # change passowrd
+        url = reverse('change-password')
+        data = {'current_password': 'password-wrong',
+                'new_password': 'letmein',
+                'confirm_new_password': 'letmein',}
+        response = c.post(url, data, follow=True)
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': 'letmein', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id == None
+
+    def test_change_password__missed_requirement(self):
+        assert User.objects.filter(actual_email=my_email).count() == 0
+
+        # check template
+        c = Client()
+        response = c.get(reverse('logout'))
+        response = c.get(reverse('sign-up'))
+        self.assertEqual(response.status_code, 200)
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        rechapcha_image = soup.find('img', {'class':'recap'})
+        assert rechapcha_image != None
+        assert rechapcha_image['src'] != None
+
+        recap_img_url = rechapcha_image['src']
+        recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
+
+        # find out the recap code
+        from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
+        recap_code = recaptcha_dict[recap_img_name]
+
+        # send post
+        data = {'email': 'test@domain.com',
+                'display_name': 'My Name',
+                'password': 'password',
+                'confirm_password': 'password',
+                'verify_human': recap_code,
+                'verify_human_path': recap_img_name}
+        response = c.post(reverse('sign-up'), data, follow=False)
+
+        # check redirect
+        assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
+        self.assertEqual(response.status_code, 302)
+
+        # check user
+        assert User.objects.filter(actual_email=my_email).count() >  0
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': 'password', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id != None
+        assert response.context['user'].id != ""
+        assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
+
+        # change passowrd
+        url = reverse('change-password')
+        data = {'current_password': 'password',
+                'new_password': '12',
+                'confirm_new_password': '12',}
+        response = c.post(url, data, follow=True)
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': '12', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id == None
+
+    def test_change_password_new_passowrd_missed_requirement(self):
+        assert User.objects.filter(actual_email=my_email).count() == 0
+
+        # check template
+        c = Client()
+        response = c.get(reverse('logout'))
+        response = c.get(reverse('sign-up'))
+        self.assertEqual(response.status_code, 200)
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        rechapcha_image = soup.find('img', {'class':'recap'})
+        assert rechapcha_image != None
+        assert rechapcha_image['src'] != None
+
+        recap_img_url = rechapcha_image['src']
+        recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
+
+        # find out the recap code
+        from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
+        recap_code = recaptcha_dict[recap_img_name]
+
+        # send post
+        data = {'email': 'test@domain.com',
+                'display_name': 'My Name',
+                'password': 'password',
+                'confirm_password': 'password',
+                'verify_human': recap_code,
+                'verify_human_path': recap_img_name}
+        response = c.post(reverse('sign-up'), data, follow=False)
+
+        # check redirect
+        assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
+        self.assertEqual(response.status_code, 302)
+
+        # check user
+        assert User.objects.filter(actual_email=my_email).count() >  0
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': 'password', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id != None
+        assert response.context['user'].id != ""
+        assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
+
+        # change passowrd
+        url = reverse('change-password')
+        data = {'current_password': 'password',
+                'new_password': 'letmein',
+                'confirm_new_password': 'letmein2',}
+        response = c.post(url, data, follow=True)
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': 'letmein', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id == None
+
+    def test_change_password_without_login(self):
+        assert User.objects.filter(actual_email=my_email).count() == 0
+
+        # check template
+        c = Client()
+        response = c.get(reverse('logout'))
+        response = c.get(reverse('sign-up'))
+        self.assertEqual(response.status_code, 200)
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        rechapcha_image = soup.find('img', {'class':'recap'})
+        assert rechapcha_image != None
+        assert rechapcha_image['src'] != None
+
+        recap_img_url = rechapcha_image['src']
+        recap_img_name = int(recap_img_url.split("/")[-1].split(".")[0])
+
+        # find out the recap code
+        from dj_node.nodes.extra.fields.recaptcha.var import recaptcha_dict
+        recap_code = recaptcha_dict[recap_img_name]
+
+        # send post
+        data = {'email': 'test@domain.com',
+                'display_name': 'My Name',
+                'password': 'password',
+                'confirm_password': 'password',
+                'verify_human': recap_code,
+                'verify_human_path': recap_img_name}
+        response = c.post(reverse('sign-up'), data, follow=False)
+
+        # check redirect
+        assert response.url == "http://%s%s" % (str(my_domain), reverse('login'))
+        self.assertEqual(response.status_code, 302)
+
+        # check user
+        assert User.objects.filter(actual_email=my_email).count() >  0
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': 'password', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id != None
+        assert response.context['user'].id != ""
+        assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
+
+
+        # change passowrd
+        response = c.get(reverse('logout'))
+        url = reverse('change-password')
+        data = {'current_password': 'password',
+                'new_password': 'letmein',
+                'confirm_new_password': 'letmein'}
+        response = c.post(url, data, follow=True)
+
+        # login
+        response = c.get(reverse('logout'))
+        data = {'email': 'test@domain.com',
+                'password': 'letmein', }
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+
+        # check is user logged in
+        assert response.context['user'].id == None

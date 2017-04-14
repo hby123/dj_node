@@ -8,7 +8,7 @@
 # from django.core.urlresolvers import reverse
 # from django.test import TestCase
 # from django.test import Client
-# from dj_node.models import UserContent
+# from dj_node.models import Content
 # from dj_node.nodes.node import Node, NodeVariable
 # from dj_node.nodes.form import FormNode, ModelFormNode
 #
@@ -17,13 +17,13 @@
 #     URL_NAME = 'user-content-model-form'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_form_get(self):
-#         self.assertTrue(UserContent.objects.all().count() > 50 )
+#         self.assertTrue(Content.objects.all().count() > 50 )
 #
 #         c = Client()
-#         user_content = UserContent.objects.all().first()
+#         user_content = Content.objects.all().first()
 #         response = c.get(reverse(self.URL_NAME) + "?id=%d" % user_content.id)
 #
 #         # check template
@@ -37,14 +37,14 @@
 #         assert submit_field != None
 #
 #     def test_form_post(self):
-#         self.assertTrue(UserContent.objects.all().count() > 50 )
+#         self.assertTrue(Content.objects.all().count() > 50 )
 #
 #         c = Client()
-#         user_content = UserContent.objects.all().first()
+#         user_content = Content.objects.all().first()
 #         url = reverse(self.URL_NAME) + "?id=%d" % user_content.id
 #         response = c.post(url, {'value': 'new test value'}, follow=False)
 #
-#         user_content = UserContent.objects.get(id=user_content.id)
+#         user_content = Content.objects.get(id=user_content.id)
 #         assert user_content.value == 'new test value'
 #
 #

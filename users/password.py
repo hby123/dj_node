@@ -169,7 +169,7 @@ class ChangePasswordForm(forms.Form, NodeVariable):
 
         Utils.set_msg(self.request, "You password has been updated. Please login now. ")
         return {'return':302,
-                'redirect_url':'http://{}{}'.format(settings.DOMAIN, reverse('login')) }
+                'redirect_url': reverse('login')}
 
 class ChangePasswordNode(FormNode):
     x_form = ChangePasswordForm

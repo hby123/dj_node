@@ -22,8 +22,8 @@ urlpatterns = patterns('',
     url(r"password/forgot/", dj_node.users.password. ForgotPasswordNode.route, name="forgot-password"),
     url(r"password/reset/(?P<code>.+)/$", dj_node.users.password.ResetPasswordNode.route, name="reset-password"),
 
-    url(r"profile/$", dj_node.users.profile.ProfileNode.route, name="profile"),
-    url(r"profile/(?P<username>.+)/$", dj_node.users.profile.ProfileNode.route, name="my-profile"),
+    url(r"profile/$", dj_node.users.profile.MyProfileNode.route, name="my-profile"),
+    url(r"profile/(?P<username>.+)/$", dj_node.users.profile.UserProfileNode.route, name="user-profile"),
 
     url(r"comment/list/", dj_node.users.comment.CommentListNode.route, name="comment-list"),
     url(r"comment/add/", dj_node.users.comment.CommentNode.route, name="comment-add"),
@@ -34,8 +34,9 @@ urlpatterns = patterns('',
     url(r"bookmark/list/", dj_node.users.bookmark.BookmarkListNode.route, name="bookmark-list"),
     url(r"bookmark/add/", dj_node.users.bookmark.BookmarkNode.route, name="bookmark-add"),
 
-    #url(r"mailing-list/add/", dj_node.users.mailing_list.MailingListForm.route),
-    #url(r"mailing-list/unsubscribed/", dj_node.users.mailing_list.MailingListUnsubscribedForm.route),
+    url(r"content/list/", dj_node.users.content.ContentListNode.route, name="comment-list"),
+    url(r"content/view/", dj_node.users.content.ContentViewNode.route, name="comment-add"),
+    url(r"content/add/", dj_node.users.content.ContentAddNode.route, name="comment-add"),
 
     url(r"site/lock/$", dj_node.nodes.site.SiteLockNode.route, name="site-lock"),
 )

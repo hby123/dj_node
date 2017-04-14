@@ -7,9 +7,9 @@
 # from django.test import Client
 # from django.test.client import RequestFactory
 #
-# from dj_node.models import UserContent
+# from dj_node.models import Content
 # from dj_node.nodes.list_info import ListInfo
-# from dj_node.nodes.user_content import UserContentListNode
+# from dj_node.nodes.user_content import ContentListNode
 #
 # my_email = "test@domain.com"
 # my_domain = "testserver"
@@ -18,10 +18,10 @@
 #     URL_NAME = 'user-content-list'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_list(self):
-#         self.assertTrue(UserContent.objects.all().count() > 50)
+#         self.assertTrue(Content.objects.all().count() > 50)
 #
 #         c = Client()
 #         response = c.get(reverse(self.URL_NAME))
@@ -42,7 +42,7 @@
 #                 id_list.append(int(id))
 #             return id_list
 #
-#         id_list = [x.id for x in  UserContent.objects.all()]
+#         id_list = [x.id for x in  Content.objects.all()]
 #         assert len(id_list) > 0
 #
 #         c = Client()
@@ -78,7 +78,7 @@
 #     def test_list_info(self):
 #         """Test: Showing 1-20 of 150 results
 #         """
-#         count = UserContent.objects.all().count()
+#         count = Content.objects.all().count()
 #
 #         # getfirst page
 #         c = Client()
@@ -87,7 +87,7 @@
 #         # pre-calc start and end items
 #         factory = RequestFactory()
 #         request = factory.get(reverse(self.URL_NAME))
-#         list_info = ListInfo(UserContentListNode, request)
+#         list_info = ListInfo(ContentListNode, request)
 #         page = 1
 #         start = 1
 #         end = start + (list_info.ipp - 1)
@@ -121,7 +121,7 @@
 #             # pre-cal start and end number
 #             factory = RequestFactory()
 #             request = factory.get(reverse(self.URL_NAME))
-#             list_info = ListInfo(UserContentListNode, request)
+#             list_info = ListInfo(ContentListNode, request)
 #             start = 1 + (page - 1) * (list_info.ipp)
 #             end = start + (list_info.ipp- 1)
 #             if end >= count:
@@ -139,10 +139,10 @@
 #     URL_NAME = 'user-content-list'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_pagination(self):
-#         count = UserContent.objects.all().count()
+#         count = Content.objects.all().count()
 #         assert count > 0
 #
 #         c = Client()
@@ -161,7 +161,7 @@
 #
 #         factory = RequestFactory()
 #         request = factory.get(reverse(self.URL_NAME))
-#         list_info = ListInfo(UserContentListNode, request)
+#         list_info = ListInfo(ContentListNode, request)
 #         num_page = math.ceil(float(count)/float(list_info.ipp))
 #         assert num_page == len(pagination_li)
 #
@@ -184,14 +184,14 @@
 #                 category_a = a_list[i]
 #                 category_b = b_list[i]
 #
-#                 d = UserContent(value = "UserContent Val %s" % str(i),
-#                                 slug = slugify("UserContent Val %s" % str(i)),
+#                 d = Content(value = "Content Val %s" % str(i),
+#                                 slug = slugify("Content Val %s" % str(i)),
 #                                 category_a = category_a,
 #                                 category_b = category_b,
 #                           )
 #                 d.save()
 #
-#         count = UserContent.objects.all().count()
+#         count = Content.objects.all().count()
 #         assert count > 0
 #
 #         c = Client()
@@ -210,7 +210,7 @@
 #
 #         factory = RequestFactory()
 #         request = factory.get(reverse(self.URL_NAME))
-#         list_info = ListInfo(UserContentListNode, request)
+#         list_info = ListInfo(ContentListNode, request)
 #         num_page = math.ceil(float(count)/float(list_info.ipp))
 #
 #         # test pagination list
@@ -229,7 +229,7 @@
 #     URL_NAME = 'user-content-list'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_list_sort_asc(self):
 #         """Test: Showing 1-20 of 150 results
@@ -273,7 +273,7 @@
 #             id_list = get_page_item_id(response, id_list)
 #
 #         # check order of ids
-#         db_list = [x.id for x in UserContent.objects.all().order_by("id")]
+#         db_list = [x.id for x in Content.objects.all().order_by("id")]
 #         assert len(id_list) > 0
 #         assert len(id_list) == len(db_list)
 #         for i in range(0, len(id_list)):
@@ -321,7 +321,7 @@
 #             id_list = get_page_item_id(response, id_list)
 #
 #         # check order of ids
-#         db_list = [x.id for x in UserContent.objects.all().order_by("-id")]
+#         db_list = [x.id for x in Content.objects.all().order_by("-id")]
 #         assert len(id_list) > 0
 #         assert len(id_list) == len(db_list)
 #         for i in range(0, len(id_list)):
@@ -331,7 +331,7 @@
 #     URL_NAME = 'user-content-list'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_list_option_filter(self):
 #         """Test: Showing 1-20 of 150 results
@@ -436,11 +436,11 @@
 #                 filter_val = filter_link.split('?')[-1].split('=')[1]
 #
 #                 for id in id_list:
-#                     obj = UserContent.objects.get(id=id)
+#                     obj = Content.objects.get(id=id)
 #                     obj_filter_val = eval("obj.%s" % filter_name)
 #                     assert obj_filter_val == filter_val
 #
-#                 for obj in eval("UserContent.objects.filter(%s='%s')" % (filter_name, filter_val)):
+#                 for obj in eval("Content.objects.filter(%s='%s')" % (filter_name, filter_val)):
 #                     assert obj.id in id_list
 #
 #     def test_list_selected_filter_remove(self):
@@ -485,13 +485,13 @@
 #     URL_NAME = 'user-content-item'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_list(self):
-#         self.assertTrue(UserContent.objects.all().count() > 50 )
+#         self.assertTrue(Content.objects.all().count() > 50 )
 #
 #         c = Client()
-#         user_content = UserContent.objects.all().first()
+#         user_content = Content.objects.all().first()
 #         response = c.get(reverse(self.URL_NAME, kwargs={'slug':user_content.slug, 'id':user_content.id}))
 #
 #         # check template
@@ -502,13 +502,13 @@
 #     URL_NAME = 'user-content-form'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_form_get(self):
-#         self.assertTrue(UserContent.objects.all().count() > 50 )
+#         self.assertTrue(Content.objects.all().count() > 50 )
 #
 #         c = Client()
-#         user_content = UserContent.objects.all().first()
+#         user_content = Content.objects.all().first()
 #         response = c.get(reverse(self.URL_NAME))
 #
 #         # check template
@@ -522,9 +522,9 @@
 #         assert submit_field != None
 #
 #     def test_form_post(self):
-#         self.assertTrue(UserContent.objects.all().count() > 50 )
+#         self.assertTrue(Content.objects.all().count() > 50 )
 #
 #         c = Client()
-#         user_content = UserContent.objects.all().first()
+#         user_content = Content.objects.all().first()
 #         response = c.post(reverse(self.URL_NAME), {'name': 'hi'}, follow=False)
 #         assert response.url == "http://testserver/"

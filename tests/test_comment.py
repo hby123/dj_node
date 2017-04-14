@@ -7,7 +7,7 @@
 # from django.test import Client
 # from django.test import TestCase
 #
-# from dj_node.models import Comment, UserContent
+# from dj_node.models import Comment, Content
 #
 # my_email = "test@domain.com"
 # my_domain = "testserver"
@@ -16,12 +16,12 @@
 #     URL_NAME = 'comment-add'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_comment_form_anonymous_get(self):
 #         c = Client()
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         response = c.get(reverse(self.URL_NAME)+"content_type=%d&object_id=%s" % (id, content_type.id))
 #         self.assertEqual(response.status_code, 200)
 #
@@ -38,8 +38,8 @@
 #     def test_comment_form_anonymous_post(self):
 #         comment_count = Comment.objects.all().count()
 #         c = Client()
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.get(url)
 #         self.assertEqual(response.status_code, 200)
@@ -71,8 +71,8 @@
 #     def test_comment_form_anonymous_invalid(self):
 #         comment_count = Comment.objects.all().count()
 #         c = Client()
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.get(url)
 #         self.assertEqual(response.status_code, 200)
@@ -173,8 +173,8 @@
 #         comment_count = Comment.objects.all().count()
 #         data = {'name':'123',
 #                 'comment':'test'}
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%d" % (content_type.id, id)
 #         response = c.post(url, data,
 #                           #content_type='application/json',
@@ -232,7 +232,7 @@
 #         comment_count = Comment.objects.all().count()
 #         data = {#'name':'123',
 #                 'comment':'test'}
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.post(url, data,
 #                           #content_type='application/json',
@@ -243,7 +243,7 @@
 #         # send post
 #         comment_count = Comment.objects.all().count()
 #         data = {'name':'123'}
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.post(url, data,
 #                           #content_type='application/json',
@@ -255,13 +255,13 @@
 #     URL_NAME = 'comment-list'
 #
 #     def setUp(self):
-#         UserContent.dummy()
+#         Content.dummy()
 #
 #     def test_comment_list(self):
 #
 #         c = Client()
-#         id = UserContent.objects.all().first().id
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         id = Content.objects.all().first().id
+#         content_type = ContentType.objects.get_for_model(Content)
 #         url = reverse('comment-add')+"?content_type=%d&object_id=%s" % (content_type.id, id)
 #         response = c.get(url)
 #         self.assertEqual(response.status_code, 200)
@@ -297,7 +297,7 @@
 #
 #         # get multi page comments
 #         id_dict = {}
-#         content_type = ContentType.objects.get_for_model(UserContent)
+#         content_type = ContentType.objects.get_for_model(Content)
 #         for i in range (1,5):
 #             url = reverse(self.URL_NAME)+"?content_type=%d&object_id=%s&page=%d" % (content_type.id, id, i)
 #             response = c.get(url, content_type='application/json',

@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
             name='site',
         ),
         migrations.DeleteModel(
-            name='UserContent',
+            name='Content',
         ),
     ]

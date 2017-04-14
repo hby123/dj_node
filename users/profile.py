@@ -8,7 +8,12 @@ class ProfileStepParent(Node):
     def _extra(self, request, node_dict):
         return {}
 
-class ProfileNode(Node):
+class MyProfileNode(Node):
+    x_template = "profile_step_parent.html"
+    x_tab = "profile"
+
+
+class UserProfileNode(Node):
     x_template = "profile_step_parent.html"
     x_tab = "profile"
 

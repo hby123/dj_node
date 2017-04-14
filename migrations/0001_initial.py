@@ -77,18 +77,4 @@ class Migration(migrations.Migration):
                 ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
             ],
         ),
-        migrations.CreateModel(
-            name='UserContent',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('domain', models.CharField(max_length=50, null=True, blank=True)),
-                ('title', models.CharField(max_length=50, null=True, blank=True)),
-                ('value', models.CharField(max_length=50, null=True, blank=True)),
-                ('date', models.DateField(null=True, blank=True)),
-                ('slug', models.SlugField(max_length=100)),
-                ('category_a', models.CharField(max_length=50, null=True, blank=True)),
-                ('category_b', models.CharField(max_length=50, null=True, blank=True)),
-                ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
-            ],
-        ),
     ]
