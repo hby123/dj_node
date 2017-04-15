@@ -34,9 +34,9 @@ urlpatterns = patterns('',
     url(r"bookmark/list/", dj_node.users.bookmark.BookmarkListNode.route, name="bookmark-list"),
     url(r"bookmark/add/", dj_node.users.bookmark.BookmarkNode.route, name="bookmark-add"),
 
-    url(r"content/list/", dj_node.users.content.ContentListNode.route, name="comment-list"),
-    url(r"content/view/", dj_node.users.content.ContentViewNode.route, name="comment-add"),
-    url(r"content/add/", dj_node.users.content.ContentAddNode.route, name="comment-add"),
+    url(r"content/list/", dj_node.users.content.ContentListNode.route, name="content-list"),
+    url(r"content/view/", dj_node.users.content.ContentItemNode.route, name="content-item"),
+    url(r"content/add/", dj_node.users.content.ContentAddNode.route, name="content-add"),
 
     url(r"site/lock/$", dj_node.nodes.site.SiteLockNode.route, name="site-lock"),
 )

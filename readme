@@ -1,7 +1,22 @@
-1) git submodule add https://jackyu-2016@bitbucket.org/jackyu-2016/dj_node.git
+Dj-Node
+A Django app for rapid web application development. It has the following features: 
+- Account Management
+- Password Management
+- Security & Permission Management 
+- Theme Lookup 
+- List Handling 
+- Form Handling
+- Ajax Handling 
+- Review Feature
+- Comment Feature
+- Bookmark Feature
+- Profile Feature
+ 
+To Install Dj-Node in your Django project, please following these instruction. 
+
+1) git submodule add <..dj_node.git> to your Django project
 2) Add "dj_node" to INSTALLED_APPS in settings.py
-3) Copy needed urls patterns from dj_node.sample_urls.py into your project urls.py
-4) Add the following to settings.py
+3) Add the following to settings.py
         DJ_NODE_SITES = {"localhost": { 'folder': 'travel',
                                         'site_theme': 'base',
                                         'dj_node_theme': 'base',
@@ -11,5 +26,16 @@
                                         'management_email': 'jackyu.it@gmail.com',
                                         'ipzip_middleware': False,
                                         'anonymous_recaptcha': True,
+4) Copy needed urls patterns from dj_node.sample_urls.py into your project urls.py
                                         'ssl': False}}
+Node Structure
+Dj-Node treat each request as a node operation. You can write your own nodes by extending the following nodes.
+- dj_node.node.list.ListNode: handling list request
+- dj_node.node.item.ItemNode: handleing single record
+- dj_node.node.form.FormNode: handle form request
+
+Template Structure
+Dj-Node has a fall-thru template lookup. It will first search for themes in this order. 
+- settings.DJ_NODE_SITES[domain].site_theme. 
+- settings.DJ_NODE_SITES[domain].dj_node_theme. 
 
