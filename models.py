@@ -13,17 +13,17 @@ User.add_to_class('display_name_slug', models.CharField(max_length=50, null=True
 
 
 class BaseFields(models.Model):
-	site = models.ForeignKey(Site, null=True, blank=True,)
-    domain = models.CharField(max_length=50, null=True, blank=True,)
+    site = models.ForeignKey(Site, null=True, blank=True)
+    domain = models.CharField(max_length=50, null=True, blank=True)
     display_name = models.CharField(max_length=500)
-    user_id = models.IntegerField(null=True, blank=True,)
-    date = models.DateTimeField(auto_now=True, null=True, blank=True,)
+    user_id = models.IntegerField(null=True, blank=True)
+    date = models.DateTimeField(auto_now=True, null=True, blank=True)
     	
     class Meta: 
     	abstract = True
 
     	
-class BaseType(models.Model)
+class BaseType(models.Model):
     content_type = models.ForeignKey(
         ContentType,
         verbose_name= 'content page',

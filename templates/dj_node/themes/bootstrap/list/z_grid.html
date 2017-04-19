@@ -1,9 +1,9 @@
 {% if list_info.results %}
-    <ul>
+    <ul class="list-result">
         {% for e in list_info.results %}
-            <li>
+            <li class="list-item" id="list-item-{{e.id}}">
                 {% if list_cls.x_item_url_name %}
-                    <a href="{% url list_cls.x_item_url_name e.slug e.id%}" class="item-link" data-id="{{e.id}}">{{e}}</a>
+                    <a href="{% url list_cls.x_item_url_name %}?id={{e.id}}">{{e}}</a>
                 {% else %}
                     {{e}}
                 {% endif %}

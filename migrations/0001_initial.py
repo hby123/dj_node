@@ -7,8 +7,8 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('sites', '0001_initial'),
         ('contenttypes', '0002_remove_content_type_name'),
+        ('sites', '0001_initial'),
     ]
 
     operations = [
@@ -16,37 +16,67 @@ class Migration(migrations.Migration):
             name='Bookmark',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('domain', models.CharField(max_length=50, null=True, blank=True)),
                 ('display_name', models.CharField(max_length=500)),
-                ('user_id', models.IntegerField()),
+                ('user_id', models.IntegerField(null=True, blank=True)),
                 ('date', models.DateTimeField(auto_now=True, null=True)),
                 ('object_id', models.PositiveIntegerField(null=True, verbose_name=b'related object')),
                 ('content_type', models.ForeignKey(verbose_name=b'content page', blank=True, to='contenttypes.ContentType', null=True)),
                 ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='Comment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('domain', models.CharField(max_length=50, null=True, blank=True)),
-                ('display_name', models.CharField(max_length=30, null=True, blank=True)),
+                ('display_name', models.CharField(max_length=500)),
                 ('user_id', models.IntegerField(null=True, blank=True)),
-                ('comment', models.TextField(null=True, blank=True)),
                 ('date', models.DateTimeField(auto_now=True, null=True)),
                 ('object_id', models.PositiveIntegerField(null=True, verbose_name=b'related object')),
+                ('comment', models.TextField(null=True, blank=True)),
                 ('content_type', models.ForeignKey(verbose_name=b'content page', blank=True, to='contenttypes.ContentType', null=True)),
                 ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
             ],
+            options={
+                'abstract': False,
+            },
+        ),
+        migrations.CreateModel(
+            name='Content',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('domain', models.CharField(max_length=50, null=True, blank=True)),
+                ('display_name', models.CharField(max_length=500)),
+                ('user_id', models.IntegerField(null=True, blank=True)),
+                ('date', models.DateTimeField(auto_now=True, null=True)),
+                ('rating', models.IntegerField(default=0, null=True, blank=True)),
+                ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
+            ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='MaillingList',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('domain', models.CharField(max_length=50, null=True, blank=True)),
+                ('display_name', models.CharField(max_length=500)),
+                ('user_id', models.IntegerField(null=True, blank=True)),
+                ('date', models.DateTimeField(auto_now=True, null=True)),
+                ('object_id', models.PositiveIntegerField(null=True, verbose_name=b'related object')),
                 ('name', models.CharField(default=b'primary', max_length=30, null=True, blank=True)),
                 ('email', models.EmailField(max_length=30, null=True, blank=True)),
-                ('date', models.DateTimeField(auto_now=True, null=True)),
+                ('content_type', models.ForeignKey(verbose_name=b'content page', blank=True, to='contenttypes.ContentType', null=True)),
                 ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='Review',
@@ -55,26 +85,35 @@ class Migration(migrations.Migration):
                 ('domain', models.CharField(max_length=50, null=True, blank=True)),
                 ('display_name', models.CharField(max_length=500)),
                 ('user_id', models.IntegerField(null=True, blank=True)),
-                ('review', models.TextField(null=True, blank=True)),
                 ('date', models.DateTimeField(auto_now=True, null=True)),
-                ('rating', models.IntegerField(default=0, null=True, blank=True)),
                 ('object_id', models.PositiveIntegerField(null=True, verbose_name=b'related object')),
+                ('review', models.TextField(null=True, blank=True)),
+                ('rating', models.IntegerField(default=0, null=True, blank=True)),
                 ('content_type', models.ForeignKey(verbose_name=b'content page', blank=True, to='contenttypes.ContentType', null=True)),
                 ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
         migrations.CreateModel(
             name='Token',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('type', models.CharField(max_length=50)),
                 ('domain', models.CharField(max_length=50, null=True, blank=True)),
-                ('url', models.CharField(max_length=500, null=True, blank=True)),
+                ('display_name', models.CharField(max_length=500)),
+                ('user_id', models.IntegerField(null=True, blank=True)),
+                ('date', models.DateTimeField(auto_now=True, null=True)),
+                ('object_id', models.PositiveIntegerField(null=True, verbose_name=b'related object')),
                 ('email', models.EmailField(max_length=100, null=True, blank=True)),
                 ('token', models.CharField(unique=True, max_length=200)),
-                ('used', models.NullBooleanField(default=False)),
-                ('expire', models.DateField()),
+                ('type', models.CharField(max_length=50)),
+                ('expired', models.DateField()),
+                ('content_type', models.ForeignKey(verbose_name=b'content page', blank=True, to='contenttypes.ContentType', null=True)),
                 ('site', models.ForeignKey(blank=True, to='sites.Site', null=True)),
             ],
+            options={
+                'abstract': False,
+            },
         ),
     ]

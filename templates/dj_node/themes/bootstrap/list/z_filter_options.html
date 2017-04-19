@@ -3,9 +3,9 @@
         <div class="filter">
             <h3>{{row.label}}</h3>
 
-            <ul">
+            <ul>
                 {% for option in row.option_list %}
-                <li>
+                <li class="filter-item">
                     {% if list_filter.url_query %}
                         <a href="{% url list_cls.x_list_url_name %}?{{list_filter.url_query}}&&oo_{{row.name}}={{option}}">{{option}}</a>
                     {% else %}

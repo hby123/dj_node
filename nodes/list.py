@@ -13,6 +13,7 @@ class ListNode(Node):
     x_list_filter_cls = ListFilter
 
     x_sort_list = ['id', '-id']
+
     x_db_filters = []
     x_option_filters = []
     x_skip_keys=["page", "sort", "profile"]

@@ -1,11 +1,30 @@
+import factory
+import factory.fuzzy
+from dj_node.models import Content
 from .item import ItemNode
 from .list import ListNode
-from dj_node.models import Content
 
-class ContentItem(ItemNode):
+class ContentFactory(factory.django.DjangoModelFactory):
+	rating = factory.fuzzy.FuzzyInteger(1, 5)
+	class Meta:
+		model = Content
+
+def sample_data(count=105):
+	'''
+from dj_node.models import *
+from dj_node.nodes.content import *
+sample_data()
+	'''
+	print "Number of content before factory: %d" % Content.objects.count()
+	[ContentFactory() for i in range(0, count)]
+	print "Number of content after factory: %d" % Content.objects.count()
+
+class ContentItemNode(ItemNode):
 	x_model = Content
 	
-class ContentList(ListNode):
+class ContentListNode(ListNode):
 	x_model = Content
-	
+	x_list_url_name = 'content-list'
+	x_item_url_name = 'content-item'
 
+	x_option_filters = [{'label': 'Rating', 'name': 'rating'}]

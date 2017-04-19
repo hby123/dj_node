@@ -1,6 +1,6 @@
 <ul>
      {% for k, v in list_filter.selected_filters.items  %}
-        <li>
+        <li class="selected-filter">
             {{v.label|capfirst}} = {{v.val}}
 
             {% if list_filter.url_query %}

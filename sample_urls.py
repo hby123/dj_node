@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 
+import dj_node.nodes.content
 import dj_node.nodes.index
 import dj_node.nodes.site
 import dj_node.users.account
@@ -34,9 +35,8 @@ urlpatterns = patterns('',
     url(r"bookmark/list/", dj_node.users.bookmark.BookmarkListNode.route, name="bookmark-list"),
     url(r"bookmark/add/", dj_node.users.bookmark.BookmarkNode.route, name="bookmark-add"),
 
-    url(r"content/list/", dj_node.users.content.ContentListNode.route, name="content-list"),
-    url(r"content/view/", dj_node.users.content.ContentItemNode.route, name="content-item"),
-    url(r"content/add/", dj_node.users.content.ContentAddNode.route, name="content-add"),
+    url(r"content/list/", dj_node.nodes.content.ContentListNode.route, name="content-list"),
+    url(r"content/view/", dj_node.nodes.content.ContentItemNode.route, name="content-item"),
 
     url(r"site/lock/$", dj_node.nodes.site.SiteLockNode.route, name="site-lock"),
 )

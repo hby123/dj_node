@@ -5,12 +5,12 @@
 {% block content %}
 <div class="block-list">
     <div class="container">
-      <div class="list-option">
+      <div class="list-filter">
           {% dj_node_include list/z_filter_options.html|t %}
           {% include t %}
       </div>
 
-      <div class="list-filter">
+      <div class="list-selected-filter">
           {% dj_node_include list/z_filter_selected.html|t %}
           {% include t %}
       </div>

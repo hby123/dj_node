@@ -1,16 +1,17 @@
-<button type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     Sort
     <span class="caret"></span>
-</button>
-
-<ul class="dropdown-menu" >
-{% for s in list_cls.x_sort_list %}
-    <li >
-        {% if list_filter.url_query %}
-            <a href="{% url list_cls.x_list_url_name %}?{{list_filter.url_query}}&oo_sort={{s}}">{{s}}</a>
-        {% else %}
-            <a href="{% url list_cls.x_list_url_name %}?oo_sort={{s}}">{{s}}</a>
-        {% endif %}
-    </li>
-{% endfor %}
-</ul>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    {% for s in list_cls.x_sort_list %}
+        <li >
+            {% if list_filter.url_query %}
+                <a href="{% url list_cls.x_list_url_name %}?{{list_filter.url_query}}&oo_sort={{s}}">{{s}}</a>
+            {% else %}
+                <a href="{% url list_cls.x_list_url_name %}?oo_sort={{s}}">{{s}}</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+  </ul>
+</div>
