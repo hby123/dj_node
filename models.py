@@ -67,7 +67,8 @@ class Token(BaseFields, BaseType):
     token = models.CharField(max_length=200, unique=True)
     type = models.CharField(max_length=50)
     expired = models.DateField()
- 
+    used = models.BooleanField(default=False)
+
     @staticmethod
     def generate_token():
         return uuid.uuid4()

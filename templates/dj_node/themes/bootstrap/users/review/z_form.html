@@ -58,8 +58,30 @@
               {% endif %}
             </td>
         </tr>
+
+        {% if form.verify_you_are_human %}
+        <tr>
+            <td>
+                {% render_field form.verify_you_are_human class="form-control" placeholder=form.verify_you_are_human.label %}
+
+                {% if form.verify_you_are_human.errors %}
+                    <ul>
+                    {% for error in form.verify_you_are_human.errors %}
+                        <li><strong>{{ error|escape }}</strong></li>
+                    {% endfor %}
+                    </ul>
+              {% endif %}
+            </td>
+        </tr>
+        {% else %}
+        {% endif %} 
+
         <tr>
             <td><input type="submit" class="button"  value="Send"/></td>
         </tr>
     </table>
 </form>
+
+
+
+{{form.as_table}}

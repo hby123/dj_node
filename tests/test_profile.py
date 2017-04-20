@@ -4,10 +4,12 @@ from django.core.urlresolvers import reverse
 from django.test import Client
 from django.test import TestCase
 
+from .test_account import DjNodeAccountBaseTest
+
 my_email = "test@domain.com"
 my_domain = "testserver"
 
-class DjProfileTest(TestCase):
+class DjProfileTest(DjNodeAccountBaseTest):
 
     def test_profile(self):
         assert User.objects.filter(actual_email=my_email).count() == 0
@@ -50,17 +52,12 @@ class DjProfileTest(TestCase):
         response = c.get(reverse('logout'))
         data = {'email': 'test@domain.com',
                 'password': 'password', }
-        response = c.post(reverse('sign-up'), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
+        response = c.post(reverse(self.URL_NAME), data, follow=True) #NOTE: if a follows=False, the next few lines will fail.
 
         # check is user logged in
         assert response.context['user'].id != None
         assert response.context['user'].id != ""
         assert response.context['user'].id == User.objects.filter(actual_email=my_email)[0].id
-
-
-        #2nd login
-        response = c.get(reverse('login'))
-        assert response.status_code == 302
 
         # test get profile page
         response = c.get(reverse('my-profile'))

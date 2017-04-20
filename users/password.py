@@ -41,7 +41,7 @@ class ForgotPasswordForm(forms.Form, NodeVariable):
                    token = Token.generate_token(),
                    type = 'reset_password',
                    used = False,
-                   expire = datetime.datetime.now() + datetime.timedelta(days=3),)
+                   expired = datetime.datetime.now() + datetime.timedelta(days=3),)
         t.save()
 
         # create the email

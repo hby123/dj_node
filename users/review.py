@@ -3,6 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from dj_node.models import Review
 from dj_node.nodes.form import FormNode
 from dj_node.nodes.list import ListNode
+from dj_node.nodes.utils import Utils
 
 
 class ReviewForm(FormNode, forms.Form):
@@ -18,9 +19,8 @@ class ReviewForm(FormNode, forms.Form):
          super (ReviewForm, self).__init__(*args,**kwargs)
 
          #add recaptcha
-         #if not Utils.is_login(self.request):
-         #   self = Utils.add_recaptcha_to_form(self.request, self)
-
+         if not Utils.is_login(self.request):
+            self = Utils.add_recaptcha_to_form(self.request, self)
     def _process(self, request):
         review =  request.POST.get('description')
 
@@ -51,8 +51,8 @@ class ReviewNode(FormNode):
     x_template = "users/review/z_form.html"
     x_parent_template = "empty.html"
 
-    def _GET_data(self, request):
-        return {'name':request.user.display_name}
+    # def _GET_data(self, request):
+    #     return {'name':request.user.display_name}
 
 class ReviewListNode(ListNode):
     x_model = Review
