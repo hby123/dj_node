@@ -43,14 +43,14 @@
     </div>
 
     <script>
-        var bookmarkAjax = new dj_nodeAjax({'type':'GET',
+        var bookmarkAjax = new DjNodeAjax({'type':'GET',
                      'url':'{%url 'bookmark-list' %}?user_id={{request.user.id}}',
                      'selector':'.bookmark-block',
                      'node_type':'list',
                      'render_type':'append'}, null, null);
         bookmarkAjax.ajax();
 
-        var reviewAjax = new dj_nodeAjax({'type':'GET',
+        var reviewAjax = new DjNodeAjax({'type':'GET',
                      'url':'{%url 'review-list' %}?user_id={{request.user.id}}&profile=true',
                      'selector':'.review-block',
                      'node_type':'list',

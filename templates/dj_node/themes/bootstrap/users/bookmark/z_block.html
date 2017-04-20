@@ -13,7 +13,7 @@
 		<script>
 			$( document ).ready(function() {
 				$( ".bookmark" ).click(function() {
-					var n1 = new dj_nodeAjax({'type':'GET',
+					var n1 = new DjNodeAjax({'type':'GET',
 										   	   'url':'{% url 'bookmark-add' %}?ajax=true&content_type={{content_type.id}}&object_id={{instance.id}}',
 										       'selector':'.bookmark',
 										       'node_type':'btn'},

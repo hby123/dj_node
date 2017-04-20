@@ -1,13 +1,4 @@
-/* ---------- dj_nodeAjax Class ----------
-Sample Usage: dj_nodeNode.ajax({'type':'GET',
-                   'url':'/my-node/',
-                   'selector':'#my-form',
-                   'node_type':'list|item|form'
-                   'render_type':'append|update',
-                   'flag_processed':'1'}, callback_func, extra_callback)
-*/
-
-function dj_nodeAjax(args, my_callback, extra_callback) {
+function DjNodeAjax(args, my_callback, extra_callback) {
     this.args = args;
 
     // set call back
@@ -23,8 +14,8 @@ function dj_nodeAjax(args, my_callback, extra_callback) {
     }
 }
 
-/* ---------- dj_nodeAjax Functions ----------*/
-dj_nodeAjax.prototype.start_waiting = function(myobj) {
+/* ---------- DjNodeAjax Functions ----------*/
+DjNodeAjax.prototype.start_waiting = function(myobj) {
 
     var start_waiting_html = "<div class='wait' style='clear:both; margin: 0; padding: 0; text-align:center;'><img src='/static/dj_node/img/ajax-progress.gif' style='width: 15px; height: 15px;'></img></div>";
 
@@ -38,7 +29,7 @@ dj_nodeAjax.prototype.start_waiting = function(myobj) {
     }
 }
 
-dj_nodeAjax.prototype.end_waiting = function(myobj) {
+DjNodeAjax.prototype.end_waiting = function(myobj) {
 
     if (myobj.args['node_type'] == 'list'){
         $(myobj.args['selector'] + " .wait").remove();
@@ -51,7 +42,7 @@ dj_nodeAjax.prototype.end_waiting = function(myobj) {
     }
 }
 
-dj_nodeAjax.prototype.render = function(myobj) {
+DjNodeAjax.prototype.render = function(myobj) {
      return function(server_data, textStatus, jqXHR) {
             myobj.end_waiting(myobj);
             if (myobj.args['node_type'] == 'list'){
@@ -109,7 +100,7 @@ dj_nodeAjax.prototype.render = function(myobj) {
      }; // end return func
 };
 
-dj_nodeAjax.prototype.ajax = function() {
+DjNodeAjax.prototype.ajax = function() {
     //type
     var type = 'GET';
     if (this.args['type'] == 'POST'){

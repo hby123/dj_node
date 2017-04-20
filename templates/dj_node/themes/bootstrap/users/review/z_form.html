@@ -1,5 +1,16 @@
 {% load widget_tweaks %}
 
+<style>
+     .star-rating div{
+        display: inline-block;
+    }
+    .star-rating .on{
+        color: yellow;
+    }
+    .star-rating .fff{
+        color: #aaa;
+    }
+</style>
 <form class="default review-form">
    {% csrf_token %}
     <table>
@@ -16,6 +27,7 @@
         <tr>
             <td>
                 <h2>Write a Review</h2>
+
                 <div class="star-rating">
                     <div class="off">&#9733</div>
                     <div class="off">&#9733</div>
@@ -23,6 +35,7 @@
                     <div class="off">&#9733</div>
                     <div class="off">&#9733</div>
                 </div>
+
                 <input type="hidden" name="rating" class="rating-input"></input>
                 {% if form.rating.errors %}
                     <ul>
@@ -83,5 +96,3 @@
 </form>
 
 
-
-{{form.as_table}}

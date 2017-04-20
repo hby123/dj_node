@@ -10,14 +10,14 @@
 
 <script>
   $( document ).ready(function() {
-      var n1 = new dj_nodeAjax({'type':'GET',
+      var n1 = new DjNodeAjax({'type':'GET',
                'url':'{% url 'comment-add' %}?content_type={{content_type.id}}&object_id={{instance.id}}',
                'selector':'.comment-block .form',
                'node_type':'form'}, null, null);
 
       n1.ajax();
 
-      var n2 = new dj_nodeAjax({'type':'GET',
+      var n2 = new DjNodeAjax({'type':'GET',
                    'url':'{% url 'comment-list' %}?content_type={{content_type.id}}&object_id={{instance.id}}',
                    'selector':'.comment-block',
                    'node_type':'list',
