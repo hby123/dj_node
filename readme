@@ -1,41 +1,38 @@
-Dj-Node
-A Django app for rapid web application development. It has the following features: 
+DJ-NODE
+A Django app for rapid web application development. It has the following features:
 - Account Management
 - Password Management
-- Security & Permission Management 
-- Theme Lookup 
-- List Handling 
+- Security & Permission Management
+- Theme Lookup
+- List Handling
 - Form Handling
-- Ajax Handling 
+- Ajax Handling
 - Review Feature
 - Comment Feature
 - Bookmark Feature
 - Profile Feature
- 
-To Install Dj-Node in your Django project, please following these instruction. 
 
+INSTALLATION
 1) git submodule add <..dj_node.git> to your Django project
 2) Add "dj_node" to INSTALLED_APPS in settings.py
 3) Add the following to settings.py
-        DJ_NODE_SITES = {"localhost": { 'folder': 'travel',
-                                        'site_theme': 'base',
-                                        'dj_node_theme': 'base',
-                                        'site_passcode': '6688',
-                                        'recaptcha_placeholder': 'Enter letters from above',
-                                        'recaptcha_class': 'form-control',
-                                        'management_email': 'jackyu.it@gmail.com',
-                                        'ipzip_middleware': False,
-                                        'anonymous_recaptcha': True,
-4) Copy needed urls patterns from dj_node.sample_urls.py into your project urls.py
-                                        'ssl': False}}
-Node Structure
+     DJ_NODE_SITES = {"localhost": { 'folder': 'travel',
+                                     'site_theme': 'base',
+                                     'dj_node_theme': 'base',
+                                     'site_passcode': '6688',
+                                     'recaptcha_placeholder': 'Enter letters from above',
+                                     'recaptcha_class': 'form-control',
+                                     'management_email': 'jackyu.it@gmail.com',
+                                     'anonymous_recaptcha': True}}
+4) Copy needed url patterns from dj_node.sample_urls.py into your project urls.py
+
+NODE STRUCTURES
 Dj-Node treat each request as a node operation. You can write your own nodes by extending the following nodes.
-- dj_node.node.list.ListNode: handling list request
-- dj_node.node.item.ItemNode: handleing single record
-- dj_node.node.form.FormNode: handle form request
+- dj_node.nodes.list.ListNode: handling list request
+- dj_node.nodes.item.ItemNode: handling single record
+- dj_node.nodes.form.FormNode: handle form request
 
-Template Structure
-Dj-Node has a fall-thru template lookup. It will first search for themes in this order. 
-- settings.DJ_NODE_SITES[domain].site_theme. 
-- settings.DJ_NODE_SITES[domain].dj_node_theme. 
-
+TEMPLATE STRUCTURES
+Dj-Node has a fall-thru template lookup mechanism. It will first search for themes in this order.
+- settings.DJ_NODE_SITES[domain].site_theme.
+- settings.DJ_NODE_SITES[domain].dj_node_theme.
