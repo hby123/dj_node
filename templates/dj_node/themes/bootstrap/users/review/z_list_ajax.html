@@ -10,8 +10,8 @@
 				{% endwith %}
 			</span>
 		   <span class="rating">
-			   {% with place=e.content_object%}
-					Reviewed <a href="{% url 'place' place.slug %}?id={{place.id}}">{{place.title}}</a>
+			   {% with obj=e.content_object%}
+					Reviewed <a href="{% url 'content-item' %}?id={{place.id}}">{{obj}}</a>
 			   {% endwith %}
 		   </span>
 		   <span class="rating"> on 1/8/2017</span>

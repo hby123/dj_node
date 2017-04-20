@@ -23,9 +23,17 @@
             <div class="main">
                 {% block step-parent-content %}
                     <div class="bookmark-block">
-                        <h2>Bookmarked Place</h2>
+                        <h2>Bookmark</h2>
                         <div class="form"></div>
                         <ul class="list list-unstyled bookmarks"></ul>
+                        <input type="hidden"  class="page default-hidden" value="1"></input>
+                        <button class="more" style="display:none;">More</button>
+                    </div>
+                
+                     <div class="comment-block">
+                        <h2>Comment</h2>
+                        <div class="form"></div>
+                        <ul class="list list-unstyled comments"></ul>
                         <input type="hidden"  class="page default-hidden" value="1"></input>
                         <button class="more" style="display:none;">More</button>
                     </div>
@@ -44,12 +52,19 @@
 
     <script>
         var bookmarkAjax = new DjNodeAjax({'type':'GET',
-                     'url':'{%url 'bookmark-list' %}?user_id={{request.user.id}}',
+                     'url':'{%url 'bookmark-list' %}?user_id={{request.user.id}}&profile=true',
                      'selector':'.bookmark-block',
                      'node_type':'list',
                      'render_type':'append'}, null, null);
         bookmarkAjax.ajax();
 
+        var commentAjax = new DjNodeAjax({'type':'GET',
+                     'url':'{%url 'comment-list' %}?user_id={{request.user.id}}&profile=true',
+                     'selector':'.comment-block',
+                     'node_type':'list',
+                     'render_type':'append'}, null, null);
+        commentAjax.ajax();
+        
         var reviewAjax = new DjNodeAjax({'type':'GET',
                      'url':'{%url 'review-list' %}?user_id={{request.user.id}}&profile=true',
                      'selector':'.review-block',

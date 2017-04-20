@@ -12,6 +12,12 @@ class BookmarkListNode(ListNode):
     x_template = "users/bookmark/z_list_ajax.html"
     x_parent_template = "empty.html"
 
+    def _extra(self, request, node_dict):
+        extras = {}
+        if request.GET.get('profile'):
+            extras['flag_profile'] = True
+        return extras
+
 
 class BookmarkForm(forms.Form, Node):
     

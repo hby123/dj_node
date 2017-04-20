@@ -1,12 +1,18 @@
+{% load dj_node_tags %}
+start
 {% for e in list_info.results %}
-<li class="comment-item" id="comment-item-{{e.id}}">
-	 <div class="name">
-		 <strong>{{e.display_name}}</strong>
-		 &nbsp;&nbsp;&nbsp;&nbsp;
-		 <span class="text-muted">{{e.date|timesince}} ago</span>
-	 </div>
-	 <div class="comment">
-		 {{e.comment}}
-	 </div>
-</li>
+	<li>
+		{% if flag_profile %}
+		   <span class="rating"> 1/8/2017</span>
+		   <span class="comment">
+			   {{e}}
+		   </span>
+		{% else %}
+		   <span class="rating"> 1/8/2017</span>
+		   <span class="comment">
+			   {{e}}
+		   </span>
+		{% endif %}
+	</li>
 {% endfor %}
+end

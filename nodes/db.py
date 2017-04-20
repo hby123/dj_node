@@ -94,7 +94,9 @@ class Db(object):
         
         # run 
         instant_list = None
+        print list_info.model
         query_str = "instant_list = %s " % filter_str
+        print query_str
         exec(query_str)
 
         # total

@@ -45,5 +45,12 @@ class CommentNode(FormNode):
 
 class CommentListNode(ListNode):
     x_model = Comment
-    x_db_filters = ['instance_id', 'model']
     x_template = "users/comment/z_list_ajax.html"
+    x_parent_template = "empty.html"
+    x_skip_keys=["page", "sort", "profile"]
+
+    def _extra(self, request, node_dict):
+        extras = {}
+        if request.GET.get('profile'):
+            extras['flag_profile'] = True
+        return extras

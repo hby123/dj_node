@@ -1,0 +1,13 @@
+{% load dj_node_tags %}
+
+{% for e in list_info.results %}
+	<li>
+		{% if flag_profile %}
+		   <span class="rating">
+			   {% with obj=e.content_object%}
+					<a href="{% url 'content-item' %}?id={{place.id}}">{{obj}}</a>
+			   {% endwith %}
+		   </span>
+		{% endif %}
+	</li>
+{% endfor %}
