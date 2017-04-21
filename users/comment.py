@@ -25,9 +25,14 @@ class CommentForm(forms.Form, Node):
 
     def _process(self, request):
         comment = request.POST.get('comment')
+
+        user_id = None
+        if request.user:
+            user_id = request.user.id
+
         e = Comment( site = None,
                      display_name = request.POST.get('name'),
-                     user_id = None,
+                     user_id = user_id,
                      comment = comment,
                      date = None,
                      content_type = ContentType.objects.get(id=request.GET.get('content_type')),

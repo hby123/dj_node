@@ -26,5 +26,5 @@ class ContentListNode(ListNode):
 	x_model = Content
 	x_list_url_name = 'content-list'
 	x_item_url_name = 'content-item'
-
 	x_option_filters = [{'label': 'Rating', 'name': 'rating'}]
+	x_sort_list = ['date', '-date']

@@ -1,6 +1,11 @@
 {% extends x_parent_template %}
 
 {% block content %}
-    <h1>Index Page</h1>
-    <h2><a href="{% url 'content-list' %}">Content List</a></h2>
+    <div class="container">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <a href="{% url 'content-list' %}">Sample Contents</a>
+          </div>
+        </div>
+    </div>
 {% endblock %}

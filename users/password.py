@@ -74,7 +74,7 @@ class ForgotPasswordForm(forms.Form, NodeVariable):
 
 class ForgotPasswordNode(FormNode):
     x_form = ForgotPasswordForm
-    x_name = "Forgot Passwaord"
+    x_name = "Forgot Password"
     x_template = "users/password/forgot_password.html"
     x_perm = []
 
@@ -121,7 +121,7 @@ class RestPasswordForm(forms.Form, NodeVariable):
 
 class ResetPasswordNode(FormNode):
     x_form = RestPasswordForm
-    x_name = "Rest Passwaord"
+    x_name = "Rest Password"
     x_template = "users/password/reset_password.html"
     x_perm = []
 

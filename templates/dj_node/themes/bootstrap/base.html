@@ -13,43 +13,45 @@
 
     {% block header_css %}
         <link href="{{STATIC_URL}}/dj_node/themes/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{STATIC_URL}}dj_node/css/base.css" rel="stylesheet">
     {% endblock %}
 
 
 </head>
 
 <body>
-    <div class="container">
-        {% block nav %}
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                  <span class="sr-only">Toggle navigation</span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">My Site</a>
-              </div>
-              <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                  <li class="active"><a href="#">Home</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                  {% if not user.is_authenticated %}
-                      <li><a href="{% url 'sign-up' %}">Sign Up</a></li>
-                      <li><a href="{% url 'login' %}">Login</a></li>
-                  {% else %}
-                      <li><a href="{% url 'my-profile' %}">Profile</a></li>
-                      <li><a href="{% url 'logout' %}">Logout</a></li>
-                  {% endif %}
-                </ul>
-              </div><!--/.nav-collapse -->
-            </div><!--/.container-fluid -->
-          </nav>
-        {% endblock %}
 
+    {% block nav %}
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+              {% if not user.is_authenticated %}
+                  <li><a href="{% url 'sign-up' %}">Sign Up</a></li>
+                  <li><a href="{% url 'login' %}">Login</a></li>
+              {% else %}
+                  <li><a href="{% url 'my-profile' %}">Profile</a></li>
+                  <li><a href="{% url 'logout' %}">Logout</a></li>
+              {% endif %}
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+    {% endblock %}
+
+    <div class="page-content">
         {% block message %}
         {% endblock %}
 
@@ -62,7 +64,7 @@
     </div>
 
     {% block footer_js %}
-        <script src="{{STATIC_URL}}dj_node/themes/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}dj_node/themes/bootstrap/js/bootstrap.min.js"></script>
     {% endblock %}
 
 </body>
