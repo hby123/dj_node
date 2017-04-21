@@ -1,3 +1,4 @@
+import datetime
 import factory
 import factory.fuzzy
 from dj_node.models import Content
@@ -6,6 +7,8 @@ from .list import ListNode
 
 class ContentFactory(factory.django.DjangoModelFactory):
 	rating = factory.fuzzy.FuzzyInteger(1, 5)
+	value = factory.fuzzy.FuzzyText(length=30)
+	date = factory.fuzzy.FuzzyDate(datetime.date(2016, 1, 1))
 	class Meta:
 		model = Content
 

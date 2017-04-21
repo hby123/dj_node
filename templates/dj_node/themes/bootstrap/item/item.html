@@ -2,29 +2,41 @@
 {% load dj_node_tags %}
 
 {% block content %}
-<div class="block-item">
-    <div class="container">
-        <h1>{{instance}}</h1>
 
-        <!-- bookmark !-->
-        {% dj_node_include users/bookmark/z_block.html|t %}
-        {% with content_type=content_type instance=instance %}
-              {% include t %}
-        {% endwith %}
 
-        <!-- comment !-->
-        {% dj_node_include users/comment/z_block.html|t %}
-        {% with content_type=content_type instance=instance %}
-              {% include t %}
-        {% endwith %}
+<div class="container block-item">
+	<div class="row">
 
-        <!-- review !-->
-        <h2>Review</h2>
-        {% dj_node_include users/review/z_block.html|r %}
-        {% with content_type=content_type instance=instance %}
-              {% include r %}
-        {% endwith %}
-    </div>
+		<section class="content">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="pull-left">
+                        <h1>{{instance}}</h1>
+                    </div>
+                    <!-- bookmark !-->
+                    <div class="pull-right">
+                        {% dj_node_include users/bookmark/z_block.html|t %}
+                        {% with content_type=content_type instance=instance %}
+                              {% include t %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- comment !-->
+            {% dj_node_include users/comment/z_block.html|t %}
+            {% with content_type=content_type instance=instance %}
+                  {% include t %}
+            {% endwith %}
+
+            <!-- review !-->
+            {% dj_node_include users/review/z_block.html|r %}
+            {% with content_type=content_type instance=instance %}
+                  {% include r %}
+            {% endwith %}
+
+		</section>
+	</div>
 </div>
 {% endblock %}
 

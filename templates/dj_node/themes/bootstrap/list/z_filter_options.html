@@ -1,19 +1,25 @@
 {% if list_filter.option_filters %}
-     {% for row in list_filter.option_filters  %}
-        <div class="filter">
-            <h3>{{row.label}}</h3>
+    {% for row in list_filter.option_filters  %}
+    <div class="dropdown">
 
-            <ul>
-                {% for option in row.option_list %}
-                <li class="filter-item">
-                    {% if list_filter.url_query %}
-                        <a href="{% url list_cls.x_list_url_name %}?{{list_filter.url_query}}&&oo_{{row.name}}={{option}}">{{option}}</a>
-                    {% else %}
-                        <a href="{% url list_cls.x_list_url_name %}?oo_{{row.name}}={{option}}">{{option}}</a>
-                    {% endif %}
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            {{row.label}} <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            {% for option in row.option_list %}
+            <li class="filter-item">
+                {% if list_filter.url_query %}
+                    <a href="{% url list_cls.x_list_url_name %}?{{list_filter.url_query}}&&oo_{{row.name}}={{option}}">{{option}}</a>
+                {% else %}
+                    <a href="{% url list_cls.x_list_url_name %}?oo_{{row.name}}={{option}}">{{option}}</a>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
     {% endfor %}
 {% endif %}
+
+
+

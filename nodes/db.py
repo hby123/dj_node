@@ -9,7 +9,7 @@ class Db(object):
 
     @staticmethod
     def get_distinct_values(model, field_name):
-        return model.objects.values_list(field_name, flat=True).distinct()
+        return model.objects.values_list(field_name, flat=True).distinct().order_by(field_name)
 
     @staticmethod
     def save_item(request, instance):

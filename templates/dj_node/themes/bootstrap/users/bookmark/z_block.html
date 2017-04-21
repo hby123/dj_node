@@ -3,11 +3,13 @@
 {% dj_node_bookmark content_type|instance|status %}
 
 {% if status %}
-	<button class="bookmark button" disabled="disabled">{% if label_done %}{{label_done}}{% else %}Bookmarked{% endif %}</button>
+	<button class="btn btn-primary" disabled="disabled">
+	   <span class="glyphicon glyphicon-heart "></span>
+	</button>
 {% else %}
 	{% if user.is_authenticated %}
-		<button class="bookmark button">
-			{% if label %}{{label}}{% else %}Bookmark{% endif %}
+		<button class="btn btn-primary">
+	   		 <span class="glyphicon glyphicon-heart "></span>
 		</button>
 
 		<script>
@@ -26,6 +28,8 @@
 			})
 		  </script>
 	{% else %}
-		  <button  onclick="location.href='{% url 'login' %}';"  class="bookmark button">{% if label %}{{label}}{% else %}Bookmark{% endif %}</button>
+          <button onclick="location.href='{% url 'login' %}';" class="btn btn-primary">
+	   		 <span class="glyphicon glyphicon-heart"></span>
+		  </button>
 	{% endif %}
 {% endif %}

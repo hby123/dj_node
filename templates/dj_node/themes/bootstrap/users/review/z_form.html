@@ -11,88 +11,63 @@
         color: #aaa;
     }
 </style>
-<form class="default review-form">
-   {% csrf_token %}
-    <table>
-        {% if  form.non_field_errors %}
-         <tr>
-            <td>
-                {% for e in form.non_field_errors %}
-                    {{e|safe}}
+
+<form  action="{% if action_url %}{{action_url}}{% else %}{{request.get_full_path}}{% endif %}" method="post"  {% if node.x_enctype %}enctype="{{node.x_enctype}}"{% endif %}>
+    {% csrf_token %}
+
+    {% if  form.non_field_errors %}
+        <div class="form-group error">
+            {% for e in form.non_field_errors %}
+                 {{e|safe}}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="form-group">
+        <div class="star-rating">
+            <div class="off">&#9733</div>
+            <div class="off">&#9733</div>
+            <div class="off">&#9733</div>
+            <div class="off">&#9733</div>
+            <div class="off">&#9733</div>
+        </div>
+
+        <input type="hidden" name="rating" class="rating-input"></input>
+        {% if form.rating.errors %}
+            <ul>
+                {% for error in form.rating.errors %}
+                    <li><strong>{{ error|escape }}</strong></li>
                 {% endfor %}
-            </td>
-         </tr>
+            </ul>
         {% endif %}
+    </div>
 
-        <tr>
-            <td>
-                <h2>Write a Review</h2>
+    {% for field in form %}
+        {% if field.label != "Rating" %}
+            <div class="form-group">
+              {% render_field field class="form-control" placeholder=field.label %}
 
-                <div class="star-rating">
-                    <div class="off">&#9733</div>
-                    <div class="off">&#9733</div>
-                    <div class="off">&#9733</div>
-                    <div class="off">&#9733</div>
-                    <div class="off">&#9733</div>
-                </div>
-
-                <input type="hidden" name="rating" class="rating-input"></input>
-                {% if form.rating.errors %}
-                    <ul>
-                        {% for error in form.rating.errors %}
-                            <li><strong>{{ error|escape }}</strong></li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {% render_field form.name class="form-control" placeholder=form.name.label %}
-                {% if form.name.errors %}
-                    <ul>
-                    {% for error in form.name.errors %}
-                        <li><strong>{{ error|escape }}</strong></li>
+              {% if field.errors %}
+                <p class="error">
+                    {% for error in field.errors %}
+                        {{ error|escape }}<br/>
                     {% endfor %}
-                    </ul>
-                {% endif %}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                {% render_field form.description class="form-control" placeholder=form.description.label %}
-
-                {% if form.description.errors %}
-                    <ul>
-                    {% for error in form.description.errors %}
-                        <li><strong>{{ error|escape }}</strong></li>
-                    {% endfor %}
-                    </ul>
+                </p>
               {% endif %}
-            </td>
-        </tr>
+            </div>
+        {% endif %}
+    {% endfor %}
 
-        {% if form.verify_you_are_human %}
-        <tr>
-            <td>
-                {% render_field form.verify_you_are_human class="form-control" placeholder=form.verify_you_are_human.label %}
+    <input type="submit" class="btn btn-primary" />
 
-                {% if form.verify_you_are_human.errors %}
-                    <ul>
-                    {% for error in form.verify_you_are_human.errors %}
-                        <li><strong>{{ error|escape }}</strong></li>
-                    {% endfor %}
-                    </ul>
-              {% endif %}
-            </td>
-        </tr>
-        {% else %}
-        {% endif %} 
-
-        <tr>
-            <td><input type="submit" class="button"  value="Send"/></td>
-        </tr>
-    </table>
+    {% if x_post_html %}
+    <div class="form-group">
+        <br/>
+        <small>{{x_post_html|safe}}</small>
+    </div>
+    {% endif %}
 </form>
+
+
 
 

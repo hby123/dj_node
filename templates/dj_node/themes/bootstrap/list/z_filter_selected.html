@@ -1,14 +1,10 @@
-<ul>
-     {% for k, v in list_filter.selected_filters.items  %}
-        <li class="selected-filter">
-            {{v.label|capfirst}} = {{v.val}}
-
-            {% if list_filter.url_query %}
-                    <a href="{% url list_cls.x_list_url_name %}?{{list_filter.url_query}}&dd_{{v.name}}">x</a>
-            {% else %}
-                     <a href="{% url list_cls.x_list_url_name %}&dd_{{v.name}}">x</a>
-            {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+{% for k, v in list_filter.selected_filters.items  %}
+        &nbsp; &nbsp;
+        <a href="{% url list_cls.x_list_url_name %}?{% if list_filter.url_query %}{{list_filter.url_query}}{% endif %}&dd_{{v.name}}" class="selected-filter">
+           <button class="btn btn-primary" type="button">
+                {{v.label|capfirst}} = {{v.val}}
+                <span class="badge">x</span>
+            </button>
+        </a>
+{% endfor %}
 

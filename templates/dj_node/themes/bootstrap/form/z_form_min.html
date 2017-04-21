@@ -1,0 +1,41 @@
+{% load widget_tweaks %}
+
+
+<form  action="{% if action_url %}{{action_url}}{% else %}{{request.get_full_path}}{% endif %}" method="post"  {% if node.x_enctype %}enctype="{{node.x_enctype}}"{% endif %}>
+
+{% csrf_token %}
+
+{% if  form.non_field_errors %}
+    <div class="form-group error">
+        {% for e in form.non_field_errors %}
+             {{e|safe}}
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% for field in form %}
+<div class="form-group">
+  {% render_field field class="form-control" placeholder=field.label %}
+
+  {% if field.errors %}
+    <p class="error">
+        {% for error in field.errors %}
+            {{ error|escape }}<br/>
+        {% endfor %}
+    </p>
+  {% endif %}
+</div>
+{% endfor %}
+
+<input type="submit" class="btn btn-primary" />
+
+{% if x_post_html %}
+<div class="form-group">
+    <br/>
+    <small>{{x_post_html|safe}}</small>
+</div>
+{% endif %}
+</form>
+
+
+
