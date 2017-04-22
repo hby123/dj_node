@@ -1,17 +1,4 @@
 {% load widget_tweaks %}
-
-<style>
-     .star-rating div{
-        display: inline-block;
-    }
-    .star-rating .on{
-        color: yellow;
-    }
-    .star-rating .fff{
-        color: #aaa;
-    }
-</style>
-
 <form  action="{% if action_url %}{{action_url}}{% else %}{{request.get_full_path}}{% endif %}" method="post"  {% if node.x_enctype %}enctype="{{node.x_enctype}}"{% endif %}>
     {% csrf_token %}
 

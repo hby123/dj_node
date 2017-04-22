@@ -1,7 +1,7 @@
 {% load dj_node_tags %}
 
 {% for e in list_info.results %}
-	<li>
+	<li class="review-item">
 		{% if flag_profile %}
 		   <span class="stars">
 				{% dj_node_include users/review/rating.html|r %}
@@ -19,17 +19,19 @@
 			   {{e.review}}
 		   </span>
 		{% else %}
-			<span class="stars">
+
+			<div class="info">
+				<span class="stars">
 				{% dj_node_include users/review/rating.html|r %}
 				{% with rating=e.rating %}
 					  {% include r %}
 				{% endwith %}
-			</span>
-		   <span class="rating"> by {{e.display_name}} </span>
-		   <span class="rating"> 1/8/2017</span>
-		   <span class="comment">
+				</span> By <b>{{e.display_name}}</b> on {{e.date}}
+		   </div>
+		   <div class="detail">
 			   {{e.review}}
-		   </span>
+		   </div>
+
 		{% endif %}
 	</li>
 {% endfor %}

@@ -1,17 +1,19 @@
 {% load dj_node_tags %}
 
 {% for e in list_info.results %}
-	<li>
+	<li class="comment-item">
 		{% if flag_profile %}
 		   <span class="rating"> 1/8/2017</span>
 		   <span class="comment">
 			   {{e}}
 		   </span>
 		{% else %}
-		   <span class="rating"> 1/8/2017</span>
-		   <span class="comment">
-			   {{e}}
-		   </span>
+		   <div class="info">
+			   <b>{{e.display_name}}</b> on {{e.date}}
+		   </div>
+		   <div class="detail">
+			   {{e.comment}}
+		   </div>
 		{% endif %}
 	</li>
 {% endfor %}
