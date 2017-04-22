@@ -1,54 +1,85 @@
 {% extends x_parent_template %}
 
 {% block content %}
-    <div class="block-profile">
-        <div class="container" >
-            <div class="side">
-                {% block step-parent-bar %}
-                    <h3>
-                        <div class="title">
-                            <a href="{% url 'my-profile' %}">
-                                {{request.user.display_name }}
-                            </a>
-                        </div>
-                    </h3>
-                    <ul class="">
-                          <li role="presentation" {% if node.x_tab == 'change-password' %}class="active"{% endif %}>
-                                <a href="{% url 'change-password'   %}">Change Password</a>
-                          </li>
-                    </ul>
-                {% endblock %}
-            </div>
 
-            <div class="main">
-                {% block step-parent-content %}
-                    <div class="bookmark-block">
-                        <h2>Bookmark</h2>
-                        <div class="form"></div>
-                        <ul class="list list-unstyled bookmarks"></ul>
-                        <input type="hidden"  class="page default-hidden" value="1"></input>
-                        <button class="more" style="display:none;">More</button>
-                    </div>
-                
-                     <div class="comment-block">
-                        <h2>Comment</h2>
-                        <div class="form"></div>
-                        <ul class="list list-unstyled comments"></ul>
-                        <input type="hidden"  class="page default-hidden" value="1"></input>
-                        <button class="more" style="display:none;">More</button>
+
+<!--
+User Profile Sidebar by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+-->
+
+<div class="container">
+    <div class="row">
+        {% block step-parent-bar %}
+        <div class="col-md-3">
+             <div class="panel panel-default comment-block">
+                      <div class="panel-heading">
+                            <h1 class="text-center"><span class="glyphicon glyphicon-user"></span></p> </h1>
+                      </div>
+                      <div class="panel-body">
+                            <ul class="nav">
+                                <li><a href="{% url 'my-profile' %}">Overview</a></li>
+                                <li {% if node.x_tab == 'change-password' %}class="active"{% endif %}>
+                                    <a href="{% url 'change-password'   %}">Change Password</a>
+                                </li>
+                            </ul>
+                      </div>
                     </div>
 
-                    <div class="review-block">
-                        <h2>Reviewed Place</h2>
-                        <div class="form"></div>
-                        <ul class="list list-unstyled reviews"></ul>
-                        <input type="hidden"  class="page default-hidden" value="1"></input>
-                        <button class="more" style="display:none;">More</button>
+
+        </div>
+        {% endblock %}
+
+        <div class="col-md-9">
+              {% block step-parent-content %}
+                    <div class="panel panel-default bookmark-block">
+                      <div class="panel-heading">
+                          Bookmarks
+                      </div>
+                      <div class="panel-body">
+
+                      <ul class="list list-unstyled"></ul>
+
+                      <input type="hidden"  class="page default-hidden" value="1"></input>
+
+                      <button class="more" style="display:none;">More</button>
+
+                      </div>
                     </div>
-                {% endblock %}
-            </div>
+
+                    <div class="panel panel-default comment-block">
+                      <div class="panel-heading">
+                          Comments
+                      </div>
+                      <div class="panel-body">
+
+                      <ul class="list list-unstyled"></ul>
+
+                      <input type="hidden"  class="page default-hidden" value="1"></input>
+
+                      <button class="more" style="display:none;">More</button>
+
+                      </div>
+                    </div>
+
+                    <div class="panel panel-default review-block">
+                      <div class="panel-heading">
+                        Reviews
+                      </div>
+                      <div class="panel-body">
+                            <ul class="list list-unstyled"></ul>
+                            <input type="hidden"  class="page default-hidden" value="1"/>
+                            <button class="more" style="display:none;">More</button>
+
+                      </div>
+                    </div>
+
+              {% endblock %}
         </div>
     </div>
+</div>
+
 
     <script>
         var bookmarkAjax = new DjNodeAjax({'type':'GET',

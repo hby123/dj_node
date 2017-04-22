@@ -88,8 +88,10 @@ DjNodeAjax.prototype.render = function(myobj) {
                 }else if (server_data['flag_processed'] == 1){
                     if (server_data['return'] == 302){
                         if (server_data['redirect_url'] == "#"){
+                            alert("server_data['redirect_url']" + server_data['redirect_url']);
                             window.location = window.location;
                         }else{
+                            alert("server_data['node_redirect']: " + server_data['node_redirect']);
                             window.location = server_data['node_redirect'];
                         }
                     }

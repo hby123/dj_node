@@ -44,6 +44,7 @@ class Content(BaseFields):
     value = models.TextField(null=True, blank=True)
     rating = models.IntegerField(default=0, null=True, blank=True)
 
+    x_url_item = 'content-item'
     def __str__(self):
         return "{}".format(self.value)
 

@@ -43,8 +43,7 @@ class BookmarkForm(forms.Form, Node):
                          content_type = content_type,
                          object_id = object_id,)
             e.save()
-        return {'return': 302,
-                'redirect_url': '#'}
+        return {'return': 200}
 
 
 class BookmarkNode(FormNode):

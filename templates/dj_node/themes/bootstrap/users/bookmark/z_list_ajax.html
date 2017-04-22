@@ -3,11 +3,7 @@
 {% for e in list_info.results %}
 	<li>
 		{% if flag_profile %}
-		   <span class="rating">
-			   {% with obj=e.content_object%}
-					<a href="{% url 'content-item' %}?id={{place.id}}">{{obj}}</a>
-			   {% endwith %}
-		   </span>
+		   <h5><a href="{% url e.content_object.x_url_item %}?id={{e.object_id}}">{{e.content_object}}</a></h5>
 		{% endif %}
 	</li>
 {% endfor %}

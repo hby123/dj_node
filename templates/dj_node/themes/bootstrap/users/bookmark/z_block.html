@@ -3,14 +3,14 @@
 {% dj_node_bookmark content_type|instance|status %}
 
 {% if status %}
-	<button class="btn btn-primary" disabled="disabled">
 	   <span class="glyphicon glyphicon-heart "></span>
-	</button>
 {% else %}
 	{% if user.is_authenticated %}
-		<button class="btn btn-primary">
-	   		 <span class="glyphicon glyphicon-heart "></span>
-		</button>
+		<div class="bookmark-wrap">
+			<button class="btn btn-primary bookmark">
+				 <span class="glyphicon glyphicon-heart "></span>
+			</button>
+		</div>
 
 		<script>
 			$( document ).ready(function() {
@@ -18,18 +18,18 @@
 					var n1 = new DjNodeAjax({'type':'GET',
 										   	   'url':'{% url 'bookmark-add' %}?ajax=true&content_type={{content_type.id}}&object_id={{instance.id}}',
 										       'selector':'.bookmark',
-										       'node_type':'btn'},
+										       'node_type':'form'},
 											   null,
 										  	   function(){
-											   		$(".bookmark").html("{% if label_done %}{{label_done}}{% else %}Bookmarked{% endif %}");
+											   		$(".bookmark-wrap").html('<span class="glyphicon glyphicon-heart "></span>');
 											   });
 					n1.ajax();
 				});
 			})
 		  </script>
 	{% else %}
-          <button onclick="location.href='{% url 'login' %}';" class="btn btn-primary">
-	   		 <span class="glyphicon glyphicon-heart"></span>
-		  </button>
+		  <a href="{% url 'login' %}">
+				 <span class="glyphicon glyphicon-heart"></span>
+		  </a>
 	{% endif %}
 {% endif %}

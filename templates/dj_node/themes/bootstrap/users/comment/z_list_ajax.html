@@ -3,10 +3,13 @@
 {% for e in list_info.results %}
 	<li class="comment-item">
 		{% if flag_profile %}
-		   <span class="rating"> 1/8/2017</span>
-		   <span class="comment">
-			   {{e}}
-		   </span>
+		   <h5><a href="{% url e.content_object.x_url_item %}?id={{e.object_id}}">{{e.content_object}}</a></h5>
+		   <div class="info">
+			   <b>{{e.display_name}}</b> on {{e.date}}
+		   </div>
+		   <div class="detail">
+			   {{e.comment}}
+		   </div>
 		{% else %}
 		   <div class="info">
 			   <b>{{e.display_name}}</b> on {{e.date}}
