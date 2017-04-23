@@ -69,7 +69,7 @@ class ModelFormNode(FormNode):
     def _create(self, request):
         # get the instance
         id = request.GET.get('id')
-        instance = Db.get_item(request, self.x_model, id)
+        instance = Db.get_item(self.x_model, id)
 
         # instantiate form
         if request.method == 'GET':

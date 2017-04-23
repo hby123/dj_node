@@ -21,9 +21,9 @@ class SiteLockForm(forms.Form, Node):
         """ check the passcode
         """
         passcode = self.cleaned_data.get('passcode', '')
-        mojo_site = Utils.get_mojo_site(self.request)
-        if mojo_site and mojo_site.get('site_code'):
-                if mojo_site.get('site_code') != passcode:
+        site = Utils.get_site(self.request)
+        if site and site.get('site_code'):
+                if site.get('site_code') != passcode:
                         raise forms.ValidationError("Invalid Password.")
         return passcode
 

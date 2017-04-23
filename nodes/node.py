@@ -1,10 +1,12 @@
 import json
+
 from django.core.urlresolvers import NoReverseMatch
 from django.http import HttpResponsePermanentRedirect
 from django.http import HttpResponse
 from django.shortcuts import redirect, render_to_response
 from django.template import Context, RequestContext, loader, TemplateDoesNotExist
 from dj_node.nodes.utils import Utils
+
 try:
     # Python 2.x
     from urlparse import urlsplit, urlunsplit
@@ -93,19 +95,19 @@ class NodeVariable(object):
     x_perm = []
     x_step_parent = None
 
+
 class NodeTemplate(object):
     """ Template handler
     """
-    x_tab = None
-    x_base_template = None
-    x_parent_template = "base.html"
-    x_step_parent_template = "step_parent.html"
     x_template = None
+    x_base_template = None
+    x_step_parent_template = "step_parent.html"
+    x_parent_template = "base.html"
     x_error_template = "error.html"
     x_empty_template = "empty.html"
 
-    x_pre_html = ""
-    x_post_html = ""
+    x_head_html = ""
+    x_tail_html = ""
 
     def _get_pre_html(self, request):
         return ""
@@ -115,17 +117,17 @@ class NodeTemplate(object):
 
     @staticmethod
     def fallback_template(request, filename):
-        mojo_site = Utils.get_mojo_site(request)
+        site = Utils.get_site(request)
         if filename:
             try:
-                path = mojo_site['folder'] + "/themes/" + mojo_site['theme'] + "/" + filename
+                path = site['folder'] + "/themes/" + site['theme'] + "/" + filename
                 loader.get_template(path)
                 return path
             except (TemplateDoesNotExist, AttributeError), e:
                 pass
 
             try:
-                path = "dj_node/" + "themes/" + mojo_site['fallback_theme'] + "/" + filename
+                path = "dj_node/" + "themes/" + site['fallback_theme'] + "/" + filename
                 loader.get_template(path)
                 return path
             except (TemplateDoesNotExist, AttributeError), e:
@@ -144,15 +146,15 @@ class NodeTemplate(object):
         :param node_dict -the dict to be return back to the template
         :return: modified node_dict
         """
-        node_dict['x_tab'] = self.x_tab
+
         node_dict['x_base_template'] = self._get_base_template(request)     # (optional) parent for current templat
         node_dict['x_parent_template'] = self._get_parent_template(request) # highest parent
         node_dict['x_step_parent_template'] = self._get_step_parent_template(request) # highest parent
         node_dict['x_template'] = self._get_template(request)               # the actual template
         node_dict['x_error_template'] = self._get_error_template(request)   # (optional) parent for current template
         node_dict['x_empty_template'] = self._get_empty_template(request)
-        node_dict['x_pre_html'] = self._get_pre_html(request)
-        node_dict['x_post_html'] = self._get_post_html(request)
+        node_dict['x_head_html'] = self._get_pre_html(request)
+        node_dict['x_tail_html'] = self._get_post_html(request)
         return node_dict
 
     def _get_template(self, request):
@@ -172,6 +174,7 @@ class NodeTemplate(object):
 
     def _get_empty_template(self, request):
         return self.fallback_template(request, self.x_empty_template)
+
 
 class Node(NodeVariable, NodeTemplate):
 

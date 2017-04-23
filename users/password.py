@@ -36,7 +36,7 @@ class ForgotPasswordForm(forms.Form, NodeVariable):
     def _process(self, request):
         # create the token
         raw_email = self.cleaned_data.get('email', '')
-        t = Token( domain = Utils.get_mojo_domain(request),
+        t = Token( domain = Utils.get_domain(request),
                    email = raw_email,
                    token = Token.generate_token(),
                    type = 'reset_password',
@@ -45,12 +45,12 @@ class ForgotPasswordForm(forms.Form, NodeVariable):
         t.save()
 
         # create the email
-        mojo_site = Utils.get_mojo_site(self.request)
-        if mojo_site and mojo_site.get('management_email'):
-            from_email = mojo_site.get('management_email')
+        site = Utils.get_site(self.request)
+        if site and site.get('management_email'):
+            from_email = site.get('management_email')
         else:
             raise Exception("No account email set.")    # pragma: no cover
-        domain = Utils.get_mojo_domain(request)
+        domain = Utils.get_domain(request)
         link = reverse('reset-password', kwargs={'code': t.token})
         subject = "Reset your password"
         msg_plain = "Click there link to reset your password: <a href=\"%s\">%s</a>" % (link, link)
@@ -175,7 +175,7 @@ class ChangePasswordNode(FormNode):
     x_form = ChangePasswordForm
     x_name = "Change Password"
     x_template = "users/password/sp_change_password.html"
-    x_step_parent_template = "profile_step_parent.html"
+    x_step_parent_template = "users/account/profile_step_parent.html"
     x_perm = ['login']
     x_step_parent = ProfileStepParent
     x_tab = "change-password"

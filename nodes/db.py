@@ -1,6 +1,5 @@
-from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
-
+from django.contrib.contenttypes.models import ContentType
 
 class Db(object):
     @staticmethod
@@ -12,30 +11,7 @@ class Db(object):
         return model.objects.values_list(field_name, flat=True).distinct().order_by(field_name)
 
     @staticmethod
-    def save_item(request, instance):
-        """
-        Return a Django model instance from the database
-
-        Parameters
-        ----------
-        request : Django request object
-        instance : a Djago model instance that's not yet save.
-        """
-
-        return instance.save()
-
-    @staticmethod
-    def get_item(request, model, id):
-        """
-        Return a Django model instance from the database
-
-        Parameters
-        ----------
-        request : Django request object
-        model : model class
-        id : int
-        """
-
+    def get_item(model, id):
         return model.objects.get(id=id)
 
     @staticmethod
@@ -45,11 +21,13 @@ class Db(object):
 
         Parameters
         ----------
-        request : Django request object
         model : model class
         filters: dict, {'field1':'val1', 'field2':'val2}
+        order_by: field (str) name
         """
+
         from dj_node.nodes.list_info import ListInfo
+        from dj_node.nodes.list_filter import ListFilter
 
         # reformat filters
         new_filters = {}
@@ -58,7 +36,9 @@ class Db(object):
 
         # setup to call get_list()
         list_info = ListInfo(model)
-        list_filter = ListInfo(model)
+        list_info.sort = order_by
+
+        list_filter = ListFilter(model)
         list_filter.db_filters = new_filters
 
         # get the list
@@ -92,19 +72,18 @@ class Db(object):
         if list_info.sort: 
             filter_str = filter_str + ".order_by('%s')" %  list_info.sort            
         
-        # run 
+        # 1st run to get all results
         instant_list = None
-        print list_info.model
         query_str = "instant_list = %s " % filter_str
-        print query_str
         exec(query_str)
 
-        # total
+        # 2nd run to get result count
         total = 0
         exec("total = %s.count()" % filter_str)
         list_info.total = total
 
-        if list_info.ipp > 0:   # paging
+        # paging
+        if list_info.ipp > 0:
             list_paginator = Paginator(instant_list, list_info.ipp)
             paginator_page = list_paginator.page(list_info.page)
             list_info.start = 1 + list_info.ipp * (list_info.page - 1)
@@ -116,3 +95,7 @@ class Db(object):
             list_info.results = instant_list
             list_info.result_count = total
         return list_info
+
+    @staticmethod
+    def save_item(instance):
+        return instance.save()

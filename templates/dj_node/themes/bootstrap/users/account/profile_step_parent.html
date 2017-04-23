@@ -1,33 +1,23 @@
 {% extends x_parent_template %}
 
 {% block content %}
-
-
-<!--
-User Profile Sidebar by @keenthemes
-A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
-Licensed under MIT
--->
-
 <div class="container">
     <div class="row">
         {% block step-parent-bar %}
         <div class="col-md-3">
              <div class="panel panel-default comment-block">
-                      <div class="panel-heading">
-                            <h1 class="text-center"><span class="glyphicon glyphicon-user"></span></p> </h1>
-                      </div>
-                      <div class="panel-body">
-                            <ul class="nav">
-                                <li><a href="{% url 'my-profile' %}">Overview</a></li>
-                                <li {% if node.x_tab == 'change-password' %}class="active"{% endif %}>
-                                    <a href="{% url 'change-password'   %}">Change Password</a>
-                                </li>
-                            </ul>
-                      </div>
-                    </div>
-
-
+                  <div class="panel-heading">
+                        <h1 class="text-center"><span class="glyphicon glyphicon-user"></span></p> </h1>
+                  </div>
+                  <div class="panel-body">
+                        <ul class="nav">
+                            <li><a href="{% url 'my-profile' %}">Overview</a></li>
+                            <li {% if node.x_tab == 'change-password' %}class="active"{% endif %}>
+                                <a href="{% url 'change-password'   %}">Change Password</a>
+                            </li>
+                        </ul>
+                  </div>
+             </div>
         </div>
         {% endblock %}
 

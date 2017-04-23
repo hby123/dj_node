@@ -52,7 +52,7 @@ class Utils(object):
 
     # --- begin site related util functions
     @staticmethod
-    def get_mojo_domain(request):
+    def get_domain(request):
         """Get the current site domain
         """
         try:
@@ -62,27 +62,27 @@ class Utils(object):
         return domain
     
     @staticmethod
-    def get_mojo_site(request):
+    def get_site(request):
         """Get the current site domain settings
         """
-        domain = Utils.get_mojo_domain(request)
+        domain = Utils.get_domain(request)
         domain = domain.split(":")[0]
-        mojo_site = settings.DJ_NODE_SITES.get(domain)
-        if not mojo_site: 
-            mojo_site = settings.DJ_NODE_SITES.get('localhost')
-        if not mojo_site:
-            raise Exception("Oops, mojo_site settings not found")   # pragma: no cover
-        return mojo_site
+        site = settings.DJ_NODE_SITES.get(domain)
+        if not site:
+            site = settings.DJ_NODE_SITES.get('localhost')
+        if not site:
+            raise Exception("Oops, site settings not found")   # pragma: no cover
+        return site
 
     @staticmethod
     def add_recaptcha_to_form(request, form):
         """Add recpatchat forom
         """
-        mojo_site = Utils.get_mojo_site(request)
-        if mojo_site and mojo_site.get('anonymous_recaptcha'):
+        site = Utils.get_site(request)
+        if site and site.get('anonymous_recaptcha'):
             form.fields['verify_you_are_human'] = XRecaptchaField(label = "Please verify you are human")
-            form.fields['verify_you_are_human'].widget.recaptcha_class = mojo_site.get('recaptcha_class')
-            form.fields['verify_you_are_human'].widget.recaptcha_placeholder = mojo_site.get('recaptcha_placeholder')
+            form.fields['verify_you_are_human'].widget.recaptcha_class = site.get('recaptcha_class')
+            form.fields['verify_you_are_human'].widget.recaptcha_placeholder = site.get('recaptcha_placeholder')
         return form
 
     @staticmethod

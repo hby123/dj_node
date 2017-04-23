@@ -1,9 +1,9 @@
 DJ-NODE
-A Django app for rapid web application development. It has the following features:
-- Account Management
-- Password Management
+A Django app for rapid web application development. Developers can extend the following features in their own projects.
+It has the following features:
+
+- Account & Password Handling
 - Security & Permission Management
-- Theme Lookup
 - List Handling
 - Form Handling
 - Ajax Handling
@@ -11,6 +11,7 @@ A Django app for rapid web application development. It has the following feature
 - Comment Feature
 - Bookmark Feature
 - Profile Feature
+- Theme Lookup
 
 INSTALLATION
 1) git submodule add <..dj_node.git> to your Django project

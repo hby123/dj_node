@@ -1,4 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
 from dj_node.nodes.db import Db
 from dj_node.nodes.node import Node
 
@@ -14,7 +13,7 @@ class ItemNode(Node):
         node_dict = {}
         id = int(request.GET.get("id"))
         if self.x_model and id:
-            node_dict['instance'] = Db.get_item(request, self.x_model, id)
+            node_dict['instance'] = Db.get_item(self.x_model, id)
             self.instance = node_dict['instance']
         node_dict['return'] = 200
         return node_dict

@@ -4,17 +4,17 @@ from dj_node.models import Review
 from dj_node.nodes.node import Node
 
 class ProfileStepParent(Node):
-    x_step_parent_template = "profile_step_parent.html"
+    x_step_parent_template = "users/account/profile_step_parent.html"
     def _extra(self, request, node_dict):
         return {}
 
 class MyProfileNode(Node):
-    x_template = "profile_step_parent.html"
+    x_template = "users/account/profile_step_parent.html"
     x_tab = "profile"
 
 
 class UserProfileNode(Node):
-    x_template = "profile_step_parent.html"
+    x_template = "users/account/profile_step_parent.html"
     x_tab = "profile"
 
     def _extra(self, request, node_dict):

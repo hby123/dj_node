@@ -1,7 +1,7 @@
 from django import template
 register = template.Library()
 
-
+# --- dj node include
 def dj_node_include(parser, token):
     name, format_string = token.split_contents()
     return IncludeNode(format_string)
@@ -17,7 +17,7 @@ class IncludeNode(template.Node):
         context[token_list[-1]] = filename
         return ""
 
-
+# --- dj bookmark
 def dj_node_bookmark(parser, token):
     name, format_string = token.split_contents()
     return BookmarkNode(format_string)
@@ -42,6 +42,7 @@ class BookmarkNode(template.Node):
                 bookmark_flag = True
         context[token_list[-1]] = bookmark_flag
         return ""
+
 
 register.tag('dj_node_bookmark', dj_node_bookmark)
 register.tag('dj_node_include', dj_node_include)

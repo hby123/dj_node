@@ -1,10 +1,7 @@
-from django.http import Http404
-from django.core.urlresolvers import resolve
-from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
-from dj_node.nodes.utils import Utils
-from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 
 
 class SiteLockMiddleware(object):
@@ -15,6 +12,7 @@ class SiteLockMiddleware(object):
         lock_path = reverse('site-lock')
         if request.path != lock_path:
             return redirect(lock_path)
+
 
 class SSLRedirect(object):
 

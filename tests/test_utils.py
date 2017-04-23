@@ -32,7 +32,7 @@
 #
 #         Utils.set_msg(request, "my msg")
 #
-#     def test_get_mojo_domain(self):
+#     def test_get_domain(self):
 #         factory = RequestFactory()
 #         request = factory.get("/")
 #
@@ -40,9 +40,9 @@
 #         middleware.process_request(request)
 #
 #         request.session.save
-#         Utils.get_mojo_domain(request)
+#         Utils.get_domain(request)
 #
-#     def test_get_mojo_site(self):
+#     def test_get_site(self):
 #         factory = RequestFactory()
 #         request = factory.get("/")
 #
@@ -50,4 +50,4 @@
 #         middleware.process_request(request)
 #
 #         request.session.save
-#         Utils.get_mojo_site(request)
+#         Utils.get_site(request)

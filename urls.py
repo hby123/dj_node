@@ -10,7 +10,6 @@ import dj_node.users.comment
 import dj_node.users.review
 import dj_node.users.profile
 
-
 urlpatterns = patterns('',
     url(r"^$", dj_node.nodes.index.Index.route, name="index"),
     url(r"^/$", dj_node.nodes.index.Index.route, name="index-2"),

@@ -12,11 +12,10 @@ class ListNode(Node):
     x_list_info_cls = ListInfo
     x_list_filter_cls = ListFilter
 
-    x_sort_list = ['id', '-id']
-
     x_db_filters = []
     x_option_filters = []
     x_skip_keys=["page", "sort", "profile"]
+    x_sort_list = ['id', '-id']
 
     def _process(self, request):
         # get list info and list filter
@@ -27,7 +26,9 @@ class ListNode(Node):
         list_info = Db.get_list(request, list_info, list_filter)
 
         # return
-        node_dict = {'list_info':list_info, 'list_filter':list_filter, 'list_cls':self,
+        node_dict = {'list_info':list_info,
+                     'list_filter':list_filter,
+                     'list_cls':self,
                      'return':200}
         return node_dict
 

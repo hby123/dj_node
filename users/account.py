@@ -27,7 +27,7 @@ class SignUpForm(forms.Form, NodeVariable):
     @staticmethod
     def normalize_email(request, email):
         norm_email = None
-        mojo_domain = Utils.get_mojo_domain(request)
+        mojo_domain = Utils.get_domain(request)
         if email: 
             norm_email = mojo_domain + "-" + email
         return norm_email
