@@ -1,11 +1,15 @@
-{% if list_info.end > list_info.start %}
-    Showing {{list_info.start}}-{{list_info.end}} of {{list_info.total}}
-{% else %}
-    Showing {{list_info.result_count}}
-{% endif %}
+<div>
+    <small class="list-info text-muted">
+    {% if list_info.end > list_info.start %}
+        Showing {{list_info.start}}-{{list_info.end}} of {{list_info.total}}
+    {% else %}
+        Showing {{list_info.result_count}}
+    {% endif %}
 
-{% if list_info > 1 %}
-    results
-{% else %}
-    result
-{% endif %}
+    {% if list_info > 1 %}
+        results
+    {% else %}
+        result
+    {% endif %}
+    </small>
+</div>

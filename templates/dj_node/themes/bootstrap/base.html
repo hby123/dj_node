@@ -53,6 +53,20 @@
 
     <div class="page-content">
         {% block message %}
+            {% if messages %}
+                <div class="container">
+                    <ul class="list list-unstyled messages">
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                            <div class="alert alert-info" role="alert">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                {{ message }}
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         {% endblock %}
 
         {% block content %}

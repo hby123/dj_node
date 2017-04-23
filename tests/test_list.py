@@ -18,8 +18,8 @@ my_domain = "testserver"
 def get_page_item_id(response):
     id_list = []
     soup = BeautifulSoup(response.content, "html.parser")
-    item_list = soup.find("ul", { "class" : "list-result" })
-    item_group = item_list.findAll("li", { "class" : "list-item" })
+    item_list = soup.find("table", { "class" : "list-result" })
+    item_group = item_list.findAll("tr", { "class" : "list-item" })
     for li in item_group:
         id = li['id'].split('-')[-1]
         id_list.append(int(id))
@@ -311,10 +311,6 @@ class DjNodeListFilterTest(TestCase):
 
         filter_links = []
         for block in option_filter_blocks:
-            title = block.find("h3")
-            assert title.text != None
-            assert title.text != ""
-
             options = block.findAll("li", { "class" : "filter-item"})
             assert len(options) > 0
 
@@ -336,13 +332,12 @@ class DjNodeListFilterTest(TestCase):
                 assert len(id_list) > 0
 
                 soup = BeautifulSoup(response.content, "html.parser")
-                selected_list = soup.findAll("li", { "class" : "selected-filter" })
+                selected_list = soup.findAll("a", { "class" : "selected-filter" })
                 assert len(selected_list) > 0
 
                 # check removed filter
                 for selected in selected_list:
-                    remove_link = selected.findAll("a")
-                    response = c.get(remove_link[0]['href'])
+                    response = c.get(selected['href'])
                     soup = BeautifulSoup(response.content, "html.parser")
                     selected_list = soup.findAll("li", { "class" : "selected-filter" })
                     assert len(selected_list) == 0

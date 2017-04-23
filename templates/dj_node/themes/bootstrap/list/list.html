@@ -5,45 +5,46 @@
 {% block content %}
 <div class="container">
 	<div class="row">
-
 		<section class="content">
+
+
+
+
 				<div class="panel panel-default">
 					<div class="panel-body">
 
                         <div class="pull-left">
-                            <div class="list-filter">
                                   {% dj_node_include list/z_filter_options.html|t %}
                                   {% include t %}
-                            </div>
                         </div>
 
-						<div class="pull-right">
-                            <div class="list-sort">
-                              {% dj_node_include list/z_sort.html|t %}
-                              {% include t %}
-                              <br/>
-                            </div>
-						</div>
-
-                        <div class="pull-left clearfix">
+                        <div class="pull-left">
                             {% dj_node_include list/z_filter_selected.html|t %}
                             {% include t %}
                         </div>
 
-						<div class="table-container">
-                          <div class="list-grid">
-                                {% dj_node_include list/z_grid.html|t %}
-                                {% include t %}
-                          </div>
+						<div class="pull-right">
+                              {% dj_node_include list/z_sort.html|t %}
+                              {% include t %}
 						</div>
+
+                        <p class="clearfix">
+                                {% dj_node_include list/z_info.html|t %}
+                                {% include t %}
+                        </p>
+
+                        {% dj_node_include list/z_grid.html|t %}
+                        {% include t %}
 					</div>
 				</div>
-				<div class="content-footer">
-					      <div class="list-pagination">
-                                {% dj_node_include list/z_pagination.html|t %}
-                                {% include t %}
-                          </div>
+
+
+                <div class="content-footer">
+                        {% dj_node_include list/z_pagination.html|t %}
+                        {% include t %}
 				</div>
+
+
 		</section>
 	</div>
 </div>

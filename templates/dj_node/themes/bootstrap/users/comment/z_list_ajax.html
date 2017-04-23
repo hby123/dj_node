@@ -1,7 +1,7 @@
 {% load dj_node_tags %}
 
 {% for e in list_info.results %}
-	<li class="comment-item">
+	<li class="comment-item" id="comment-{{e.id}}">
 		{% if flag_profile %}
 		   <h5><a href="{% url e.content_object.x_url_item %}?id={{e.object_id}}">{{e.content_object}}</a></h5>
 		   <div class="info">

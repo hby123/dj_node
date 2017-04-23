@@ -29,7 +29,7 @@ class DjNodeBookmarkTest(TestCase):
 
         soup = BeautifulSoup(response.content, "html.parser")
         btn = soup.find("button", { "class" : "bookmark" })
-        assert btn != None
+        assert btn == None
 
     def test_bookmark_action(self):
         # login user first
@@ -98,6 +98,5 @@ class DjNodeBookmarkTest(TestCase):
 
         soup = BeautifulSoup(response.content, "html.parser")
         btn = soup.find("button", { "class" : "bookmark" })
-        assert btn != None
-        assert btn['disabled'] == 'disabled'
+        assert btn == None
 

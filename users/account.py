@@ -160,4 +160,5 @@ class Logout(Node):
     def _process(self, request):
         logout(request)
         return {'return': 302,
-                'redirect_url':reverse('login') }
+                'redirect_url':reverse('login'),
+                'msg': "You have successfully logged out." }
