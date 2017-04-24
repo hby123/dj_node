@@ -6,6 +6,7 @@ Contact Email: jackyu.it@gmail.com
 Introduction
 --------------
 A Django app for rapid web application development. Developers can extend the following features in their own projects.
+
 It has the following features:
 
 - Account & Password Handling
@@ -46,3 +47,6 @@ TEMPLATE STRUCTURES
 Dj-Node has a fall-thru template lookup mechanism. It will first search for themes in this order.
 - settings.DJ_NODE_SITES[domain].site_theme.
 - settings.DJ_NODE_SITES[domain].dj_node_theme.
+
+* See this app live at https://dj-node-project.herokuapp.com/
+
