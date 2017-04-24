@@ -23,7 +23,7 @@ class XRecaptchaWidget(forms.Widget):
         path, i = XVeifyHuman.get_random_image();
         html = "<img src=\"%s\" class=\"recap\" ></img>" % path
         html = html + "<input type=\"text\" id=\"id_verify_human\" name=\"verify_human\" class=\"%s\" placeholder=\"%s\"></input>" \
-                % (self.recaptcha_class, self.recaptcha_placeholder)
+                % (self.recaptcha_class, self.recaptcha_instruction)
         html = html + "<input type=\"hidden\" id=\"id_verify_human_path\" name=\"verify_human_path\" value=\"%s\" ></input>" % i;
         return html
         

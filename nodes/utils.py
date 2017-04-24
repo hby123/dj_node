@@ -79,10 +79,10 @@ class Utils(object):
         """Add recpatchat forom
         """
         site = Utils.get_site(request)
-        if site and site.get('anonymous_recaptcha'):
+        if site and site.get('recaptcha_anonymous'):
             form.fields['verify_you_are_human'] = XRecaptchaField(label = "Please verify you are human")
-            form.fields['verify_you_are_human'].widget.recaptcha_class = site.get('recaptcha_class')
-            form.fields['verify_you_are_human'].widget.recaptcha_placeholder = site.get('recaptcha_placeholder')
+            form.fields['verify_you_are_human'].widget.recaptcha_class = site.get('recaptcha_css_class')
+            form.fields['verify_you_are_human'].widget.recaptcha_instruction = site.get('recaptcha_instruction')
         return form
 
     @staticmethod

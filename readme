@@ -30,7 +30,7 @@ INSTALLATION
 NODE STRUCTURES
 Dj-Node treat each request as a node operation. You can write your own nodes by extending the following nodes.
 - dj_node.nodes.list.ListNode: handling list request
-- dj_node.nodes.item.ItemNode: handling single record
+- dj_node.nodes.item.ItemNode: handling single record request
 - dj_node.nodes.form.FormNode: handle form request
 
 TEMPLATE STRUCTURES

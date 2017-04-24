@@ -46,8 +46,8 @@ class ForgotPasswordForm(forms.Form, NodeVariable):
 
         # create the email
         site = Utils.get_site(self.request)
-        if site and site.get('management_email'):
-            from_email = site.get('management_email')
+        if site and site.get('email_manager'):
+            from_email = site.get('email_manager')
         else:
             raise Exception("No account email set.")    # pragma: no cover
         domain = Utils.get_domain(request)

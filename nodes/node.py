@@ -120,14 +120,14 @@ class NodeTemplate(object):
         site = Utils.get_site(request)
         if filename:
             try:
-                path = site['folder'] + "/themes/" + site['theme'] + "/" + filename
+                path = site['site_folder'] + "/themes/" + site['site_theme'] + "/" + filename
                 loader.get_template(path)
                 return path
             except (TemplateDoesNotExist, AttributeError), e:
                 pass
 
             try:
-                path = "dj_node/" + "themes/" + site['fallback_theme'] + "/" + filename
+                path = "dj_node/" + "themes/" + site['dj_theme'] + "/" + filename
                 loader.get_template(path)
                 return path
             except (TemplateDoesNotExist, AttributeError), e:
