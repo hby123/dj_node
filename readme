@@ -1,4 +1,10 @@
-DJ-NODE
+App Name: DJ-NODE
+Creator:  Jack Yu
+Contact Email: jackyu.it@gmail.com
+
+
+Introduction
+--------------
 A Django app for rapid web application development. Developers can extend the following features in their own projects.
 It has the following features:
 
@@ -14,6 +20,7 @@ It has the following features:
 - Theme Lookup
 
 INSTALLATION
+--------------
 1) git submodule add <..dj_node.git> to your Django project
 2) Add "dj_node" to INSTALLED_APPS in settings.py
 3) Add the following to settings.py
@@ -28,12 +35,14 @@ INSTALLATION
 4) Copy needed url patterns from dj_node.sample_urls.py into your project urls.py
 
 NODE STRUCTURES
+--------------
 Dj-Node treat each request as a node operation. You can write your own nodes by extending the following nodes.
 - dj_node.nodes.list.ListNode: handling list request
 - dj_node.nodes.item.ItemNode: handling single record request
 - dj_node.nodes.form.FormNode: handle form request
 
 TEMPLATE STRUCTURES
+--------------
 Dj-Node has a fall-thru template lookup mechanism. It will first search for themes in this order.
 - settings.DJ_NODE_SITES[domain].site_theme.
 - settings.DJ_NODE_SITES[domain].dj_node_theme.
