@@ -85,6 +85,7 @@ class DjNodeSetupTest(TestCase):
 
         self.assertTrue(finders.find('dj_node/themes/bootstrap/css/bootstrap.min.css'))
         self.assertTrue(finders.find('dj_node/themes/bootstrap/js/bootstrap.min.js'))
+
         self.assertFalse(finders.find('dj_node/themes/bootstrap/js/bootstrap.min.js.invalid'))
 
     def test_index(self):

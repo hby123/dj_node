@@ -1,45 +1,49 @@
+try:
+    # Python 2.x
+    from urlparse import urlsplit, urlunsplit
+except ImportError:
+    # Python 3.x
+    from urllib.parse import urlsplit
+    from urllib.parse import urlunsplit
+
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import redirect
-
+from dj_node.nodes.utils import Utils
 
 class SiteLockMiddleware(object):
 
     def process_request(self, request):
-        if request.session.get('site_lock') and request.session['site_lock'] == "1":
-            return
-        lock_path = reverse('site-lock')
-        if request.path != lock_path:
-            return redirect(lock_path)
+        if not (request.session.get('site_lock') and request.session['site_lock'] == "1"):
+            site_lock_url = reverse('site-lock')
+            if request.path != site_lock_url:
+                return redirect(site_lock_url)
 
 
-class SSLRedirect(object):
+# adopted from https://github.com/rdegges/django-sslify/blob/master/sslify/middleware.py
+class SSLMiddelware(object):
 
-    def process_view(self, request, view_func, view_args, view_kwargs):
-        flag = settings.DJ_NODE_SITES.get('ssl')
-        if not flag:
+    def process_request(self, request):
+        site = Utils.get_site(request)
+        # If the user has explicitly disabled SSLify, do nothing.
+        if site['site_https'] == False:
             return None
 
-        SSL = 'ssl'
-        if SSL in view_kwargs:
-            secure = view_kwargs[SSL]
-            del view_kwargs[SSL]
-        elif 'admin/login' in request.path:
-        	secure = True
-        else:
-            secure = False
+        # Evaluate callables that can disable SSL for the current request
+        per_request_disables = getattr(settings, 'SSLIFY_DISABLE_FOR_REQUEST', [])
+        for should_disable in per_request_disables:
+            if should_disable(request):
+                return None
 
-        if not secure == self._is_secure(request):
-            protocol = secure and "https" or "http"
-            newurl = "%s://%s%s" % (protocol, request.META['HTTP_HOST'] ,request.get_full_path())
-            return HttpResponsePermanentRedirect(newurl)
+        # If we get here, proceed as normal.
+        if site['site_has_ssl'] and (not request.is_secure()):
+            url = request.build_absolute_uri(request.get_full_path())
+            url_split = urlsplit(url)
+            scheme = 'https' if url_split.scheme == 'http' else url_split.scheme
+            ssl_port = 443
+            url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', ssl_port)) + url_split[2:]
+            secure_url = urlunsplit(url_secure_split)
+            return HttpResponseRedirect(secure_url)
 
-    def _is_secure(self, request):
-        if request.is_secure():
-            return True
-        # Handle the Webfaction case until this gets resolved in the request.is_secure()
-        if 'HTTP_X_FORWARDED_SSL' in request.META:
-            return request.META['HTTP_X_FORWARDED_SSL'] == 'on'
-        return False
 

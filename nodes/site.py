@@ -37,4 +37,5 @@ class SiteLockForm(forms.Form, Node):
 class SiteLockNode(FormNode):
     """Node used to lock down the site
     """
+    x_name = "Unlock Site"
     x_form = SiteLockForm

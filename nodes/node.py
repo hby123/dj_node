@@ -1,7 +1,7 @@
 import json
 
 from django.core.urlresolvers import NoReverseMatch
-from django.http import HttpResponsePermanentRedirect
+from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.shortcuts import redirect, render_to_response
 from django.template import Context, RequestContext, loader, TemplateDoesNotExist
@@ -62,27 +62,18 @@ def ssl_check(dummy):     # pragma: no cover
     """
     def wrap_outer(func):
         def wrap_inner(*args, **kwargs):
-            # get the argument frrom the func (method route(cls, request)
-            kclass = args[0]
             request = args[1]
-            if kwargs.get('ssl'):
-                if not request.is_secure():
-                    url = request.build_absolute_uri(request.get_full_path())
-                    url_split = urlsplit(url)
-                    scheme = 'https' if url_split.scheme == 'http' else url_split.scheme
-                    ssl_port = 443
-                    url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', ssl_port)) + url_split[2:]
-                    secure_url = urlunsplit(url_secure_split)
-                    return HttpResponsePermanentRedirect(secure_url)
-            elif (not kwargs.get('ssl')) and request.is_secure():
-                    url = request.build_absolute_uri(request.get_full_path())
-                    url_split = urlsplit(url)
-                    scheme = 'http'
-                    port = 8002
-                    url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', port)) + url_split[2:]
-                    secure_url = urlunsplit(url_secure_split)
-                    return HttpResponsePermanentRedirect(secure_url)
-            return func(*args, **kwargs)
+            site = Utils.get_site(request)
+            if (kwargs.get('ssl') and site['site_has_ssl']) and (not request.is_secure()):
+                url = request.build_absolute_uri(request.get_full_path())
+                url_split = urlsplit(url)
+                scheme = 'https' if url_split.scheme == 'http' else url_split.scheme
+                ssl_port = 443
+                url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', ssl_port)) + url_split[2:]
+                secure_url = urlunsplit(url_secure_split)
+                return HttpResponseRedirect(secure_url)
+            else:
+                return func(*args, **kwargs)
         return wrap_inner
     return wrap_outer
 
@@ -288,6 +279,7 @@ class Node(NodeVariable, NodeTemplate):
         # redirect
         if redirect_url:
             try:
+                print "---> going to do a redict: %s" % redirect_url
                 return redirect(redirect_url)
             except NoReverseMatch:
                 return redirect("/")
