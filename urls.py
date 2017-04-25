@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     url(r"^$", dj_node.nodes.index.Index.route, name="index"),
     url(r"^/$", dj_node.nodes.index.Index.route, name="index-2"),
 
-    url(r"login/$", dj_node.users.account.LoginNode.route, {'ssl': True}, name="login"),
+    url(r"dj-node/login/$", dj_node.users.account.LoginNode.route, {'ssl': True}, name="dj-node-login"),
     url(r"sign-up/$", dj_node.users.account.SignUpNode.route, {'ssl': True}, name="sign-up"),
     url(r"logout/$", dj_node.users.account.Logout.route, name="logout"),
 

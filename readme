@@ -25,14 +25,16 @@ INSTALLATION
 1) git submodule add <..dj_node.git> to your Django project
 2) Add "dj_node" to INSTALLED_APPS in settings.py
 3) Add the following to settings.py
-     DJ_NODE_SITES = {"localhost": { 'folder': 'travel',
-                                     'site_theme': 'base',
-                                     'dj_node_theme': 'base',
-                                     'site_passcode': '6688',
-                                     'recaptcha_placeholder': 'Enter letters from above',
-                                     'recaptcha_class': 'form-control',
-                                     'management_email': 'jackyu.it@gmail.com',
-                                     'anonymous_recaptcha': True}}
+    DJ_NODE_SITES = {"localhost": {'site_folder': '<site app folder>',
+                                   'site_theme': '<site theme folder>',
+                                   'site_code': '<site lock code>',
+                                   'site_https': <Boolean for https access>,
+                                   'site_has_ssl': <Boolean for ssl setup>,
+                                   'recaptcha_anonymous': <Boolean for anonymous recaptcha>,
+                                   'recaptcha_instruction': '<Boolean for recaptcha instruction>',
+                                   'recaptcha_css_class': '<CSS class for recaptcha>',
+                                   'dj_theme': '<fallback theme>',
+                                   'email_manager': 'manager@domain.com'}}
 4) Copy needed url patterns from dj_node.sample_urls.py into your project urls.py
 
 NODE STRUCTURES
