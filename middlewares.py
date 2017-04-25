@@ -7,8 +7,7 @@ except ImportError:
     from urllib.parse import urlunsplit
 
 from django.core.urlresolvers import reverse
-from django.conf import settings
-from django.http import HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from dj_node.nodes.utils import Utils
 
@@ -21,29 +20,23 @@ class SiteLockMiddleware(object):
                 return redirect(site_lock_url)
 
 
-# adopted from https://github.com/rdegges/django-sslify/blob/master/sslify/middleware.py
 class SSLMiddelware(object):
 
     def process_request(self, request):
-        site = Utils.get_site(request)
-        # If the user has explicitly disabled SSLify, do nothing.
-        if site['site_https'] == False:
-            return None
-
-        # Evaluate callables that can disable SSL for the current request
-        per_request_disables = getattr(settings, 'SSLIFY_DISABLE_FOR_REQUEST', [])
-        for should_disable in per_request_disables:
-            if should_disable(request):
-                return None
-
-        # If we get here, proceed as normal.
-        if site['site_has_ssl'] and (not request.is_secure()):
+        if not request.is_secure():
+            # get secure url
+            site = Utils.get_site(request)
             url = request.build_absolute_uri(request.get_full_path())
             url_split = urlsplit(url)
             scheme = 'https' if url_split.scheme == 'http' else url_split.scheme
             ssl_port = 443
             url_secure_split = (scheme, "%s:%d" % (url_split.hostname or '', ssl_port)) + url_split[2:]
             secure_url = urlunsplit(url_secure_split)
-            return HttpResponseRedirect(secure_url)
 
+            # enforce url for site
+            if (site['site_https'] and site['site_has_ssl']):
+                return HttpResponseRedirect(secure_url)
 
+            # enforce https for /admin
+            if (request.get_full_path().lower().startswith('/admin') and site['site_has_ssl']):
+                return HttpResponseRedirect(secure_url)
